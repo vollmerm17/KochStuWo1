@@ -133,12 +133,15 @@ public class StudentController {
 
 		Date now = new Date();
 
-		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1);
-		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1);
+		/*
+		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
+		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1,user);
+	
 
 		studentRepository.save(student1);
 		studentRepository.save(student2);
-
+		*/
+		
 		/*
 		 * for (int i = 0; i < 100; i++) { if (i % 10 == 0) { String instituteName =
 		 * df.getBusinessName(); institute =
