@@ -30,8 +30,8 @@ import javax.persistence.TemporalType;
 public class StudentModel implements java.io.Serializable {
 
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Student_ID")
 	private int id;
 
 	@Column(nullable = false, length = 30)
@@ -92,27 +92,10 @@ public class StudentModel implements java.io.Serializable {
 	public StudentModel() {
 	}
 
-	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
-			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.streetAndNumber = streetAndNumber;
-		this.cityAndPostalCode = cityAndPostalCode;
-		this.phoneNumber = phoneNumber;
-		this.dayOfBirth = dayOfBirth;
-		this.email = email;
-		this.gender = gender;
-		this.institute = institute;
-		this.diet = diet;
-		this.dorm = dorm;
-		this.events = events;
-	}
 	
 	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events, User user) {
+			DormModel dorm) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -125,8 +108,6 @@ public class StudentModel implements java.io.Serializable {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
-		this.events = events;
-		this.user = user;
 	}
 	
 
@@ -255,6 +236,7 @@ public class StudentModel implements java.io.Serializable {
 		}
 		events.add(event);
 	}
+	
 
 	@Override
 	public int hashCode() {

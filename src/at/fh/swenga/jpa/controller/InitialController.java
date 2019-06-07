@@ -33,7 +33,7 @@ public class InitialController {
 	UserRoleDao userRoleDao;
 
 	@Autowired
-	StudentRepository studentRepo;
+	StudentRepository studentRepository;
 	
 	@Autowired
 	InstituteRepository instituteRepository;
@@ -68,11 +68,7 @@ public class InitialController {
 		admin.addUserRole(adminRole);
 		userDao.persist(admin);
 	
-		User user = new User("user", "password", true);
-		user.encryptPassword();
-		user.addUserRole(userRole);
-		userDao.persist(user);
-		
+
 		DormModel dorm1 = new DormModel("Greenbox", "tfug", "gcjszhdb");
 		dormRepository.save(dorm1);
 
@@ -100,7 +96,19 @@ public class InitialController {
 		Date now = new Date();
 //		StudentModel student = new StudentModel("admin" "admin","admin","admin","admin",now,"admin@admin","");
 //		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
+		
+		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1);
+		User user = new User("user", "password", true);
+		user.encryptPassword();
+		user.addUserRole(userRole);
+		userDao.persist(user);
+		
+		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1);
+	
 
+		studentRepository.save(student1);
+		studentRepository.save(student2);
+	
 	
 
 
