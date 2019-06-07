@@ -131,9 +131,10 @@ public class StudentController {
 		instituteRepository.save(institute1);
 		instituteRepository.save(institute2);
 
-		Date now = new Date();
+		
 
 		/*
+		 * Date now = new Date();
 		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
 		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1,user);
 	
