@@ -95,7 +95,7 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
-		
+
 
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
@@ -348,17 +348,12 @@
 										class="pull-left"><strong>Average Rating</strong></span> 4.5</li>
 
 								</ul>
-<br>
-								<div class="panel panel-default">
-									<div class="panel-heading">Social Media</div>
-									
-									 <a href="#" class="btn btn-facebook btn-block"><i class="fab fa-facebook-f fa-fw"></i> facebook</a>
-								</div> 
+								<br>
 
 							</div>
 							<!--/col-3-->
 							<div class="col-sm-9">
-							
+
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
@@ -367,18 +362,21 @@
 											<div class="form-group">
 
 												<div class="col-xs-6">
-													<label for="first_name"><h4>First name</h4></label> <input
-														type="text" class="form-control" name="first_name"
-														id="first_name" placeholder="first name"
+													<label for="firstName"><h4>First name</h4></label> <input
+														type="text" class="form-control" id="inputFirstName"
+														name="firstName"
+														th:value="${student} ? ${student.firstName}"
+														th:readonly="${student}" placeholder="First Name"
 														title="enter your first name if any.">
 												</div>
 											</div>
 											<div class="form-group">
 
 												<div class="col-xs-6">
-													<label for="last_name"><h4>Last name</h4></label> <input
-														type="text" class="form-control" name="last_name"
-														id="last_name" placeholder="last name"
+													<label for="lastName"><h4>Last name</h4></label> <input
+														type="text" class="form-control"
+														id="inputLastName" name="lastName" th:value="${student} ? ${student.lastName}"
+														th:readonly="${student}" placeholder="Last Name"
 														title="enter your last name if any.">
 												</div>
 											</div>
@@ -387,8 +385,9 @@
 
 											<div class="col-xs-6">
 												<label for="email"><h4>Email</h4></label> <input
-													type="email" class="form-control" name="email" id="email"
-													placeholder="you@email.com" title="enter your email.">
+													type="email" class="form-control" name="email" id="inputEmail"
+													th:value="${student} ? ${student.email}"
+														th:readonly="${student}" placeholder="you@email.com" title="enter your email.">
 											</div>
 											<br>
 
@@ -397,21 +396,23 @@
 												<div class="col-xs-6">
 													<label for="password"><h4>Password</h4></label> <input
 														type="password" class="form-control" name="password"
-														id="password" placeholder="password"
+														id="inputPassword" th:value="${student} ? ${student.password}"
+														th:readonly="${student}" placeholder="Password"
 														title="enter your password.">
 												</div>
 											</div>
 											<div class="form-group">
 
 												<div class="col-xs-6">
-													<label for="password2"><h4>Verify</h4></label> <input
+													<label for="repeatPassword"><h4>Verify</h4></label> <input
 														type="password" class="form-control"
-														name="type password again" id="password2"
-														placeholder="password2" title="enter your password2.">
+														name="repeatPassword" id="inputRepeatPassword" th:value="${student} ? ${student.password}"
+														th:readonly="${student}"
+														placeholder="Repeat Password" title="repeat your password.">
 												</div>
 											</div>
 									</div>
-								
+
 									<div class="form-group">
 										<div class="col-xs-12">
 											<br>
