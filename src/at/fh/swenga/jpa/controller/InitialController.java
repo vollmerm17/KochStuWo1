@@ -61,12 +61,6 @@ public class InitialController {
 		UserRole userRole = userRoleDao.getRole("ROLE_USER");
 		if (userRole == null)
 			userRole = new UserRole("ROLE_USER");
-
-		User admin = new User("admin", "password", true);
-		admin.encryptPassword();
-		admin.addUserRole(userRole);
-		admin.addUserRole(adminRole);
-		userDao.persist(admin);
 	
 
 		DormModel dorm1 = new DormModel("Greenbox", "tfug", "gcjszhdb");
@@ -94,24 +88,39 @@ public class InitialController {
 		instituteRepository.save(institute2);
 
 		Date now = new Date();
-//		StudentModel student = new StudentModel("admin" "admin","admin","admin","admin",now,"admin@admin","");
-//		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
+//		//		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
 		
-		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1);
-		User user = new User("user", "password", true);
+		
+		User admin = new User("admin", "password", true);
+		admin.encryptPassword();
+		admin.addUserRole(userRole);
+		admin.addUserRole(adminRole);
+
+		StudentModel student3 = new StudentModel("admin", "admin","admin","admin","admin",now,"admin@admin","w",institute1,diet2,dorm1);
+		admin.setStudentModel(student3);
+		student3.setUser(admin);
+		userDao.persist(admin);
+		//		studentRepository.save(student3);
+		
+		User user = new User("claudio", "bububububu", true);
 		user.encryptPassword();
 		user.addUserRole(userRole);
+	
+		
+		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1);
 		userDao.persist(user);
+		// studentRepository.save(student1);
+		
+		
+		User user1 = new User("marti", "bububububu", true);
+		user1.encryptPassword();
+		user1.addUserRole(userRole);
+
 		
 		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1);
-	
-
-		studentRepository.save(student1);
-		studentRepository.save(student2);
-	
-	
-
-
+//		studentRepository.save(student2);
+		userDao.persist(user1);
+		
 		return "forward:initPage";
 	}
 

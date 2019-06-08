@@ -23,7 +23,6 @@ public class User implements java.io.Serializable {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "USR_ID")
 	private int id;
  
 	
@@ -40,7 +39,6 @@ public class User implements java.io.Serializable {
 	private StudentModel student;
 	
     @OneToOne(fetch = FetchType.LAZY, mappedBy="student", cascade = CascadeType.ALL)
-	@JoinColumn(name = "Student_ID")
     public StudentModel getStudent() {
     	return this.student;
     }
@@ -49,12 +47,6 @@ public class User implements java.io.Serializable {
     	this.student = student;
     }
     
-    
-    
-	public void setStudent(StudentModel student) {
-		this.student = student;
-	}
-
 
 
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)

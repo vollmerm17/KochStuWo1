@@ -12,11 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,8 +30,8 @@ import javax.persistence.TemporalType;
 public class StudentModel implements java.io.Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Student_ID")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "Student_Id")
 	private int id;
 
 	@Column(nullable = false, length = 30)
@@ -76,18 +76,10 @@ public class StudentModel implements java.io.Serializable {
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
-
-    private User user;
     
     @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    public User getUser() {
-    	return this.user;
-    }
-    public void setUser(User user) {
-    	this.user=user;
-    }
-
+	@MapsId
+    private User user;
 
 	public StudentModel() {
 	}
@@ -115,10 +107,9 @@ public class StudentModel implements java.io.Serializable {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	/*
+	 * public void setId(int id) { this.id = id; }
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
@@ -237,6 +228,12 @@ public class StudentModel implements java.io.Serializable {
 		events.add(event);
 	}
 	
+    public User getUser() {
+    	return this.user;
+    }
+    public void setUser(User user) {
+    	this.user=user;
+    }
 
 	@Override
 	public int hashCode() {
