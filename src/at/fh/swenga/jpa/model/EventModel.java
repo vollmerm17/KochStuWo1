@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Event")
@@ -26,6 +29,21 @@ public class EventModel {
 
 	@Column(nullable = false, length = 50)
 	private String name;
+
+	@Column(nullable = false, length = 150)
+	private String description;
+
+	// Date Only, no time part:
+	@Temporal(TemporalType.DATE)
+	private Date dayOfEvent;
+
+	// Time Only, no date part:
+	@Temporal(TemporalType.TIME)
+	private Date timeOfEvent;
+	
+	@Column(nullable = false, length = 50)
+	private String destination;
+	
 
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
@@ -41,13 +59,21 @@ public class EventModel {
 
 	}
 
-	public EventModel(String name, int attendeesMax, StudentModel student) {
+	
+
+	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, String destination,
+			int attendeesMax, StudentModel student) {
 		super();
 		this.name = name;
+		this.description = description;
+		this.dayOfEvent = dayOfEvent;
+		this.timeOfEvent = timeOfEvent;
+		this.destination = destination;
 		this.attendeesMax = attendeesMax;
 		this.student = student;
-
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -64,6 +90,56 @@ public class EventModel {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+	public Date getDayOfEvent() {
+		return dayOfEvent;
+	}
+
+
+
+	public void setDayOfEvent(Date dayOfEvent) {
+		this.dayOfEvent = dayOfEvent;
+	}
+
+
+
+	public Date getTimeOfEvent() {
+		return timeOfEvent;
+	}
+
+
+
+	public void setTimeOfEvent(Date timeOfEvent) {
+		this.timeOfEvent = timeOfEvent;
+	}
+
+
+
+	public String getDestination() {
+		return destination;
+	}
+
+
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+
 
 	public int getAttendeesMax() {
 		return attendeesMax;
@@ -88,19 +164,24 @@ public class EventModel {
 	public void setPosition(Set<PositionModel> positions) {
 		this.positions = positions;
 	}
-	
+
 	public void addPosition(PositionModel position) {
-		if (positions==null) {
-			positions= new HashSet<PositionModel>();
+		if (positions == null) {
+			positions = new HashSet<PositionModel>();
 		}
 		positions.add(position);
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "EventModel [id=" + id + ", name=" + name + ", attendeesMax=" + attendeesMax + ", student=" + student
-				+ ", positions=" + positions + "]";
+		return "EventModel [id=" + id + ", name=" + name + ", description=" + description + ", dayOfEvent=" + dayOfEvent
+				+ ", timeOfEvent=" + timeOfEvent + ", destination=" + destination + ", attendeesMax=" + attendeesMax
+				+ ", student=" + student + ", positions=" + positions + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -123,9 +204,5 @@ public class EventModel {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
 
 }
