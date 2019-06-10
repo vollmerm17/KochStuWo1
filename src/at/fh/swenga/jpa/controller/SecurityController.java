@@ -21,36 +21,31 @@ public class SecurityController {
 	@Autowired
 	UserRoleDao userRoleDao;
  
-	@RequestMapping("/login")
-	@Transactional
-	public String fillData(Model model) {
- 
-		UserRole adminRole = userRoleDao.getRole("ROLE_ADMIN");
-		if (adminRole == null)
-			adminRole = new UserRole("ROLE_ADMIN");
- 
-		UserRole userRole = userRoleDao.getRole("ROLE_USER");
-		if (userRole == null)
-			userRole = new UserRole("ROLE_USER");
- 
-		User admin = new User("admin", "password", true);
-		admin.encryptPassword();
-		admin.addUserRole(userRole);
-		admin.addUserRole(adminRole);
-		userDao.persist(admin);
- 
-		User user = new User("user", "password", true);
-		user.encryptPassword();
-		user.addUserRole(userRole);
-		userDao.persist(user);
- 
-		return "forward:login";
-	}
+	/*
+	 * @RequestMapping("/login")
+	 * 
+	 * @Transactional public String fillData(Model model) {
+	 * 
+	 * UserRole adminRole = userRoleDao.getRole("ROLE_ADMIN"); if (adminRole ==
+	 * null) adminRole = new UserRole("ROLE_ADMIN");
+	 * 
+	 * UserRole userRole = userRoleDao.getRole("ROLE_USER"); if (userRole == null)
+	 * userRole = new UserRole("ROLE_USER");
+	 * 
+	 * User admin = new User("admin", "password", true); admin.encryptPassword();
+	 * admin.addUserRole(userRole); admin.addUserRole(adminRole);
+	 * userDao.persist(admin);
+	 * 
+	 * User user = new User("user", "password", true); user.encryptPassword();
+	 * user.addUserRole(userRole); userDao.persist(user);
+	 * 
+	 * return "forward:login"; }
+	 */
  
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
  
-		return "error";
+		return "404";
  
 	}
 }
