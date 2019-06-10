@@ -288,13 +288,10 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="#"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
+								</a> <a class="dropdown-item" href="settings.html"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
-								</a>
+								</a> 
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
@@ -396,8 +393,23 @@
 														th:readonly="${student}" placeholder="you@email.com" title="enter your email">
 											</div>
 											<br>
+											<div class="col-xs-6">
+												<label for="inputDorm"><h4>Dorm</h4></label> <input
+													type="text" class="form-control" name="dorm" id="inputDorm"
+													th:value="${dorm} ? ${dorm.name}"
+														th:readonly="${dorm}" placeholder="Dorm" title="enter your dorm">
+											</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="inputDiet"><h4>Diet</h4></label> <input
 
-											<div class="form-group">
+													type="text" class="form-control" name="diet" id="inputDiet"
+													th:value="${diet} ? ${diet.name}"
+														th:readonly="${diet}" placeholder="Diet" title="enter your diet">
+											</div>
+											<br>
+
+											<!-- <div class="form-group">
 
 												<div class="col-xs-6">
 													<label for="password"><h4>Password</h4></label> <input
@@ -416,7 +428,7 @@
 														th:readonly="${student}"
 														placeholder="Repeat your Password" title="repeat your password">
 												</div>
-											</div>
+											</div> -->
 									</div>
 
 									<div class="form-group">
