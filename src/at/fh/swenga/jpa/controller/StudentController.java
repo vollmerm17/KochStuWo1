@@ -120,21 +120,9 @@ public class StudentController {
 	@Transactional
 	public String fillData(Model model) {
 
-		DormModel dorm1 = new DormModel("Greenbox", "tfug", "gcjszhdb");
-		dormRepository.save(dorm1);
-
-		DietModel diet1 = new DietModel("vegan", "tierische Produkte");
-		dietRepository.save(diet1);
-
-		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraße 30i", " 8020 Graz");
-		InstituteModel institute2 = new InstituteModel("Universität Graz", "Sporgasse 5", "8010 Graz");
-
-		instituteRepository.save(institute1);
-		instituteRepository.save(institute2);
-
-		Date now = new Date();
 
 		/*
+		 * Date now = new Date();
 		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
 		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1,user);
 	
