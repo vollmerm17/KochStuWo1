@@ -258,6 +258,24 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">The events you're attending:</h1>
+						<div class="dropdown mb-4">
+							<button class="btn btn-primary dropdown-toggle" type="button"
+								id="dropdownMenuButton" data-toggle="dropdown"
+								aria-haspopup="true" aria-expanded="false">Choose the
+								events you want to view!</button>
+							<div class="dropdown-menu animated--fade-in"
+								aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="eventsOwn.html">Own Events</a> <a
+									class="dropdown-item" href="eventsAttending.html">Attended
+									Events</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- Page Heading -->
+					<div
+						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Event Info</h1>
 
 					</div>
@@ -273,17 +291,20 @@
 
 							<div class="card shadow mb-12">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary" th:text="${event.name}"></h6>                     <!-- Name nicht vergessen! -->
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text="${event.name}"></h6>
+									<!-- Name nicht vergessen! -->
 								</div>
 								<div class="card-body">
 									<div class="text-center">
 										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
 											style="width: 25rem;" src="img/dinner.jpg" alt="">
 									</div>
-										<h6 class="m-0 font-weight-bold text-primary" th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
-									
-										<p th:text="${event.description}"></p>
-										
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
+
+									<p th:text="${event.description}"></p>
+
 									</a> <a href="#" class="btn btn-success btn-circle btn-lg"
 										title="Participate"> <i class="fas fa-check"></i>
 
