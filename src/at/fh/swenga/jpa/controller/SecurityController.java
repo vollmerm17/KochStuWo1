@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import at.fh.swenga.jpa.dao.StudentRepository;
-import at.fh.swenga.jpa.dao.UserDao;
-import at.fh.swenga.jpa.dao.UserRoleDao;
+import at.fh.swenga.jpa.dao.UserRepository;
+import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.StudentModel;
-import at.fh.swenga.jpa.model.User;
-import at.fh.swenga.jpa.model.UserRole;
+import at.fh.swenga.jpa.model.UserModel;
+import at.fh.swenga.jpa.model.UserRoleModel;
 
 @Controller
 public class SecurityController {
 
 	@Autowired
-	UserDao userDao;
+	UserRepository userRepository;
 
 	@Autowired
-	UserRoleDao userRoleDao;
+	UserRoleRepository userRoleRepository;
 
 	@Autowired
 	StudentRepository studentRepo;
 
 	@PostMapping("/register")
-	public String registerUser(Model model, @Valid User newUser, @Valid StudentModel newStudent, BindingResult bindingResult) {
+	public String registerUser(Model model, @Valid UserModel newUser, @Valid StudentModel newStudent, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -48,18 +48,18 @@ public class SecurityController {
 			if (newUser.getPassword().length() <= 5 ) {
 				model.addAttribute("errorMessage", "This Password is too short!<br>");
 			}
-	//		User user = userDao.findByUsername(@RequestParam String searchString );		
-			else if (userDao.findByUsername(newUser.getUserName()) != null) {
-				model.addAttribute("errorMessage", "User already exists!");
+	//		UserModel user = userRepository.findByUsername(@RequestParam String searchString );		
+			else if (userRepository.findFirstById(newUser.getId()) != null) {
+				model.addAttribute("errorMessage", "UserModel already exists!");
 			} else {
-				UserRole userRole = userRoleDao.getRole("ROLE_USER");
-				if (userRole == null)
-					userRole = new UserRole("ROLE_USER");
+				UserRoleModel userRoleModel = userRoleRepository.findFirstByRole("ROLE_USER");
+				if (userRoleModel == null)
+					userRoleModel = new UserRoleModel("ROLE_USER");
 
-				User user = new User("user", "password", true);
-				user.encryptPassword();
-				user.addUserRole(userRole);
-				userDao.persist(user);
+				UserModel userModel = new UserModel("user", "password", true);
+				userModel.encryptPassword();
+				userModel.addUserRole(userRoleModel);
+				userRepository.save(userModel);
 
 			}
 

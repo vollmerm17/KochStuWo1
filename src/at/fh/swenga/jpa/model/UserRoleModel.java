@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.model;
  
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,8 +12,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
  
 @Entity
-@Table(name = "user_roles")
-public class UserRole implements java.io.Serializable {
+@Table(name = "UserRoles")
+public class UserRoleModel implements java.io.Serializable {
 	private static final long serialVersionUID = 8098173157518993615L;
  
 	@Id
@@ -23,16 +22,16 @@ public class UserRole implements java.io.Serializable {
 	private int id;
  
 	@ManyToMany(mappedBy = "userRoles", fetch = FetchType.LAZY)
-	private Set<User> users;
+	private Set<UserModel> users;
  
 	@Column(name = "role", nullable = false, length = 45)
 	private String role;
  
-	public UserRole() {
+	public UserRoleModel() {
 		// TODO Auto-generated constructor stub
 	}
  
-	public UserRole(String role) {
+	public UserRoleModel(String role) {
 		super();
 		this.role = role;
 	}
@@ -45,11 +44,11 @@ public class UserRole implements java.io.Serializable {
 		this.id = id;
 	}
  
-	public Set<User> getUsers() {
+	public Set<UserModel> getUsers() {
 		return users;
 	}
  
-	public void setUsers(Set<User> users) {
+	public void setUsers(Set<UserModel> users) {
 		this.users = users;
 	}
  

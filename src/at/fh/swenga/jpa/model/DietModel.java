@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Diet")
 
-public class DietModel {
+public class DietModel implements Serializable {
 
 	@Id
 	@Column(name = "id")
@@ -48,10 +49,9 @@ public class DietModel {
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	/*
+	 * public void setId(int id) { this.id = id; }
+	 */
 
 	public String getName() {
 		return name;
@@ -79,37 +79,6 @@ public class DietModel {
 
 	public void setStudents(Set<StudentModel> students) {
 		this.students = students;
-	}
-
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DietModel other = (DietModel) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
-
-	@Override
-	public String toString() {
-		return "DietModel [id=" + id + ", name=" + name + ", restriction=" + restriction + ", students=" + students
-				+ "]";
 	}
 
 	

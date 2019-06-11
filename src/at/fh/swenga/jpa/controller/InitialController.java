@@ -1,10 +1,10 @@
 package at.fh.swenga.jpa.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,27 +14,27 @@ import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
 import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
-import at.fh.swenga.jpa.dao.UserDao;
-import at.fh.swenga.jpa.dao.UserRoleDao;
+import at.fh.swenga.jpa.dao.UserRepository;
+import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
-import at.fh.swenga.jpa.model.User;
-import at.fh.swenga.jpa.model.UserRole;
+import at.fh.swenga.jpa.model.UserModel;
+import at.fh.swenga.jpa.model.UserRoleModel;
 
 @Controller
 public class InitialController {
-	
-	@Autowired
-	UserDao userDao;
 
 	@Autowired
-	UserRoleDao userRoleDao;
+	UserRepository userRepository;
+
+	@Autowired
+	UserRoleRepository userRoleRepository;
 
 	@Autowired
 	StudentRepository studentRepository;
-	
+
 	@Autowired
 	InstituteRepository instituteRepository;
 
@@ -49,79 +49,128 @@ public class InitialController {
 
 	@Autowired
 	PositionRepository positionRepository;
-	
+
 	@RequestMapping("/initPage")
-	@Transactional
 	public String fillData(Model model) {
 
-		UserRole adminRole = userRoleDao.getRole("ROLE_ADMIN");
-		if (adminRole == null)
-			adminRole = new UserRole("ROLE_ADMIN");
+		this.createUserRoles();
 
-		UserRole userRole = userRoleDao.getRole("ROLE_USER");
-		if (userRole == null)
-			userRole = new UserRole("ROLE_USER");
-	
+		this.createDorms();
 
+		this.createDiets();
+
+		this.createInstitutes();
+
+		this.createUsersAndStudent();
+
+		return "initPage";
+	}
+
+	public void createUserRoles() {
+		UserRoleModel adminRole = userRoleRepository.findFirstByRole("ROLE_ADMIN");
+		if (adminRole == null) {
+			adminRole = new UserRoleModel("ROLE_ADMIN");
+			userRoleRepository.save(adminRole);
+		}
+
+		UserRoleModel userRoleModel = userRoleRepository.findFirstByRole("ROLE_USER");
+		if (userRoleModel == null) {
+			userRoleModel = new UserRoleModel("ROLE_USER");
+			userRoleRepository.save(userRoleModel);
+		}
+
+	}
+
+	public void createDorms() {
 		DormModel dorm1 = new DormModel("Greenbox", "tfug", "gcjszhdb");
 		dormRepository.save(dorm1);
 
+	}
+
+	public void createDiets() {
 		DietModel diet1 = new DietModel("vegan", "tierische Produkte");
 		dietRepository.save(diet1);
-		
+
 		DietModel diet2 = new DietModel("keine", "Allesesser");
 		dietRepository.save(diet2);
-		
-		DietModel diet3 = new DietModel("vegetarisch", "Ohne Feisch und Fisch");
+
+		DietModel diet3 = new DietModel("vegetarisch", "Ohne Fleisch und Fisch");
 		dietRepository.save(diet3);
-		
-		DietModel diet4 = new DietModel("pesketarisch", "Ohne Feisch aber mit Fisch");
+
+		DietModel diet4 = new DietModel("pesketarisch", "Ohne Fleisch aber mit Fisch");
 		dietRepository.save(diet4);
-		
-		DietModel diet5 = new DietModel("latosefrei", "Keine Laktose");
+
+		DietModel diet5 = new DietModel("laktosefrei", "Keine Laktose");
 		dietRepository.save(diet5);
 
-		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraße 30i", " 8020 Graz");
-		InstituteModel institute2 = new InstituteModel("Universität Graz", "Sporgasse 5", "8010 Graz");
+	}
 
+	public void createInstitutes() {
+		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraße 30i", " 8020 Graz");
 		instituteRepository.save(institute1);
+
+		InstituteModel institute2 = new InstituteModel("Universität Graz", "Sporgasse 5", "8010 Graz");
 		instituteRepository.save(institute2);
 
+	}
+
+	public int createId(int id) {
+		List<UserModel> sortedUserList = userRepository.findAllId();
+		for (int i = 0; sortedUserList.size() < i; i++) {
+			id = sortedUserList.get(0).getId() + 1;
+		}
+		return id;
+
+	}
+
+	public void createUsersAndStudent() {
+
 		Date now = new Date();
-//		//		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
-		
-		
-		User admin = new User("admin", "password", true);
-		admin.encryptPassword();
-		admin.addUserRole(userRole);
-		admin.addUserRole(adminRole);
+		List<UserModel> sortedUserList = userRepository.findAllId();
+		int id;
+		if (sortedUserList.isEmpty()) {
+			id = 1;
 
-		StudentModel student3 = new StudentModel("admin", "admin","admin","admin","admin",now,"admin@admin","w",institute1,diet2,dorm1);
-		admin.setStudentModel(student3);
-		student3.setUser(admin);
-		userDao.persist(admin);
-		//		studentRepository.save(student3);
-		
-		User user = new User("claudio", "bububububu", true);
-		user.encryptPassword();
-		user.addUserRole(userRole);
-	
-		
-		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1);
-		userDao.persist(user);
-		// studentRepository.save(student1);
-		
-		
-		User user1 = new User("marti", "bububububu", true);
-		user1.encryptPassword();
-		user1.addUserRole(userRole);
+			UserModel admin = new UserModel(id, "administrator", "password", true);
 
-		
-		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1);
-//		studentRepository.save(student2);
-		userDao.persist(user1);
-		
-		return "forward:initPage";
+			admin.encryptPassword();
+			admin.addUserRole(userRoleRepository.findFirstById(1));
+			admin.addUserRole(userRoleRepository.findFirstById(2));
+			userRepository.save(admin);
+
+			StudentModel student3 = new StudentModel(id, "admin", "admin", "admin", "admin", "admin", now,
+					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
+					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
+			admin.setStudent(student3);
+			userRepository.save(admin);
+			
+			UserModel userModel = new UserModel(createId(2), "Maxi", "geheim2345", true);
+			userModel.encryptPassword();
+			userModel.addUserRole(userRoleRepository.findFirstById(2));
+			userRepository.save(userModel);
+
+			StudentModel student1 = new StudentModel(createId(2), "Maximillian", "Mustermann", "sd", "sd", "12345", now,
+					"jhds@fhg", "m", instituteRepository.findFirstByName("FH JOANNEUM"),
+					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
+			userModel.setStudent(student1);
+			userRepository.save(userModel);
+			
+			UserModel userin = new UserModel(createId(3), "Maxine", "dasGehtdichNichtsAn", true);
+			userin.encryptPassword();
+			userin.addUserRole(userRoleRepository.findFirstById(2));
+			userRepository.save(userin);
+
+			StudentModel student2 = new StudentModel(createId(3), "Maxine", "Mustermann", "sd", "sd", "12345", now,
+					"jhds@fhg", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
+					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
+			userin.setStudent(student2);
+			userRepository.save(userin);
+
+		} else {
+
+			;
+		}
+
 	}
 
 }
