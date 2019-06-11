@@ -127,7 +127,7 @@
 											<th>Username</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Average Points</th>
+											<!-- <th>Average Points</th> -->
 										</tr>
 									</thead>
 									<tfoot>
@@ -135,21 +135,15 @@
 											<th>Username</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Average Points</th>
+											<!-- <th>Average Points</th> -->
 										</tr>
 									</tfoot>
 									<tbody>
 										<tr>
-											<td th:value="user.name">Tiger Nixon</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
-										</tr>
-										<tr>
-											<td th:value="user.name">hallo</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
+											<td th:value="${user.name}"></td>
+											<td th:value="${student.diet}"></td>
+											<td th:value="${student.dorm}"></td>
+											<!-- <td th:value="${student.rating}"></td> -->
 										</tr>
 									</tbody>
 								</table>

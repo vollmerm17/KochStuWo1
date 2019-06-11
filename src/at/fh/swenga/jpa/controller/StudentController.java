@@ -25,6 +25,7 @@ import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 
+
 @Controller
 public class StudentController {
 
@@ -171,4 +172,6 @@ public class StudentController {
 		return "error";
 
 	}
+	
+	
 }
