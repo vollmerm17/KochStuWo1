@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
@@ -29,7 +31,7 @@ public class DietModel {
 	private String restriction;
 	
     @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
-    //@OrderBy("lastName, firstName")
+ //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
     
     public DietModel(){
@@ -81,36 +83,4 @@ public class DietModel {
 		this.students = students;
 	}
 
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		DietModel other = (DietModel) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-
-
-	@Override
-	public String toString() {
-		return "DietModel [id=" + id + ", name=" + name + ", restriction=" + restriction + ", students=" + students
-				+ "]";
-	}
-
-	
 }

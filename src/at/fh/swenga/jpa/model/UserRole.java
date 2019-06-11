@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.model;
  
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -19,7 +18,6 @@ public class UserRole implements java.io.Serializable {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private int id;
  
 	@ManyToMany(mappedBy = "userRoles", fetch = FetchType.LAZY)
@@ -53,7 +51,6 @@ public class UserRole implements java.io.Serializable {
 		this.users = users;
 	}
  
-
 	public String getRole() {
 		return role;
 	}

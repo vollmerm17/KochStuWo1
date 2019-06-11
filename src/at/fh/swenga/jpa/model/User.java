@@ -10,7 +10,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -39,7 +38,7 @@ public class User implements java.io.Serializable {
 	private StudentModel student;
 	
     @OneToOne(fetch = FetchType.LAZY, mappedBy="student", cascade = CascadeType.ALL)
-    public StudentModel getStudent() {
+	public StudentModel getStudent() {
     	return this.student;
     }
     
@@ -47,8 +46,7 @@ public class User implements java.io.Serializable {
     	this.student = student;
     }
     
-
-
+    
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
 	private Set<UserRole> userRoles;
 
@@ -107,25 +105,15 @@ public class User implements java.io.Serializable {
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
-	
-	public Set<UserRole> getUserRoles() {
-		return userRoles;
-	}
  
 	public void addUserRole(UserRole userRole) {
 		if (userRoles==null) userRoles = new HashSet<UserRole>();
 		userRoles.add(userRole);
 	}
-	
-	/*
-	public void addStudent(StudentModel student) {
-		if (student == null) {
-			student = new HashSet<StudentModel>();
-		}
-		students.add(student);
-	}
-	*/
  
+	public Set<UserRole> getUserRoles() {
+		return userRoles;
+	}
  
 	public void encryptPassword() {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

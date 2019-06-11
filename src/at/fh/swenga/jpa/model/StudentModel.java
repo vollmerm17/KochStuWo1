@@ -12,11 +12,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,8 +30,8 @@ import javax.persistence.TemporalType;
 public class StudentModel implements java.io.Serializable {
 
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "Student_Id")
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(nullable = false, length = 30)
@@ -76,18 +76,25 @@ public class StudentModel implements java.io.Serializable {
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
+
+    private User user;
     
     @OneToOne(fetch = FetchType.LAZY)
-	@MapsId
-    private User user;
+    @PrimaryKeyJoinColumn
+    public User getUser() {
+    	return this.user;
+    }
+    public void setUser(User user) {
+    	this.user=user;
+    }
+
 
 	public StudentModel() {
 	}
 
-	
 	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm) {
+			DormModel dorm, Set<EventModel> events) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -100,6 +107,26 @@ public class StudentModel implements java.io.Serializable {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
+		this.events = events;
+	}
+	
+	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
+			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
+			DormModel dorm, Set<EventModel> events, User user) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.streetAndNumber = streetAndNumber;
+		this.cityAndPostalCode = cityAndPostalCode;
+		this.phoneNumber = phoneNumber;
+		this.dayOfBirth = dayOfBirth;
+		this.email = email;
+		this.gender = gender;
+		this.institute = institute;
+		this.diet = diet;
+		this.dorm = dorm;
+		this.events = events;
+		this.user = user;
 	}
 	
 
@@ -107,9 +134,10 @@ public class StudentModel implements java.io.Serializable {
 		return id;
 	}
 
-	/*
-	 * public void setId(int id) { this.id = id; }
-	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -227,13 +255,6 @@ public class StudentModel implements java.io.Serializable {
 		}
 		events.add(event);
 	}
-	
-    public User getUser() {
-    	return this.user;
-    }
-    public void setUser(User user) {
-    	this.user=user;
-    }
 
 	@Override
 	public int hashCode() {
