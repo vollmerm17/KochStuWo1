@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
@@ -65,6 +66,7 @@ public class InitialController {
 
 		return "initPage";
 	}
+	
 
 	public void createUserRoles() {
 		UserRoleModel adminRole = userRoleRepository.findFirstByRole("ROLE_ADMIN");
@@ -120,7 +122,6 @@ public class InitialController {
 			id = sortedUserList.get(0).getId() + 1;
 		}
 		return id;
-
 	}
 
 	public void createUsersAndStudent() {
