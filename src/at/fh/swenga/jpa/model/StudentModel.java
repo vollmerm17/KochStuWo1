@@ -82,19 +82,7 @@ public class StudentModel implements java.io.Serializable {
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
-    private User user;
-    
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
-    public User getUser() {
-    	return this.user;
-    }
-    public void setUser(User user) {
-    	this.user=user;
-    }
-    
-    @OneToOne(cascade = CascadeType.ALL)
-	private DocumentModel document;
+
 
 
 	public StudentModel() {
@@ -302,6 +290,7 @@ public class StudentModel implements java.io.Serializable {
 				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", positions=" + positions + "]";
 	}
 	
+
 
 
 }
