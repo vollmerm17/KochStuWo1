@@ -3,6 +3,7 @@ package at.fh.swenga.jpa.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
@@ -20,10 +23,13 @@ import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
 import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
+import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
+import at.fh.swenga.jpa.model.DocumentModel;
+
 
 @Controller
 public class StudentController {
@@ -45,6 +51,9 @@ public class StudentController {
 
 	@Autowired
 	PositionRepository positionRepository;
+	
+	@Autowired
+	DocumentRepository  documentRepository;
 
 	@RequestMapping(value = { "/", "list" })
 	public String index(Model model) {
@@ -125,8 +134,8 @@ public class StudentController {
 		DietModel diet1 = new DietModel("vegan", "tierische Produkte");
 		dietRepository.save(diet1);
 
-		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraße 30i", " 8020 Graz");
-		InstituteModel institute2 = new InstituteModel("Universität Graz", "Sporgasse 5", "8010 Graz");
+		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraï¿½e 30i", " 8020 Graz");
+		InstituteModel institute2 = new InstituteModel("Universitï¿½t Graz", "Sporgasse 5", "8010 Graz");
 
 		instituteRepository.save(institute1);
 		instituteRepository.save(institute2);
@@ -134,7 +143,7 @@ public class StudentController {
 		Date now = new Date();
 
 		/*
-		StudentModel student1 = new StudentModel("Claudia", "Vötter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
+		StudentModel student1 = new StudentModel("Claudia", "Vï¿½tter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
 		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1,user);
 	
 
@@ -164,6 +173,48 @@ public class StudentController {
 
 		return "forward:list";
 	}
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	public String showUploadForm(Model model, @RequestParam("id") int studentId) {
+		model.addAttribute("studentId", studentId);
+		return "uploadFile";
+	}
+	
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String uploadDocument(Model model, @RequestParam("id") int studentId,
+			@RequestParam("myFile") MultipartFile file) {
+ 
+		try {
+ 
+			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
+			if (!studentOpt.isPresent()) throw new IllegalArgumentException("No student with id "+studentId);
+ 
+			StudentModel student = studentOpt.get();
+ 
+			// Already a document available -> delete it
+			if (student.getDocument() != null) {
+				documentRepository.delete(student.getDocument());
+				// Don't forget to remove the relationship too
+				student.setDocument(null);
+			}
+ 
+			// Create a new document and set all available infos
+ 
+			DocumentModel document = new DocumentModel();
+			document.setContent(file.getBytes());
+			document.setContentType(file.getContentType());
+			document.setCreated(new Date());
+			document.setFilename(file.getOriginalFilename());
+			document.setName(file.getName());
+			student.setDocument(document);
+			studentRepository.save(student);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+		}
+ 
+		return "forward:/list";
+	}
+ 
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
@@ -171,4 +222,6 @@ public class StudentController {
 		return "error";
 
 	}
+	
+	
 }

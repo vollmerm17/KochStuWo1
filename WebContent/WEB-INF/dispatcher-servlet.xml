@@ -40,6 +40,13 @@
 	<!-- 
 	<bean class="org.springframework.data.web.config.SpringDataWebConfiguration"/>  
 	-->
+	
+		<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the several properties available; the maximum file size in 
+			bytes -->
+		<property name="maxUploadSizePerFile" value="15242880" />
+	</bean>
 
  
 	<bean id="conversionService"
@@ -125,6 +132,8 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+	
+
 	
 	<tx:annotation-driven />
 

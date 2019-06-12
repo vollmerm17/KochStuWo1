@@ -21,6 +21,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 @Entity
 @Table(name = "Student")
 
@@ -87,6 +92,9 @@ public class StudentModel implements java.io.Serializable {
     public void setUser(User user) {
     	this.user=user;
     }
+    
+    @OneToOne(cascade = CascadeType.ALL)
+	private DocumentModel document;
 
 
 	public StudentModel() {
@@ -255,6 +263,14 @@ public class StudentModel implements java.io.Serializable {
 		}
 		events.add(event);
 	}
+	public DocumentModel getDocument() {
+		return document;
+	}
+ 
+	public void setDocument(DocumentModel document) {
+		this.document = document;
+	}
+ 
 
 	@Override
 	public int hashCode() {
@@ -285,5 +301,7 @@ public class StudentModel implements java.io.Serializable {
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
 				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", positions=" + positions + "]";
 	}
+	
+
 
 }
