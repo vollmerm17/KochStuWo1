@@ -1,6 +1,6 @@
 package at.fh.swenga.jpa.model;
 
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Diet")
 
-public class DietModel {
+public class DietModel implements Serializable {
 
 	@Id
 	@Column(name = "id")
@@ -26,19 +26,19 @@ public class DietModel {
 
 	@Column(nullable = false, length = 50)
 	private String name;
-	
+
 	@Column(nullable = false, length = 50)
 	private String restriction;
-	
+
     @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
  //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
-    
+
     public DietModel(){
-    	
+
     }
-    
-    
+
+
 	public DietModel(String name, String restriction) {
 		super();
 		this.name = name;
@@ -50,10 +50,9 @@ public class DietModel {
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	/*
+	 * public void setId(int id) { this.id = id; }
+	 */
 
 	public String getName() {
 		return name;
@@ -74,7 +73,7 @@ public class DietModel {
 		this.restriction = restriction;
 	}
 
-	
+
 	public Set<StudentModel> getStudents() {
 		return students;
 	}
@@ -82,5 +81,6 @@ public class DietModel {
 	public void setStudents(Set<StudentModel> students) {
 		this.students = students;
 	}
+
 
 }
