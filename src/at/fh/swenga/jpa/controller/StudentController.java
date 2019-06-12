@@ -128,6 +128,7 @@ public class StudentController {
 	@Transactional
 	public String fillData(Model model) {
 
+
 		DormModel dorm1 = new DormModel("Greenbox", "tfug", "gcjszhdb");
 		dormRepository.save(dorm1);
 
@@ -142,27 +143,6 @@ public class StudentController {
 
 		Date now = new Date();
 
-		/*
-		StudentModel student1 = new StudentModel("Claudia", "V�tter", "sd", "sd", "12345", now, "jhds@fhg", "w",institute1, diet1,dorm1,user);
-		StudentModel student2 = new StudentModel("Martina", "Vollmer", "sd", "sd", "12345", now, "jhds@fhg", "w", institute1, diet1,dorm1,user);
-	
-
-		studentRepository.save(student1);
-		studentRepository.save(student2);
-		*/
-		
-		/*
-		 * for (int i = 0; i < 100; i++) { if (i % 10 == 0) { String instituteName =
-		 * df.getBusinessName(); institute =
-		 * instituteRepository.findFirstByName(instituteName); if (institute == null) {
-		 * institute = new InstituteModel(instituteName); // weitere attribute } }
-		 * 
-		 * Calendar dob = Calendar.getInstance(); dob.setTime(df.getBirthDate());
-		 * 
-		 * StudentModel studentModel = new StudentModel(df.getFirstName(),
-		 * df.getLastName(), dob); studentModel.setInstitute(institute);
-		 * studentRepository.save(studentModel); }
-		 */
 
 		return "forward:list";
 	}
