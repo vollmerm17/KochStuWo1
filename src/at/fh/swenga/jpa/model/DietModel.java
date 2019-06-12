@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
@@ -30,7 +32,7 @@ public class DietModel implements Serializable {
 	private String restriction;
 	
     @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
-    //@OrderBy("lastName, firstName")
+ //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
     
     public DietModel(){
@@ -81,5 +83,4 @@ public class DietModel implements Serializable {
 		this.students = students;
 	}
 
-	
 }

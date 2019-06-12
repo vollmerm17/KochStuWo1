@@ -12,7 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -38,6 +44,7 @@ public class StudentModel {
 //	public void setUser(UserModel user) {
 //		this.user = user;
 //	}
+
 
 	@Column(nullable = false, length = 30)
 	private String firstName;
@@ -81,6 +88,21 @@ public class StudentModel {
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
+
+    private UserModel user;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    public UserModel getUser() {
+    	return this.user;
+    }
+    
+    public void setUser(UserModel user) {
+    	this.user = user;
+    }
+
+
+
 	public StudentModel() {
 	}
 	
@@ -101,9 +123,10 @@ public class StudentModel {
 		this.dorm = dorm;
 	}
 
+
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm) {
+			DormModel dorm, Set<EventModel> events, UserModel user) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -117,6 +140,8 @@ public class StudentModel {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
+		this.events = events;
+		this.user = user;
 	}
 	
 	public long getId() {
@@ -245,6 +270,35 @@ public class StudentModel {
 		events.add(event);
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		StudentModel other = (StudentModel) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "StudentModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAndNumber="
+				+ streetAndNumber + ", cityAndPostalCode=" + cityAndPostalCode + ", phoneNumber=" + phoneNumber
+				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
+				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", positions=" + positions + "]";
+	}
 
 
 }

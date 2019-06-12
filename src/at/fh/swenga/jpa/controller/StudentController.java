@@ -26,6 +26,7 @@ import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
 
+
 @Controller
 public class StudentController {
 
@@ -146,7 +147,6 @@ public class StudentController {
 		return "index";
 	}
 
-
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
 		studentRepository.deleteById(id);
@@ -160,4 +160,6 @@ public class StudentController {
 		return "404";
 
 	}
+	
+	
 }

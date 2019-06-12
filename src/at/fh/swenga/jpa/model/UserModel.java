@@ -39,6 +39,7 @@ public class UserModel implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private StudentModel student;
 
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Set<UserRoleModel> userRoles;
 
@@ -104,6 +105,7 @@ public class UserModel implements Serializable {
 		this.userRoles = userRoles;
 	}
 
+
 	public Set<UserRoleModel> getUserRoles() {
 		return userRoles;
 	}
@@ -111,7 +113,7 @@ public class UserModel implements Serializable {
 	public void addUserRole(UserRoleModel userRole) {
 		if (userRoles == null)
 			userRoles = new HashSet<UserRoleModel>();
-		userRoles.add(userRole);
+
 
 	}
 
@@ -122,6 +124,7 @@ public class UserModel implements Serializable {
 	public void setStudent(StudentModel student) {
 		this.student = student;
 	}
+
 
 	public void encryptPassword() {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

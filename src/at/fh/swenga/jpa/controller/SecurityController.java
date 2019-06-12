@@ -1,5 +1,5 @@
 package at.fh.swenga.jpa.controller;
-
+ 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,12 @@ import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
+
 @Controller
 public class SecurityController {
-
+ 
 	@Autowired
+
 	UserRepository userRepository;
 
 	@Autowired
@@ -69,9 +71,8 @@ public class SecurityController {
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
-
+ 
 		return "404";
-
+ 
 	}
-
 }
