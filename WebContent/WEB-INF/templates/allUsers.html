@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Search</title>
+<title>All Users</title>
 
 <!-- Custom fonts for this template -->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -67,7 +67,7 @@
 			<li class="nav-item"><a class="nav-link" href="addEvent.html">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="blank.html">
+			<li class="nav-item"><a class="nav-link" href="search.html">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -87,7 +87,7 @@
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="allUsers.html">
 					<i class="fas fa-fw fa-table"></i> <span>Users</span>
 			</a></li>
 
@@ -101,7 +101,6 @@
 
 		</ul>
 		<!-- End of Sidebar -->
-
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 
@@ -114,7 +113,7 @@
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Search...</h1>
+					<h1 class="h3 mb-2 text-gray-800">All Users</h1>
 
 					<div class="card shadow mb-4">
 
@@ -124,40 +123,43 @@
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>Fistname</th>
+											<th>First Name</th>
+											<th>Last Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Average Points</th>
+											<th>Date of Birth</th>
+											<th>ACTION</th>
+											<!--  <th>Average Points</th> -->
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Firstname</th>
+											<th>Name</th>
+											<th>Last Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Average Points</th>
+											<th>Date of Birth</th>
+											<th>ACTION</th>
+											<!--  <th>Average Points</th> -->
 										</tr>
 									</tfoot>
 									<tbody>
-
-										<tr>
-											<td th:value="user.name">Tiger Nixon</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
-										</tr>
-										<tr>
-											<td th:value="user.name">hallo</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
-
 										<tr th:each="student : ${student}">
-											<td th:text = "${student.firstName}"></td>
-											<td th:text = "${student.diet}"></td>
-											<td th:text = "${student.dorm}"></td>
-											
-
+											<td th:text="${student.firstName}"></td>
+											<td th:text="${student.lastName}"></td>
+											<td th:text="${student.diet}"></td>
+											<td th:text="${student.dorm}"></td>
+											<td th:text="${student.dayOfBirth}"></td>
+											<td><a th:href="@{/edit(id=${student.id})}"
+												class="btn btn-xs btn-success"> <span
+													class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+													Edit
+											</a> <a th:href="@{/delete(id=${student.id})}"
+												class="btn btn-xs btn-danger"> <span
+													class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+													Delete
+											</a></td>
+											<!-- <td>3</td> -->
 										</tr>
 									</tbody>
 								</table>
@@ -183,6 +185,7 @@
 
 		</div>
 		<!-- End of Content Wrapper -->
+
 
 	</div>
 	<!-- End of Page Wrapper -->

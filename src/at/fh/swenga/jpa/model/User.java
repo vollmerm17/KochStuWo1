@@ -22,6 +22,10 @@ public class User implements java.io.Serializable {
  
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+	@Column(name = "id", insertable = true, updatable = false)
+
 	private int id;
  
 	
