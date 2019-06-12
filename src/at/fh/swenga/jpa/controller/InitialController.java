@@ -122,7 +122,6 @@ public class InitialController {
 			id = sortedUserList.get(0).getId() + 1;
 		}
 		return id;
-
 	}
 
 	public void createUsersAndStudent() {
@@ -140,7 +139,7 @@ public class InitialController {
 			admin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(admin);
 
-			StudentModel student3 = new StudentModel(id, "admin", "admin", "admin", "admin", "admin", now,
+			StudentModel student3 = new StudentModel("admin", "admin", "admin", "admin", "admin", now,
 					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
 			admin.setStudent(student3);
@@ -151,7 +150,7 @@ public class InitialController {
 			userModel.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(userModel);
 
-			StudentModel student1 = new StudentModel(createId(2), "Maximillian", "Mustermann", "sd", "sd", "12345", now,
+			StudentModel student1 = new StudentModel("Maximillian", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "m", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
 			userModel.setStudent(student1);
@@ -162,7 +161,7 @@ public class InitialController {
 			userin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(userin);
 
-			StudentModel student2 = new StudentModel(createId(3), "Maxine", "Mustermann", "sd", "sd", "12345", now,
+			StudentModel student2 = new StudentModel("Maxine", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
 			userin.setStudent(student2);

@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
 public class StudentModel {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
 	
