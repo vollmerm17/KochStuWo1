@@ -83,6 +83,23 @@ public class StudentModel {
 
 	public StudentModel() {
 	}
+	
+	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
+			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
+			DormModel dorm) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.streetAndNumber = streetAndNumber;
+		this.cityAndPostalCode = cityAndPostalCode;
+		this.phoneNumber = phoneNumber;
+		this.dayOfBirth = dayOfBirth;
+		this.email = email;
+		this.gender = gender;
+		this.institute = institute;
+		this.diet = diet;
+		this.dorm = dorm;
+	}
 
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
