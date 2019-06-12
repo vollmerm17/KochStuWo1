@@ -22,22 +22,9 @@ import javax.persistence.TemporalType;
 public class StudentModel {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
-
-
-//	@OneToOne
-//	@MapsId
-	//private UserModel user;
-//
-//	public UserModel getUser() {
-//		return this.user;
-//	}
-//
-//	public void setUser(UserModel user) {
-//		this.user = user;
-//	}
 
 	@Column(nullable = false, length = 30)
 	private String firstName;
@@ -81,13 +68,34 @@ public class StudentModel {
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 	
+	private UserModel user;
 
 	public StudentModel() {
 	}
 
+	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
+			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
+			DormModel dorm , UserModel user) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.streetAndNumber = streetAndNumber;
+		this.cityAndPostalCode = cityAndPostalCode;
+		this.phoneNumber = phoneNumber;
+		this.dayOfBirth = dayOfBirth;
+		this.email = email;
+		this.gender = gender;
+		this.institute = institute;
+		this.diet = diet;
+		this.dorm = dorm;
+		this.user = user;
+	}
+	
+	
+
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm /*, Set<EventModel> events, UserModel user*/) {
+			DormModel dorm, Set<EventModel> events, Set<PositionModel> positions, UserModel user) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -101,8 +109,9 @@ public class StudentModel {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
-		//this.events = events;
-		//this.user = user;
+		this.events = events;
+		this.positions = positions;
+		this.user = user;
 	}
 
 	public long getId() {
