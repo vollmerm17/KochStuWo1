@@ -108,10 +108,10 @@ public class InitialController {
 	}
 
 	public void createInstitutes() {
-		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraße 30i", " 8020 Graz");
+		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraï¿½e 30i", " 8020 Graz");
 		instituteRepository.save(institute1);
 
-		InstituteModel institute2 = new InstituteModel("Universität Graz", "Sporgasse 5", "8010 Graz");
+		InstituteModel institute2 = new InstituteModel("Universitï¿½t Graz", "Sporgasse 5", "8010 Graz");
 		instituteRepository.save(institute2);
 
 	}
@@ -141,7 +141,7 @@ public class InitialController {
 
 			StudentModel student3 = new StudentModel("admin", "admin", "admin", "admin", "admin", now,
 					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
-					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"), admin);
+					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
 			admin.setStudent(student3);
 			userRepository.save(admin);
 			
@@ -152,7 +152,7 @@ public class InitialController {
 
 			StudentModel student1 = new StudentModel("Maximillian", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "m", instituteRepository.findFirstByName("FH JOANNEUM"),
-					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"), userModel);
+					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
 			userModel.setStudent(student1);
 			userRepository.save(userModel);
 			
@@ -163,7 +163,7 @@ public class InitialController {
 
 			StudentModel student2 = new StudentModel("Maxine", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
-					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"), userin);
+					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
 			userin.setStudent(student2);
 			userRepository.save(userin);
 

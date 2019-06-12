@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -12,41 +13,34 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
 @Entity
 @Table(name = "Student")
-
-
-@NamedQueries({
-		@NamedQuery(name = "StudentModel.doANameSearchWithLike", query = "select e from StudentModel e where e.firstName like :search or e.lastName like :search") })
-
-public class StudentModel implements java.io.Serializable {
-
-	@Id
-	@Column(name = "id")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+public class StudentModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
+	
+
+//	@OneToOne
+//	@MapsId
+	//private UserModel user;
+//	
+//	public UserModel getUser() {
+//		return this.user;
+//	}
+//
+//	public void setUser(UserModel user) {
+//		this.user = user;
+//	}
 
 
 	@Column(nullable = false, length = 30)
@@ -74,7 +68,6 @@ public class StudentModel implements java.io.Serializable {
 	@Column(nullable = false, length = 2)
 	private String gender;
 
-
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private InstituteModel institute;
 
@@ -83,6 +76,9 @@ public class StudentModel implements java.io.Serializable {
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private DormModel dorm;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private DocumentModel document;
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	// @OrderBy("lastName, firstName")
@@ -93,19 +89,26 @@ public class StudentModel implements java.io.Serializable {
 	private Set<PositionModel> positions;
 
 
+    private UserModel user;
+    
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    public UserModel getUser() {
+    	return this.user;
+    }
+    
+    public void setUser(UserModel user) {
+    	this.user = user;
+    }
 
-
-
-	
-	private UserModel user;
 
 
 	public StudentModel() {
 	}
-
+	
 	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events) {
+			DormModel dorm) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -118,40 +121,14 @@ public class StudentModel implements java.io.Serializable {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
-		this.events = events;
 	}
 
-	
-	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
-			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events, User user) {
-
-
-	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
-			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm , UserModel user) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.streetAndNumber = streetAndNumber;
-		this.cityAndPostalCode = cityAndPostalCode;
-		this.phoneNumber = phoneNumber;
-		this.dayOfBirth = dayOfBirth;
-		this.email = email;
-		this.gender = gender;
-		this.institute = institute;
-		this.diet = diet;
-		this.dorm = dorm;
-		this.user = user;
-	}
-	
-	
 
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events, Set<PositionModel> positions, UserModel user) {
-
+			DormModel dorm, Set<EventModel> events, UserModel user) {
 		super();
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.streetAndNumber = streetAndNumber;
@@ -164,17 +141,10 @@ public class StudentModel implements java.io.Serializable {
 		this.diet = diet;
 		this.dorm = dorm;
 		this.events = events;
-		this.positions = positions;
 		this.user = user;
 	}
-
 	
-
 	public int getId() {
-
-
-	public long getId() {
-
 		return id;
 	}
 
@@ -299,6 +269,7 @@ public class StudentModel implements java.io.Serializable {
 		}
 		events.add(event);
 	}
+	
 	public DocumentModel getDocument() {
 		return document;
 	}
@@ -307,7 +278,6 @@ public class StudentModel implements java.io.Serializable {
 		this.document = document;
 	}
  
-
 
 	@Override
 	public int hashCode() {
@@ -338,10 +308,6 @@ public class StudentModel implements java.io.Serializable {
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
 				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", positions=" + positions + "]";
 	}
-	
-
-
-
 
 
 }
