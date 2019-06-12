@@ -1,5 +1,5 @@
 package at.fh.swenga.jpa.controller;
- 
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,10 @@ import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
 
-
 @Controller
 public class SecurityController {
- 
-	@Autowired
 
+	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
@@ -41,16 +39,16 @@ public class SecurityController {
 			}
 			model.addAttribute("errorMessage", errorMessage);
 		}
-		
-		
-//			StudentModel student = studentRepo.findStudentByEmail(newStudent.getEmail());		
+
+
+//			StudentModel student = studentRepo.findStudentByEmail(newStudent.getEmail());
 			if (studentRepo.findStudentByEmail(newStudent.getEmail()) != null ) {
 				model.addAttribute("errorMessage", "A profile with this E-Mail already exists!<br>");
 			}
 			if (newUser.getPassword().length() <= 5 ) {
 				model.addAttribute("errorMessage", "This Password is too short!<br>");
 			}
-	//		UserModel user = userRepository.findByUsername(@RequestParam String searchString );		
+	//		UserModel user = userRepository.findByUsername(@RequestParam String searchString );
 			else if (userRepository.findFirstById(newUser.getId()) != null) {
 				model.addAttribute("errorMessage", "UserModel already exists!");
 			} else {
@@ -65,14 +63,14 @@ public class SecurityController {
 
 			}
 
-			
+
 			return "forward:index";
 	}
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
- 
+
 		return "404";
- 
+
 	}
 }

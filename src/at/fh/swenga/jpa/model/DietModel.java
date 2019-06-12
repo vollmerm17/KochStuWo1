@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.model;
 
-
 import java.io.Serializable;
 import java.util.Set;
 
@@ -27,19 +26,19 @@ public class DietModel implements Serializable {
 
 	@Column(nullable = false, length = 50)
 	private String name;
-	
+
 	@Column(nullable = false, length = 50)
 	private String restriction;
-	
+
     @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
  //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
-    
+
     public DietModel(){
-    	
+
     }
-    
-    
+
+
 	public DietModel(String name, String restriction) {
 		super();
 		this.name = name;
@@ -74,7 +73,7 @@ public class DietModel implements Serializable {
 		this.restriction = restriction;
 	}
 
-	
+
 	public Set<StudentModel> getStudents() {
 		return students;
 	}
@@ -82,5 +81,6 @@ public class DietModel implements Serializable {
 	public void setStudents(Set<StudentModel> students) {
 		this.students = students;
 	}
+
 
 }
