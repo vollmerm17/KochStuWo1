@@ -69,15 +69,17 @@ public class StudentController {
 	
 	
 
-	/*
-	 * @RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
-	 * handleIndex() { return "index"; }
-	 */
+	
+	  @RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
+	  handleIndex() { return "index"; }
+	 
 	
 	@RequestMapping(value = {"/aboutUs"}, method = RequestMethod.GET)
 	public String handleAboutUs() {
 		return "aboutUs";
 	}
+	
+
 	
 	@RequestMapping(value = {"/addEvent"}, method = RequestMethod.GET)
 	public String handleAddEvent() {

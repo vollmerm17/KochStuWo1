@@ -1,15 +1,10 @@
 package at.fh.swenga.jpa.controller;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
@@ -19,8 +14,6 @@ import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
-import at.fh.swenga.jpa.model.StudentModel;
-import at.fh.swenga.jpa.model.UserModel;
 
 @Controller
 public class SecurityController {
@@ -61,6 +54,8 @@ public class SecurityController {
 	public String handleRegister() {
 		return "register";
 	}
+	
+	
 
 	/*
 	 * @RequestMapping(value = { "/register" })
