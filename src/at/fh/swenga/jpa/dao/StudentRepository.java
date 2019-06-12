@@ -14,9 +14,10 @@ import at.fh.swenga.jpa.model.StudentModel;
 @Repository
 @Transactional
 public interface StudentRepository extends JpaRepository<StudentModel, Integer> {
-	/*
-	 * List<StudentModel> findByLastName(String lastName);
-	 * 
+	
+	
+	List<StudentModel> findStudentByEmail(String email);
+	 /*
 	 * List<StudentModel> findByFirstName(String firstName);
 	 * 
 	 * @Query("select e from StudentModel e where LOWER(e.firstName) LIKE CONCAT('%',LOWER(:name), '%') or e.lastName = :name"

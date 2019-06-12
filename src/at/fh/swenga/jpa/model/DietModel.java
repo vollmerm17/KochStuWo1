@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.model;
 
-import java.util.HashSet;
+
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Diet")
 
-public class DietModel {
+public class DietModel implements Serializable {
 
 	@Id
 	@Column(name = "id")
@@ -50,10 +51,9 @@ public class DietModel {
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	/*
+	 * public void setId(int id) { this.id = id; }
+	 */
 
 	public String getName() {
 		return name;

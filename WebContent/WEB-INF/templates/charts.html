@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Your Event</title>
+<title>Charts</title>
 
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -24,14 +24,11 @@
 
 </head>
 
-
-
 <body id="page-top">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
-		<!-- Sidebar -->
 		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
@@ -50,9 +47,9 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="index.html">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item active"><a class="nav-link"
+				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
+			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -65,7 +62,7 @@
 			<li class="nav-item"><a class="nav-link" href="addEvent.html">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="blank.html">
+			<li class="nav-item"><a class="nav-link" href="search.html">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -85,7 +82,7 @@
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="allUsers.html">
 					<i class="fas fa-fw fa-table"></i> <span>Users</span>
 			</a></li>
 
@@ -98,9 +95,6 @@
 			</div>
 
 		</ul>
-		<!-- End of Sidebar -->
-
-
 
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -159,8 +153,6 @@
 									</div>
 								</form>
 							</div></li>
-
-
 
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1"><a
@@ -243,10 +235,8 @@
 								</a> <a class="dropdown-item" href="#"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
 								</a>
+
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="#" data-toggle="modal"
 									data-target="#logoutModal"> <i
@@ -263,199 +253,144 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
-					<hr>
-					<div class="container bootstrap snippet">
-						<div class="row">
-							<div class="col-sm-10">
-								<h1>Create your own dinner!</h1>
+					<!-- Page Heading -->
+					<h1 class="h3 mb-2 text-gray-800">Charts</h1>
+					<p class="mb-4">
+						Chart.js is a third party plugin that is used to generate the
+						charts in this theme. The charts below have been customized - for
+						further customization options, please visit the <a target="_blank"
+							href="https://www.chartjs.org/docs/latest/">official Chart.js
+							documentation</a>.
+					</p>
+
+					<!-- Content Row -->
+					<div class="row">
+
+						<div class="col-xl-8 col-lg-7">
+
+							<!-- Area Chart -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="myAreaChart"></canvas>
+									</div>
+									<hr>
+									Styling for the area chart can be found in the
+									<code>/js/demo/chart-area-demo.js</code>
+									file.
+								</div>
 							</div>
-							<div class="col-sm-2">
-								<a href="#" class="pull-right"><img title="addEvent"
-									class="img-circle img-responsive"
-									src="https://image.flaticon.com/icons/svg/113/113339.svg"></a>
+
+							<!-- Bar Chart -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+								</div>
+								<div class="card-body">
+									<div class="chart-bar">
+										<canvas id="myBarChart"></canvas>
+									</div>
+									<hr>
+									Styling for the bar chart can be found in the
+									<code>/js/demo/chart-bar-demo.js</code>
+									file.
+								</div>
 							</div>
+
 						</div>
 
-						<div class="row">
-							<div class="col-sm-3">
-								<!--left col-->
-								<div class="text-center">
-									<img src="img/defaultEvent.gif"
-										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
-									<br>
-									<h6>Upload an Event-Picture!</h6>
-									<input type="file" class="text-center center-block file-upload">
+						<!-- Donut Chart -->
+						<div class="col-xl-4 col-lg-5">
+							<div class="card shadow mb-4">
+								<!-- Card Header - Dropdown -->
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
 								</div>
-								<div class="text-center">
-									<br>
-									<h6>Upload a Recipe!</h6>
-									<input type="file" class="text-center center-block file-upload">
-								</div>
-
-							</div>
-							<!--/col-3-->
-							<div class="col-sm-9">
-
-								<div class="tab-content">
-									<div class="tab-pane active" id="home">
-										<br>
-										<form class="form" action="##" method="post"
-											id="registrationForm">
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputName"><h4>Title</h4></label> <input
-														type="text" class="form-control" id="inputName"
-														name="name" th:value="${event} ? ${event.name}"
-														th:readonly="${event}"
-														placeholder="Spaghetti Bolognese bei Anna"
-														title="enter the title of your event">
-												</div>
-											</div>
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputDestination"><h4>Destination</h4></label>
-													<input type="text" class="form-control"
-														id="inputDestination" name="destination"
-														th:value="${event} ? ${event.destination}"
-														th:readonly="${destination}"
-														placeholder="GreenBox Wiener Straße"
-														title="enter the destination of your event">
-												</div>
-											</div>
-
-
-
-											<div class="col-xs-6">
-												<label for="inputDate"><h4>Date</h4></label> <input
-													type="date" class="form-control" name="date" id="inputDate"
-													th:value="${event} ? ${event.date}" th:readonly="${event}"
-													placeholder="dd/mm/yyyy">
-											</div>
-											<br>
-
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputTime"><h4>Time</h4></label> <input
-														type="time" class="form-control" name="time"
-														id="inputTime" th:value="${event} ? ${event.time}"
-														th:readonly="${event}" placeholder="hh:mm">
-												</div>
-											</div>
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputDescription"><h4>Description</h4></label>
-													<input type="password" class="form-control"
-														name="description" id="inputDescription"
-														th:value="${event} ? ${event.description}"
-														th:readonly="${event}"
-														placeholder="Enter a description of your event!"
-														title="enter a description to your event">
-												</div>
-											</div>
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="dietName"><h4>Diet</h4></label> <input
-														type="diet" class="form-control" name="description"
-														id="dietName" th:value="${diet} ? ${diet.name}"
-														th:readonly="${diet}" placeholder="Vegetarian"
-														title="enter the diet to your event">
-												</div>
-											</div>
-
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputAttendeesMax"><h4>Maximum
-															Attendees</h4></label> <input type="attendeesMax" class="form-control"
-														name="attendeesMax" id="inputAttendeesMax"
-														th:value="${event} ? ${event.attendeesMax}"
-														th:readonly="${diet}" placeholder="5"
-														title="enter the maximum amount of guests to your event">
-												</div>
-											</div>
+								<!-- Card Body -->
+								<div class="card-body">
+									<div class="chart-pie pt-4">
+										<canvas id="myPieChart"></canvas>
 									</div>
-
-									<div class="form-group">
-										<div class="col-xs-12">
-											<br>
-											<button class="btn btn-lg btn-success" type="submit">
-												<i class="glyphicon glyphicon-ok-sign"></i> Save
-											</button>
-
-											<button class="btn btn-lg" type="cancel">
-												<i class="glyphicon glyphicon-repeat"></i> Cancel
-											</button>
-										</div>
-									</div>
-									</form>
-								</div>
-								<!-- /.container-fluid -->
-
-							</div>
-							<!-- End of Main Content -->
-
-
-
-							<!-- Footer -->
-							<footer class="sticky-footer bg-white">
-								<div class="container my-auto">
-									<div class="copyright text-center my-auto">
-										<span>Copyright &copy; KochStuWo 2019</span>
-									</div>
-								</div>
-							</footer>
-							<!-- End of Footer -->
-
-						</div>
-						<!-- End of Content Wrapper -->
-
-					</div>
-					<!-- End of Page Wrapper -->
-
-					<!-- Scroll to Top Button-->
-					<a class="scroll-to-top rounded" href="#page-top"> <i
-						class="fas fa-angle-up"></i>
-					</a>
-
-					<!-- Logout Modal-->
-					<div class="modal fade" id="logoutModal" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Ready to
-										Leave?</h5>
-									<button class="close" type="button" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">×</span>
-									</button>
-								</div>
-								<div class="modal-body">Select "Logout" below if you are
-									ready to end your current session.</div>
-								<div class="modal-footer">
-									<button class="btn btn-secondary" type="button"
-										data-dismiss="modal">Cancel</button>
-									<a class="btn btn-primary" href="login.html">Logout</a>
+									<hr>
+									Styling for the donut chart can be found in the
+									<code>/js/demo/chart-pie-demo.js</code>
+									file.
 								</div>
 							</div>
 						</div>
 					</div>
 
-					<!-- Bootstrap core JavaScript-->
-					<script src="vendor/jquery/jquery.min.js"></script>
-					<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+				</div>
+				<!-- /.container-fluid -->
 
-					<!-- Core plugin JavaScript-->
-					<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+			</div>
+			<!-- End of Main Content -->
 
-					<!-- Custom scripts for all pages-->
-					<script src="js/sb-admin-2.min.js"></script>
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; Your Website 2019</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" href="login.html">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="vendor/chart.js/Chart.min.js"></script>
+
+	<!-- Page level custom scripts -->
+	<script src="js/demo/chart-area-demo.js"></script>
+	<script src="js/demo/chart-pie-demo.js"></script>
+	<script src="js/demo/chart-bar-demo.js"></script>
+
 </body>
 
 </html>
