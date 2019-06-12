@@ -23,19 +23,12 @@ import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
 import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
-<<<<<<< HEAD
 import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.DocumentModel;
-=======
-import at.fh.swenga.jpa.dao.UserRepository;
-import at.fh.swenga.jpa.dao.UserRoleRepository;
-import at.fh.swenga.jpa.model.StudentModel;
-import at.fh.swenga.jpa.model.UserModel;
->>>>>>> origin/martina
 
 
 @Controller
@@ -52,12 +45,6 @@ public class StudentController {
 
 	@Autowired
 	DormRepository dormRepository;
-	
-	@Autowired	
-	UserRepository userRepository;
-	
-	@Autowired
-	UserRoleRepository userRoleRepository;
 
 	@Autowired
 	EventRepository eventRepository;
@@ -84,31 +71,6 @@ public class StudentController {
 		model.addAttribute("count", studentsPage.getTotalElements());
 		return "index";
 	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String handleLogin() {
-		return "login";
-	}
-
-	
-	@RequestMapping(value= {"/register"})
-	@Transactional
-	public String register(Model model,@RequestParam String userN,@RequestParam String passwd,@RequestParam String firstN,@RequestParam String lastN, @RequestParam String street,@RequestParam String postal,@RequestParam String tel,@RequestParam Date dob,@RequestParam String mail){
-		
-		UserModel userin = new UserModel(userN, passwd, true);
-		userin.encryptPassword();
-		userin.addUserRole(userRoleRepository.findFirstById(2));
-		userRepository.save(userin);
-
-		StudentModel student2 = new StudentModel(firstN, lastN, street, postal, tel, dob,
-				mail, "w", instituteRepository.findFirstByName("FH JOANNEUM"),
-				dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
-		userin.setStudent(student2);
-		userRepository.save(userin);
-		
-		return "login";
-	}
-	
 
 	/*
 	 * @RequestMapping(value = { "/find" }) public String find(Model
@@ -161,7 +123,6 @@ public class StudentController {
 		return "index";
 	}
 
-<<<<<<< HEAD
 	@RequestMapping("/fillStudentList")
 
 	@Transactional
@@ -206,8 +167,6 @@ public class StudentController {
 		return "forward:list";
 	}
 
-=======
->>>>>>> origin/martina
 	@RequestMapping("/delete")
 	public String deleteData(Model model, @RequestParam int id) {
 		studentRepository.deleteById(id);
@@ -260,7 +219,7 @@ public class StudentController {
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
-		return "404";
+		return "error";
 
 	}
 	
