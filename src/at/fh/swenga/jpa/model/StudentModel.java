@@ -29,6 +29,20 @@ public class StudentModel implements Serializable {
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
 
+
+//	@OneToOne
+//	@MapsId
+	//private UserModel user;
+//
+//	public UserModel getUser() {
+//		return this.user;
+//	}
+//
+//	public void setUser(UserModel user) {
+//		this.user = user;
+//	}
+
+
 	@Column(nullable = false, length = 30)
 	private String firstName;
 
@@ -63,23 +77,31 @@ public class StudentModel implements Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private DormModel dorm;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private DocumentModel document;
+
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+	// @OrderBy("lastName, firstName")
 	private Set<EventModel> events;
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
-	private UserModel user;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn
-	public UserModel getUser(){
-		return this.user;
-	}
+    private UserModel user;
 
-	public void SetUser(UserModel user) {
-		this.user = user;
-	}
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    public UserModel getUser() {
+    	return this.user;
+    }
+
+    public void setUser(UserModel user) {
+    	this.user = user;
+    }
+
+
 
 	public StudentModel() {
 	}
@@ -101,9 +123,10 @@ public class StudentModel implements Serializable {
 		this.dorm = dorm;
 	}
 
+
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm , Set<EventModel> events, UserModel user) {
+			DormModel dorm, Set<EventModel> events, UserModel user) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -120,8 +143,6 @@ public class StudentModel implements Serializable {
 		//this.events = events;
 		//this.user = user;
 	}
-
-
 
 
 	public int getId() {
@@ -250,6 +271,15 @@ public class StudentModel implements Serializable {
 		events.add(event);
 	}
 
+	public DocumentModel getDocument() {
+		return document;
+	}
+
+	public void setDocument(DocumentModel document) {
+		this.document = document;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -279,9 +309,6 @@ public class StudentModel implements Serializable {
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
 				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", positions=" + positions + "]";
 	}
-
-
-
 
 
 }

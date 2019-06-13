@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 
@@ -23,9 +25,6 @@
 <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
-
-
 
 <body id="page-top">
 
@@ -66,7 +65,7 @@
 			<li class="nav-item"><a class="nav-link" href="addEvent.html">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="blank.html">
+			<li class="nav-item"><a class="nav-link" href="search.html">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -86,7 +85,7 @@
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="allUsers.html">
 					<i class="fas fa-fw fa-table"></i> <span>Users</span>
 			</a></li>
 
@@ -238,7 +237,7 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" href="profile.html"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
+								</a> <a class="dropdown-item" href="settings.html"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
 								</a>
@@ -254,83 +253,43 @@
 
 				</nav>
 				<!-- End of Topbar -->
-				
-				
 
 				<!-- Begin Page Content -->
-				<div class="container-fluid">
-				
-						<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Your own events:</h1>
-						<div class="dropdown mb-4">
-							<button class="btn btn-primary dropdown-toggle" type="button"
-								id="dropdownMenuButton" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">Choose the
-								events you want to view!</button>
-							<div class="dropdown-menu animated--fade-in"
-								aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="eventsOwn.html">Own Events</a> <a
-									class="dropdown-item" href="eventsAttending.html">Attended Events</a>
+				<div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
+				<div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
+			<div class="container" role="main">
+
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<form class="form-horizontal" enctype="multipart/form-data" method="post" action="upload">
+					<fieldset>
+						<legend th:text="'Upload Document for student ' + ${studentId}"></legend>
+
+						<input type="hidden" name="id" th:value="${studentId}">
+
+						<div class="form-group">
+							<label for="inputFile" class="col-md-2 control-label">File:</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputFile" type="file" name="myFile">
 							</div>
 						</div>
-					</div>
-
-					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Event Info</h1>
-
-					</div>
-
-					<!-- Content Row -->
-					<div class="row"></div>
-
-					<!-- Content Row -->
-
-					<div class="row">
-
-						<div class="col-sm-12">
-
-							<div class="card shadow mb-12">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary" th:text="${event.name}"></h6>                     <!-- Name nicht vergessen! -->
-								</div>
-								<div class="card-body">
-									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
-									</div>
-										<h6 class="m-0 font-weight-bold text-primary" th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
-									
-										<p th:text="${event.description}"></p>
-										
-									</a> <a href="#" class="btn btn-success btn-circle btn-lg"
-										title="Participate"> <i class="fas fa-check"></i>
-
-									</a> </a> <a href="#" class="btn btn-danger btn-circle btn-lg"
-										title="Cancel"> <i class="fas fa-trash"></i>
-
-									</a>
-								</div>
-
+						<div class="form-group">
+							<div class="col-md-10 col-md-offset-2">
+								<button type="submit" class="btn btn-primary">Upload</button>
+								<a href="settings.html">
+									<button type="button" class="btn btn-default">Cancel</button>
+								</a>
 							</div>
 						</div>
 
-
-					</div>
-
-
-
-
-
-				</div>
-
-
-				<!-- /.container-fluid -->
-
+					</fieldset>
+				</form>
 			</div>
+		</div>
+
+	</div>
+	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+				
 			<!-- End of Main Content -->
 
 			<!-- Footer -->

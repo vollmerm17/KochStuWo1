@@ -15,12 +15,19 @@ import at.fh.swenga.jpa.model.StudentModel;
 @Transactional
 public interface StudentRepository extends JpaRepository<StudentModel, Integer> {
 
+	List<StudentModel> findStudentByEmail(String email);
+
+	/*
+	 * List<StudentModel> findByLastName(String lastName);
+	 *
+
 
 	List<StudentModel> findStudentByEmail(String email);
 
 	/*
 	 * List<StudentModel> findByLastName(String lastName);
 	 *
+
 
 	 * List<StudentModel> findByFirstName(String firstName);
 	 *

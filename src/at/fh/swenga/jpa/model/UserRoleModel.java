@@ -60,4 +60,3 @@ public class UserRoleModel implements java.io.Serializable {
 	}
  
 }
- 
