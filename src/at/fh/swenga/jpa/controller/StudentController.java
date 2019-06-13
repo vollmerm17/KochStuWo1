@@ -1,7 +1,5 @@
 package at.fh.swenga.jpa.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,6 +69,20 @@ public class StudentController {
 		model.addAttribute("count", studentsPage.getTotalElements());
 		return "index";
 	}
+
+	
+	
+
+	
+	  @RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
+	  handleIndex() { return "index"; }
+	 
+	
+	@RequestMapping(value = {"/aboutUs"}, method = RequestMethod.GET)
+	public String handleAboutUs() {
+		return "aboutUs";
+	}
+	
 
 	/*
 	 * @RequestMapping(value = { "/find" }) public String find(Model

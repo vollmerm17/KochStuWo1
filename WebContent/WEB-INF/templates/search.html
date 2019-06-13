@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.m3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -127,7 +128,7 @@
 											<th>Fistname</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Average Points</th>
+											<!-- <th>Average Points</th> -->
 										</tr>
 									</thead>
 									<tfoot>
@@ -139,25 +140,11 @@
 										</tr>
 									</tfoot>
 									<tbody>
-
-										<tr>
-											<td th:value="user.name">Tiger Nixon</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
-										</tr>
-										<tr>
-											<td th:value="user.name">hallo</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
-
-										<tr th:each="student : ${student}">
-											<td th:text = "${student.firstName}"></td>
+										<tr th:each="student : ${students}">
+											<td th:text = "${student.fistName}"></td>
 											<td th:text = "${student.diet}"></td>
 											<td th:text = "${student.dorm}"></td>
 											
-
 										</tr>
 									</tbody>
 								</table>

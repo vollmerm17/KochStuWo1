@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.m3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -10,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>KochStuWo - Kochen für Studenten im Wohnheim</title>
+<title>KochStuWo - Kochen fuer Studenten im Wohnheim</title>
 
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -60,10 +61,10 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-			<li class="nav-item"><a class="nav-link" href="addEvent.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/addEvent}">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="search.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/search}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -78,12 +79,12 @@
 			<div class="sidebar-heading">Admin Center</div>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="allUsers.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 					<i class="fas fa-fw fa-table"></i> <span>Users</span>
 			</a></li>
 
@@ -159,6 +160,7 @@
 
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1"><a
+<<<<<<< HEAD
 							class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
@@ -219,6 +221,13 @@
 									href="#">Read More Messages</a>
 							</div></li>
 
+=======
+							class="nav-link dropdown-toggle" href="supportMail.html"
+							id="messagesDropdown" role="button" aria-expanded="false"> <i
+								class="fas fa-envelope fa-fw" href="supportMail.html"></i>
+
+						</a></li>
+>>>>>>> refs/remotes/origin/Claudia
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
@@ -266,8 +275,14 @@
 								events you want to view!</button>
 							<div class="dropdown-menu animated--fade-in"
 								aria-labelledby="dropdownMenuButton">
+<<<<<<< HEAD
 								<a class="dropdown-item" href="#">Own Events</a> <a
 									class="dropdown-item" href="#">Attended Events</a>
+=======
+								<a class="dropdown-item" href="eventsOwn.html">Own Events</a> <a
+									class="dropdown-item" href="eventsAttending.html">Attending
+									Events</a>
+>>>>>>> refs/remotes/origin/Claudia
 							</div>
 						</div>
 					</div>
@@ -369,7 +384,12 @@
 
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
+<<<<<<< HEAD
 									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -382,9 +402,14 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
+<<<<<<< HEAD
 									<a href="blank.html"
 										class="btn btn-info btn-icon-split"> <span
 										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -395,7 +420,12 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
+<<<<<<< HEAD
 									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -408,9 +438,14 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
+<<<<<<< HEAD
 									<a href="blank.html"
 										class="btn btn-info btn-icon-split"> <span
 										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -421,7 +456,12 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
+<<<<<<< HEAD
 									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -434,91 +474,14 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
+<<<<<<< HEAD
 									<a href="blank.html"
 										class="btn btn-info btn-icon-split"> <span
 										class="icon text-white-50"> <i
-											class="fas fa-info-circle"></i>
-									</span> <span class="text">Dinner Info</span>
-									</a>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="row">
-
-						<div class="col-sm-4">
-
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
-								</div>
-								<div class="card-body">
-									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
-									</div>
-									<p>
-										Add some quality, svg illustrations to your project courtesy
-										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
-										a constantly updated collection of beautiful svg images that
-										you can use completely free and without attribution!
-									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-info-circle"></i>
-									</span> <span class="text">Dinner Info</span>
-									</a>
-								</div>
-
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
-								</div>
-								<div class="card-body">
-									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
-									</div>
-									<p>
-										Add some quality, svg illustrations to your project courtesy
-										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
-										a constantly updated collection of beautiful svg images that
-										you can use completely free and without attribution!
-									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-info-circle"></i>
-									</span> <span class="text">Dinner Info</span>
-									</a>
-								</div>
-
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
-								</div>
-								<div class="card-body">
-									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
-									</div>
-									<p>
-										Add some quality, svg illustrations to your project courtesy
-										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
-										a constantly updated collection of beautiful svg images that
-										you can use completely free and without attribution!
-									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -533,7 +496,12 @@
 
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
+<<<<<<< HEAD
 									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -546,9 +514,14 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
+<<<<<<< HEAD
 									<a href="blank.html"
 										class="btn btn-info btn-icon-split"> <span
 										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -559,7 +532,12 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
+<<<<<<< HEAD
 									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -572,9 +550,14 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
+<<<<<<< HEAD
 									<a href="blank.html"
 										class="btn btn-info btn-icon-split"> <span
 										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -585,7 +568,124 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
+<<<<<<< HEAD
+									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" src="img/dinner.jpg" alt="">
+									</div>
+									<p>
+										Add some quality, svg illustrations to your project courtesy
+										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
+										a constantly updated collection of beautiful svg images that
+										you can use completely free and without attribution!
+									</p>
+<<<<<<< HEAD
+									<a href="blank.html"
+										class="btn btn-info btn-icon-split"> <span
+										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Dinner Info</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-sm-4">
+
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+<<<<<<< HEAD
+									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" src="img/dinner.jpg" alt="">
+									</div>
+									<p>
+										Add some quality, svg illustrations to your project courtesy
+										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
+										a constantly updated collection of beautiful svg images that
+										you can use completely free and without attribution!
+									</p>
+<<<<<<< HEAD
+									<a href="blank.html"
+										class="btn btn-info btn-icon-split"> <span
+										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Dinner Info</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+<<<<<<< HEAD
+									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" src="img/dinner.jpg" alt="">
+									</div>
+									<p>
+										Add some quality, svg illustrations to your project courtesy
+										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
+										a constantly updated collection of beautiful svg images that
+										you can use completely free and without attribution!
+									</p>
+<<<<<<< HEAD
+									<a href="blank.html"
+										class="btn btn-info btn-icon-split"> <span
+										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Dinner Info</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+<<<<<<< HEAD
 									<h6 class="m-0 font-weight-bold text-primary" th:value=${event.name}></h6>
+=======
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+>>>>>>> refs/remotes/origin/Claudia
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -598,9 +698,14 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
+<<<<<<< HEAD
 									<a href="blank.html"
 										class="btn btn-info btn-icon-split"> <span
 										class="icon text-white-50"> <i
+=======
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+>>>>>>> refs/remotes/origin/Claudia
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>

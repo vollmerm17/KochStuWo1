@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns = "http://www.m3.org/1999/xhtml"
-		xmlns:th = "http://www.thymeleaf.org">
+<html xmlns="http://www.m3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-danger">
 
 	<div class="container">
 
@@ -39,89 +39,121 @@
 							<div class="text-center">
 								<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
 							</div>
-							<form class="user">
-								<div class="form-group row">
-									<div class="col-sm-6 mb-3 mb-sm-0">
+							<form th:action="@{/register}" method="post">
+								<fieldset>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<input type="text" class="form-control form-control-user"
+												id="inputFirstName" name="firstName"
+												th:value="${student} ? ${student.firstName}"
+												th:readonly="${student}" placeholder="First Name">
+										</div>
+										<div class="col-sm-6">
+											<input type="text" class="form-control form-control-user"
+												id="inputLastName" name="lastName"
+												th:value="${student} ? ${student.lastName}"
+												th:readonly="${student}" placeholder="Last Name">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<input type="checkbox" name="genderF" id="inputGenderF"
+												th:value="${student} ? ${student.gender}"
+												th:readonly="${student}" value="gender"> Female</input>
+										</div>
+										<div class="col-sm-6">
+											<input type="checkbox" name="genderM" id="inputGenderM"
+												th:value="${student} ? ${student.gender}"
+												th:readonly="${student}" value="gender"> Male</input>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<input type="date" class="form-control form-control-user"
+												id="inputDayOfBirth" name="dayOfBirth"
+												th:value="${student} ? ${student.dayOfBirth}"
+												th:readonly="${student}" placeholder="Day of Birth">
+										</div>
+										<div class="col-sm-6">
+											<input type="text" class="form-control form-control-user"
+												id="inputPhoneNumber" name="phoneNumber"
+												th:value="${student} ? ${student.phoneNumber}"
+												th:readonly="${student}" placeholder="Phone Number">
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<input type="text" class="form-control form-control-user"
+												id="inputStreetAndNumber" name="streetAndNumber"
+												th:value="${student} ? ${student.streetAndNumber}"
+												th:readonly="${student}"
+												placeholder="Street and House Number">
+										</div>
+										<div class="col-sm-6">
+											<input type="text" class="form-control form-control-user"
+												id="inputCityAndPostalCode" name="cityAndPostalCode"
+												th:value="${student} ? ${student.cityAndPostalCode}"
+												th:readonly="${student}" placeholder="City and Postal Code">
+										</div>
+									</div>
+									<hr>
+									<div class="form-group">
 										<input type="text" class="form-control form-control-user"
-											id="inputFirstName" name="firstName" th:value="${student} ? ${student.firstName}" th:readonly="${student}" placeholder="First Name">
+											id="inputDorm" name="dorm"
+											th:value="${student} ? ${student.dorm}"
+											th:readonly="${student}" placeholder="Dorm">
 									</div>
-									<div class="col-sm-6">
+									<div class="form-group">
 										<input type="text" class="form-control form-control-user"
-											id="inputLastName" name="lastName" th:value="${student} ? ${student.lastName}" th:readonly="${student}" placeholder="Last Name">
+											id="inputDiet" name="diet"
+											th:value="${student} ? ${student.diet}"
+											th:readonly="${student}" placeholder="Diet">
 									</div>
-								</div>
-								<div class="form-group row">
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="checkbox" name="genderF" id="inputGenderF" th:value="${student} ? ${student.gender}" th:readonly="${student}" value="gender">
-										Female</input>
-									</div>
-									<div class="col-sm-6">
-										<input type="checkbox" name="genderM" id="inputGenderM" th:value="${student} ? ${student.gender}" th:readonly="${student}" value="gender">
-										Male</input>
-									</div>
-								</div>
-								<div class="form-group row">
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="date" class="form-control form-control-user"
-											id="inputDayOfBirth" name="dayOfBirth" th:value="${student} ? ${student.dayOfBirth}" th:readonly="${student}" placeholder="Day of Birth">
-									</div>
-									<div class="col-sm-6">
+									<div class="form-group">
 										<input type="text" class="form-control form-control-user"
-											id="inputPhoneNumber" name="phoneNumber" th:value="${student} ? ${student.phoneNumber}" th:readonly="${student}" placeholder="Phone Number">
+											id="inputInstitute" name="institute"
+											th:value="${student} ? ${student.institute}"
+											th:readonly="${student}" placeholder="Educational Institute">
 									</div>
-								</div>
-								<div class="form-group row">
-									<div class="col-sm-6 mb-3 mb-sm-0">
+									<hr>
+									<div class="form-group">
 										<input type="text" class="form-control form-control-user"
-											id="inputStreetAndHouseNumber" name="streetAndHouseNumber" th:value="${student} ? ${student.streetAndHouseNumber}" th:readonly="${student}"
-											placeholder="Street and House Number">
+											id="inputUserName" name="userName"
+											th:value="${user} ? ${user.userName}" th:readonly="${user}"
+											placeholder="Username">
 									</div>
-									<div class="col-sm-6">
-										<input type="text" class="form-control form-control-user"
-											id="inputCityAndPostalCode" name="cityAndPostalCode" th:value="${student} ? ${student.cityAndPostalCode}" th:readonly="${student}" placeholder="City and Postal Code">
+									<div class="form-group">
+										<input type="email" class="form-control form-control-user"
+											id="inputEmail" name="email"
+											th:value="${user} ? ${user.email}" th:readonly="${user}"
+											placeholder="Email Address">
 									</div>
-								</div>
-								<hr>
-								<div class="form-group">
-									<input type="text" class="form-control form-control-user"
-										id="inputDorm" name="dorm" th:value="${student} ? ${student.dorm}" th:readonly="${student}" placeholder="Dorm">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control form-control-user"
-										id="inputDiet" name="diet" th:value="${student} ? ${student.diet}" th:readonly="${student}" placeholder="Diet">
-								</div>
-								<div class="form-group">
-									<input type="text" class="form-control form-control-user"
-										id="inputInstitute" name="institute" th:value="${student} ? ${student.cityAndPostalCodeinstitute}" th:readonly="${student}" placeholder="Educational Institute">
-								</div>
-								<hr>
-								<div class="form-group">
-									<input type="text" class="form-control form-control-user"
-										id="inputUserName" name="userName" th:value="${user} ? ${user.userName}" th:readonly="${user}" placeholder="Username">
-								</div>
-								<div class="form-group">
-									<input type="email" class="form-control form-control-user"
-										id="inputEmail" name="email" th:value="${user} ? ${user.email}" th:readonly="${user}" placeholder="Email Address">
-								</div>
-								<div class="form-group row">
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="password" class="form-control form-control-user"
-											id="inputPassword" name="password" th:value="${user} ? ${user.password}" th:readonly="${user}" placeholder="Password">
+									<div class="form-group row">
+										<div class="col-sm-6 mb-3 mb-sm-0">
+											<input type="password" class="form-control form-control-user"
+												id="inputPassword" name="password"
+												th:value="${user} ? ${user.password}" th:readonly="${user}"
+												placeholder="Password" required>
+										</div>
+										<div class="col-sm-6">
+											<input type="password" class="form-control form-control-user"
+												id="inputRepeatPassword" name="repeatPassword"
+												th:value="${user} ? ${user.password}" th:readonly="${user}"
+												placeholder="Repeat Password" required>
+										</div>
 									</div>
-									<div class="col-sm-6">
-										<input type="password" class="form-control form-control-user"
-											id="inputRepeatPassword" name="repeatPassword" th:value="${user} ? ${user.password}" th:readonly="${user}" placeholder="Repeat Password">
-									</div>
-								</div>
-								
-								<a href="login.html" class="btn btn-primary btn-user btn-block">
-									Register </a>
+
+									<a th:href="@{/login}"
+										class="btn btn-primary btn-user btn-block"> Register </a>
+								</fieldset>
 							</form>
 							<hr>
 							<div class="text-center">
-								<a class="small" href="login.html">Already have an account?
-									Login!</a>
+								<a class="small" th:href="@{/login}">Already have an
+									account? Login!</a>
 							</div>
+
+
 						</div>
 					</div>
 				</div>
