@@ -144,17 +144,17 @@
 										</tr>
 									</tfoot>
 									<tbody>
-										<tr>
-											<td th:value="${student.firstName}"></td>
-											<td th:value="${student.lastName}"></td>
-											<td th:value="${student.diet}"></td>
-											<td th:value="${student.dorm}"></td>
-											<td th:value="${student.dayOfBirth}"></td>
-											<td><a th:href="@{/editStudent(id=${student.id})}"
+										<tr th:each="student : ${student}">
+											<td th:text="${student.firstName}"></td>
+											<td th:text="${student.lastName}"></td>
+											<td th:text="${student.diet}"></td>
+											<td th:text="${student.dorm}"></td>
+											<td th:text="${student.dayOfBirth}"></td>
+											<td><a th:href="@{/edit(id=${student.id})}"
 												class="btn btn-xs btn-success"> <span
 													class="glyphicon glyphicon-edit" aria-hidden="true"></span>
 													Edit
-											</a> <a th:href="@{/deleteStudent(id=${student.id})}"
+											</a> <a th:href="@{/delete(id=${student.id})}"
 												class="btn btn-xs btn-danger"> <span
 													class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 													Delete

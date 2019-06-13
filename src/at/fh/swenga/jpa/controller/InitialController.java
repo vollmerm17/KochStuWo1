@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
@@ -50,7 +51,7 @@ public class InitialController {
 	@Autowired
 	PositionRepository positionRepository;
 
-	@RequestMapping("/initPage")
+	@RequestMapping(value = {"/initPage"})
 	public String fillData(Model model) {
 
 		this.createUserRoles();
@@ -106,10 +107,10 @@ public class InitialController {
 	}
 
 	public void createInstitutes() {
-		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraße 30i", " 8020 Graz");
+		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraï¿½e 30i", " 8020 Graz");
 		instituteRepository.save(institute1);
 
-		InstituteModel institute2 = new InstituteModel("Universität Graz", "Sporgasse 5", "8010 Graz");
+		InstituteModel institute2 = new InstituteModel("Universitï¿½t Graz", "Sporgasse 5", "8010 Graz");
 		instituteRepository.save(institute2);
 
 	}
@@ -120,7 +121,6 @@ public class InitialController {
 			id = sortedUserList.get(0).getId() + 1;
 		}
 		return id;
-
 	}
 
 	public void createUsersAndStudent() {
@@ -138,29 +138,29 @@ public class InitialController {
 			admin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(admin);
 
-			StudentModel student3 = new StudentModel(id, "admin", "admin", "admin", "admin", "admin", now,
+			StudentModel student3 = new StudentModel("admin", "admin", "admin", "admin", "admin", now,
 					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
 			admin.setStudent(student3);
 			userRepository.save(admin);
-			
+
 			UserModel userModel = new UserModel(createId(2), "Maxi", "geheim2345", true);
 			userModel.encryptPassword();
 			userModel.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(userModel);
 
-			StudentModel student1 = new StudentModel(createId(2), "Maximillian", "Mustermann", "sd", "sd", "12345", now,
+			StudentModel student1 = new StudentModel("Maximillian", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "m", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
 			userModel.setStudent(student1);
 			userRepository.save(userModel);
-			
+
 			UserModel userin = new UserModel(createId(3), "Maxine", "dasGehtdichNichtsAn", true);
 			userin.encryptPassword();
 			userin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(userin);
 
-			StudentModel student2 = new StudentModel(createId(3), "Maxine", "Mustermann", "sd", "sd", "12345", now,
+			StudentModel student2 = new StudentModel("Maxine", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
 			userin.setStudent(student2);
