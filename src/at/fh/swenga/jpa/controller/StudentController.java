@@ -54,6 +54,9 @@ public class StudentController {
 	
 	@Autowired
 	DocumentRepository  documentRepository;
+	
+	
+	/* eigener Controller für Request Mappings? */
 
 	@RequestMapping(value = { "/", "list" })
 	public String index(Model model) {
@@ -84,6 +87,67 @@ public class StudentController {
 	public String handleAboutUs() {
 		return "aboutUs";
 	}
+	
+	@RequestMapping(value = {"/addEvent"}, method = RequestMethod.GET)
+	public String handleAddEvent() {
+		return "addEvent";
+	}
+	
+	@RequestMapping(value = {"/allUsers"}, method = RequestMethod.GET)
+	public String handleAllUsers() {
+		return "allUsers";
+	}
+	
+	@RequestMapping(value = {"/blank"}, method = RequestMethod.GET)
+	public String handleBlank() {
+		return "blank";
+	}
+	
+	
+	@RequestMapping(value = {"/charts"}, method = RequestMethod.GET)
+	public String handleCharts() {
+		return "charts";
+	}
+	
+	@RequestMapping(value = {"/error"}, method = RequestMethod.GET)
+	public String handleError() {
+		return "error";
+	}
+	
+	@RequestMapping(value = {"/forgotPassword"}, method = RequestMethod.GET)
+	public String handleforgotPassword() {
+		return "forgotPassword";
+	}
+	
+	@RequestMapping(value = {"/profile"}, method = RequestMethod.GET)
+	public String handleProfile() {
+		return "profile";
+	}
+	@RequestMapping(value = {"/search"}, method = RequestMethod.GET)
+	public String handleSearch() {
+		return "search";
+	}
+	
+	@RequestMapping(value = {"/settings"}, method = RequestMethod.GET)
+	public String handleSettings() {
+		return "settings";
+	}
+	
+	@RequestMapping(value = {"/eventInfo"}, method = RequestMethod.GET)
+	public String handleEventInfo() {
+		return "eventInfo";
+	}
+	
+	@RequestMapping(value = {"/eventsOwn"}, method = RequestMethod.GET)
+	public String handleEventsOwn() {
+		return "eventsOwn";
+	}
+	
+	@RequestMapping(value = {"/eventsAttending"}, method = RequestMethod.GET)
+	public String handleEventsAttending() {
+		return "eventsAttending";
+	}
+	
 	
 
 	/*
