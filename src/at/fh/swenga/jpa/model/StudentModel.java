@@ -80,13 +80,14 @@ public class StudentModel {
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
+	
 
 	public StudentModel() {
 	}
 
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events, User user) {
+			DormModel dorm /*, Set<EventModel> events, UserModel user*/) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -100,8 +101,8 @@ public class StudentModel {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
-		this.events = events;
-		this.user = user;
+		//this.events = events;
+		//this.user = user;
 	}
 
 	public long getId() {

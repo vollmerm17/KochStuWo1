@@ -124,7 +124,7 @@
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>Username</th>
+											<th>Fistname</th>
 											<th>Diet</th>
 											<th>Dorm</th>
 											<!-- <th>Average Points</th> -->
@@ -132,18 +132,18 @@
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Username</th>
+											<th>Firstname</th>
 											<th>Diet</th>
 											<th>Dorm</th>
 											<!-- <th>Average Points</th> -->
 										</tr>
 									</tfoot>
 									<tbody>
-										<tr>
-											<td th:value="${user.name}"></td>
-											<td th:value="${student.diet}"></td>
-											<td th:value="${student.dorm}"></td>
-											<!-- <td th:value="${student.rating}"></td> -->
+										<tr th:each="student : ${student}">
+											<td th:text = "${student.firstName}"></td>
+											<td th:text = "${student.diet}"></td>
+											<td th:text = "${student.dorm}"></td>
+											
 										</tr>
 									</tbody>
 								</table>
