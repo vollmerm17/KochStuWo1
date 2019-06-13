@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.m3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -64,10 +65,10 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-			<li class="nav-item"><a class="nav-link" href="addEvent.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/addEvent}">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="search.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/search}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -82,12 +83,12 @@
 			<div class="sidebar-heading">Admin Center</div>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="allUsers.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 					<i class="fas fa-fw fa-table"></i> <span>Users</span>
 			</a></li>
 
@@ -101,6 +102,7 @@
 
 		</ul>
 		<!-- End of Sidebar -->
+		
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 
@@ -119,47 +121,27 @@
 
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
 											<th>First Name</th>
-											<th>Last Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Date of Birth</th>
-											<th>ACTION</th>
-											<!--  <th>Average Points</th> -->
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Name</th>
-											<th>Last Name</th>
+											<th>First Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Date of Birth</th>
-											<th>ACTION</th>
-											<!--  <th>Average Points</th> -->
 										</tr>
 									</tfoot>
 									<tbody>
-										<tr th:each="student : ${student}">
+										<tr th:each="student : ${students}">
 											<td th:text="${student.firstName}"></td>
-											<td th:text="${student.lastName}"></td>
-											<td th:text="${student.diet}"></td>
-											<td th:text="${student.dorm}"></td>
-											<td th:text="${student.dayOfBirth}"></td>
-											<td><a th:href="@{/edit(id=${student.id})}"
-												class="btn btn-xs btn-success"> <span
-													class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-													Edit
-											</a> <a th:href="@{/delete(id=${student.id})}"
-												class="btn btn-xs btn-danger"> <span
-													class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-													Delete
-											</a></td>
-											<!-- <td>3</td> -->
+											<td th:text="${student.diet.name}"></td>
+											<td th:text="${student.dorm.name}"></td>
+									
 										</tr>
 									</tbody>
 								</table>

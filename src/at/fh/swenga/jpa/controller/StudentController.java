@@ -1,13 +1,18 @@
 package at.fh.swenga.jpa.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -67,11 +72,21 @@ public class StudentController {
 		return "index";
 	}
 	
-	
+	@InitBinder
+	private void dateBinder(WebDataBinder binder) {
+	    //The date format to parse or output your dates
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	    //Create a new CustomDateEditor
+	    CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+	    //Register it as custom editor for the Date type
+	    binder.registerCustomEditor(Date.class, editor);
+	}
 
 	
-	  @RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
-	  handleIndex() { return "index"; }
+	@RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
+	handleIndex() { 
+		  return "index"; 
+	}
 	 
 	
 	@RequestMapping(value = {"/aboutUs"}, method = RequestMethod.GET)
@@ -80,10 +95,59 @@ public class StudentController {
 	}
 	
 
+	@RequestMapping(value = {"/blank"}, method = RequestMethod.GET)
+	public String handleBlank() {
+		return "blank";
+	}
+	
+	@RequestMapping(value = {"/charts"}, method = RequestMethod.GET)
+	public String handleCharts() {
+		return "charts";
+	}
+	
+	@RequestMapping(value = {"/allUsers"}, method = RequestMethod.GET)
+	public String handleAllUsers() {
+		return "allUsers";
+	}
 	
 	@RequestMapping(value = {"/addEvent"}, method = RequestMethod.GET)
 	public String handleAddEvent() {
 		return "addEvent";
+	}
+	
+	@RequestMapping(value = {"/settings"}, method = RequestMethod.GET)
+	public String handleSettings() {
+		return "settings";
+	}
+	
+	@RequestMapping(value = {"/supportMail"}, method = RequestMethod.GET)
+	public String handleSupportMail() {
+		return "supportMail";
+	}
+	
+	@RequestMapping(value = {"/forgotPassword"}, method = RequestMethod.GET)
+	public String handleForgotPassword() {
+		return "forgotPassword";
+	}
+	
+	@RequestMapping(value = {"/profile"}, method = RequestMethod.GET)
+	public String handleProfile() {
+		return "profile";
+	}
+	
+	@RequestMapping(value = {"/eventInfo"}, method = RequestMethod.GET)
+	public String handleEventInfo() {
+		return "eventInfo";
+	}
+	
+	@RequestMapping(value = {"/eventsAttending"}, method = RequestMethod.GET)
+	public String handleEventsAttending() {
+		return "eventsAttending";
+	}
+	
+	@RequestMapping(value = {"/eventsOwn"}, method = RequestMethod.GET)
+	public String handleEventsOwn() {
+		return "eventsOwn";
 	}
 
 	@RequestMapping(value = {"/search"}, method = RequestMethod.GET)

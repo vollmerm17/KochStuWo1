@@ -1,8 +1,14 @@
 package at.fh.swenga.jpa.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -55,7 +61,15 @@ public class SecurityController {
 		return "register";
 	}
 	
-	
+	@InitBinder
+	private void dateBinder(WebDataBinder binder) {
+	    //The date format to parse or output your dates
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	    //Create a new CustomDateEditor
+	    CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+	    //Register it as custom editor for the Date type
+	    binder.registerCustomEditor(Date.class, editor);
+	}
 
 	/*
 	 * @RequestMapping(value = { "/register" })
