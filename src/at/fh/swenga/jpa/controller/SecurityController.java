@@ -54,6 +54,8 @@ public class SecurityController {
 		return "login";
 	}
 	
+	
+	/*
 	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
 	public String handleRegister() {
 		return "register";
@@ -72,7 +74,7 @@ public class SecurityController {
 			return "forward:index";
 	}
 
-
+*/
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 

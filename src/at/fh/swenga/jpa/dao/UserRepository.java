@@ -15,7 +15,7 @@ import at.fh.swenga.jpa.model.UserModel;
 import at.fh.swenga.jpa.model.UserRoleModel;
  
 @Repository
-
+@Transactional
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	
 	@Transactional
@@ -23,6 +23,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	
 	@Query("SELECT u FROM UserModel u ORDER BY id DESC")
 	public List<UserModel> findAllId();
+	
+
  
 
 }

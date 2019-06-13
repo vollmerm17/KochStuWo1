@@ -39,7 +39,7 @@
 							<div class="text-center">
 								<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
 							</div>
-							<form th:action="@{/register}" method="post">
+							<form class="user" th:action="@{/register}" method="post">
 								<fieldset>
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
@@ -84,8 +84,8 @@
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="text" class="form-control form-control-user"
-												id="inputStreetAndNumber" name="streetAndNumber"
-												th:value="${student} ? ${student.streetAndNumber}"
+												id="inputStreetAndHouseNumber" name="streetAndHouseNumber"
+												th:value="${student} ? ${student.streetAndHouseNumber}"
 												th:readonly="${student}"
 												placeholder="Street and House Number">
 										</div>
@@ -112,7 +112,7 @@
 									<div class="form-group">
 										<input type="text" class="form-control form-control-user"
 											id="inputInstitute" name="institute"
-											th:value="${student} ? ${student.institute}"
+											th:value="${student} ? ${student.cityAndPostalCodeinstitute}"
 											th:readonly="${student}" placeholder="Educational Institute">
 									</div>
 									<hr>
@@ -133,13 +133,13 @@
 											<input type="password" class="form-control form-control-user"
 												id="inputPassword" name="password"
 												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Password" required>
+												placeholder="Password">
 										</div>
 										<div class="col-sm-6">
 											<input type="password" class="form-control form-control-user"
 												id="inputRepeatPassword" name="repeatPassword"
 												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Repeat Password" required>
+												placeholder="Repeat Password">
 										</div>
 									</div>
 
