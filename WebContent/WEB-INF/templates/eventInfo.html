@@ -254,13 +254,13 @@
 
 				</nav>
 				<!-- End of Topbar -->
-				
-				
+
+
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
-				
-						<!-- Page Heading -->
+
+					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Event overview:</h1>
@@ -272,7 +272,8 @@
 							<div class="dropdown-menu animated--fade-in"
 								aria-labelledby="dropdownMenuButton">
 								<a class="dropdown-item" href="eventsOwn.html">Own Events</a> <a
-									class="dropdown-item" href="eventsAttending.html">Attended Events</a>
+									class="dropdown-item" href="eventsAttending.html">Attended
+									Events</a>
 							</div>
 						</div>
 					</div>
@@ -295,17 +296,25 @@
 
 							<div class="card shadow mb-12">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary" th:text="${event.name}"></h6>                     <!-- Name nicht vergessen! -->
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text="${event.name}"></h6>
+									<!-- Name nicht vergessen! -->
 								</div>
 								<div class="card-body">
 									<div class="text-center">
 										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
 											style="width: 25rem;" src="img/dinner.jpg" alt="">
 									</div>
-										<h6 class="m-0 font-weight-bold text-primary" th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
-									
-										<p th:text="${event.description}"></p>
-										
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
+
+									<p th:text="${event.description}"></p>
+
+									</a> <a th:href="@{download(id?${student.id})}"
+										class="btn btn-secondary btn-icon-split"> <span
+										class="icon text-white-50"> <i
+											class="fas fa-arrow-right"></i>
+									</span> <span class="text">Download the receipe</span>
 									</a> <a href="#" class="btn btn-success btn-circle btn-lg"
 										title="Participate"> <i class="fas fa-check"></i>
 

@@ -1,9 +1,12 @@
 package at.fh.swenga.jpa.controller;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -148,6 +151,12 @@ public class StudentController {
 		return "eventsAttending";
 	}
 	
+	@RequestMapping(value = {"/uploadPicture"}, method = RequestMethod.GET)
+	public String handleuploadPicture() {
+		return "uploadPicture";
+	}
+	
+	
 	
 
 	/*
@@ -236,12 +245,12 @@ public class StudentController {
 	@RequestMapping(value = "/upload", method = RequestMethod.GET)
 	public String showUploadForm(Model model, @RequestParam("id") int studentId) {
 		model.addAttribute("studentId", studentId);
-		return "uploadFile";
+		return "uploadPicture";
 	}
 	
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String uploadDocument(Model model, @RequestParam("id") int studentId,
-			@RequestParam("myFile") MultipartFile file) {
+			@RequestParam("myPicture") MultipartFile file) {
  
 		try {
  
@@ -271,7 +280,28 @@ public class StudentController {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 		}
  
-		return "forward:/list";
+		return "addEvent";
+	}
+	
+	
+	@RequestMapping("/download")
+	public void download(@RequestParam("documentId") int documentId, HttpServletResponse response) {
+ 
+		Optional<DocumentModel> docOpt = documentRepository.findById(documentId);
+		if (!docOpt.isPresent()) throw new IllegalArgumentException("No document with id "+documentId);
+ 
+		DocumentModel doc = docOpt.get();
+ 
+		try {
+			response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getFilename() + "\"");
+			OutputStream out = response.getOutputStream();
+				// application/octet-stream
+			response.setContentType(doc.getContentType());
+			out.write(doc.getContent());
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
  
 

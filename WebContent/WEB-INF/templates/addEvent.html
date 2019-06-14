@@ -284,20 +284,25 @@
 									<img src="img/defaultEvent.gif"
 										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
 									<br>
-									<h6>Upload an Event-Picture!</h6>
-									<input type="file" class="text-center center-block file-upload">
+									 <a th:href="@{upload(id?${student.id})}" class="btn btn-secondary btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-arrow-right"></i>
+									</span> <span class="text">Upload a picture</span>
+									</a>
 								</div>
 								<div class="text-center">
-									<br>
-									<h6>Upload a Recipe!</h6>
-									<input type="file" class="text-center center-block file-upload">
+									<br> <a href="#" class="btn btn-secondary btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-arrow-right"></i>
+									</span> <span class="text">Upload a receipe</span>
+									</a>
 								</div>
-								
-								
-								
+
+
+
 								<!-- <a href="@{upload(id=${employee.id})}">...</a>
 								 -->
-								
+
 
 							</div>
 							<!--/col-3-->

@@ -86,6 +86,12 @@
 	<!-- if no Controller can handle a request, ask Servlet Container, if he
 		can handle it, otherwise return 404 -->
 	<mvc:default-servlet-handler />
+	
+	<bean class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="location">
+			<value>/WEB-INF/spring-views.xml</value>
+		</property>
+	</bean>
 
 
 	<bean id="templateResolver"
@@ -151,14 +157,13 @@
 	<tx:annotation-driven />
 
 
-	<!-- JavaMailSender and SimpleMailMessage
 
 	<bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.mailtrap.io" />
 		<property name="port" value="2525" />
-		<property name="username" value="xxxxxxxxxxxxxx" />
-		<property name="password" value="xxxxxxxxxxxxxx" />
+		<property name="username" value="9b07b6064e8684" />
+		<property name="password" value="f42b1653c9128b" />
 
 		<property name="javaMailProperties">
 			<props>
@@ -173,7 +178,7 @@
 		class="org.springframework.mail.SimpleMailMessage">
 
 		<property name="from" value="ima@fh.com" />
-		<property name="to" value="john.doe@fh.com" />
+		<property name="to" value="clemens.strasser@edu.fh-joanneum.at" />
 		<property name="subject" value="Testing Subject" />
 		<property name="text">
 			<value><![CDATA[Dear %s,
@@ -187,7 +192,8 @@ Jane Doe
 			</value>
 		</property>
 	</bean>
+	
+	
 
-	-->
 
 </beans>
