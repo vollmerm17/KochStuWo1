@@ -82,8 +82,8 @@ public class StudentController {
 	
 
 	
-	  @RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
-	  handleIndex() { return "index"; }
+	@RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
+	handleIndex() { return "index"; }
 	 
 	
 	@RequestMapping(value = {"/aboutUs"}, method = RequestMethod.GET)
