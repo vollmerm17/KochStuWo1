@@ -9,15 +9,7 @@
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-<!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
 
-<!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -222,15 +214,18 @@
 									<img src="img/defaultEvent.gif"
 										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
 									<br>
-									 <a th:href="@{upload(id?${student.id})}" class="btn btn-secondary btn-icon-split">
-										<span class="icon text-white-50"> <i
+								</div>
+								<div class="text-center">
+									<a th:href="#" class="btn btn-secondary btn-icon-split"> <span
+										class="icon text-white-50"> <i
 											class="fas fa-arrow-right"></i>
 									</span> <span class="text">Upload a picture</span>
 									</a>
 								</div>
 								<div class="text-center">
-									<br> <a href="#" class="btn btn-secondary btn-icon-split">
-										<span class="icon text-white-50"> <i
+									<br> <a th:href="#"
+										class="btn btn-secondary btn-icon-split"> <span
+										class="icon text-white-50"> <i
 											class="fas fa-arrow-right"></i>
 									</span> <span class="text">Upload a recipe</span>
 									</a>
@@ -238,19 +233,14 @@
 
 
 
-								<!-- <a href="@{upload(id=${employee.id})}">...</a>
-								 -->
-
 
 							</div>
 							<!--/col-3-->
 							<div class="col-sm-9">
-
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
-										<form class="form" action="##" method="post"
-											id="registrationForm">
+										<form class="form" action="##" method="post" id="registrationForm">
 											<div class="form-group">
 
 												<div class="col-xs-6">
@@ -293,7 +283,7 @@
 
 												<div class="col-xs-6">
 													<label for="inputTime"><h4>Time</h4></label> <input
-														type="time" class="form-control form-control-user"
+														type="time" class="form-control"
 														name="time" id="inputTime"
 														th:value="${event} ? ${event.timeOfEvent}"
 														th:readonly="${event}" placeholder="hh:mm">
@@ -314,7 +304,8 @@
 											<div class="form-group">
 
 												<div class="col-xs-6">
-													<label for="dietName"><h4>Diet</h4></label> <br><select>
+													<label for="dietName"><h4>Diet</h4></label> <br>
+													<select>
 														<option disabled selected="selected">Diet</option>
 														<div th:each="diet: ${#request.getAttribute('diets')}">
 															<option th:value="${diet.name}" th:text="${diet.name}"></option>
@@ -334,6 +325,7 @@
 														title="enter the maximum amount of guests to your event">
 												</div>
 											</div>
+											</form>
 									</div>
 
 									<div class="form-group">
@@ -404,15 +396,7 @@
 						</div>
 					</div>
 
-					<!-- Bootstrap core JavaScript-->
-					<script src="vendor/jquery/jquery.min.js"></script>
-					<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-					<!-- Core plugin JavaScript-->
-					<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-					<!-- Custom scripts for all pages-->
-					<script src="js/sb-admin-2.min.js"></script>
 </body>
 
 </html>

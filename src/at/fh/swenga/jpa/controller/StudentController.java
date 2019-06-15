@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -12,12 +13,10 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +29,7 @@ import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
 import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
-import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DocumentModel;
-import at.fh.swenga.jpa.model.DormModel;
-import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 
 @Controller
@@ -50,12 +46,6 @@ public class StudentController {
 
 	@Autowired
 	DormRepository dormRepository;
-
-	@Autowired
-	UserRepository userRepository;
-
-	@Autowired
-	UserRoleRepository userRoleRepository;
 
 	@Autowired
 	EventRepository eventRepository;
@@ -151,6 +141,9 @@ public class StudentController {
 	public String handleEventInfo() {
 		return "eventInfo";
 	}
+	
+
+	
 
 	@RequestMapping(value = {"/eventsAttending"}, method = RequestMethod.GET)
 	public String handleEventsAttending() {
@@ -176,18 +169,22 @@ public class StudentController {
 		return "search";
 	}
 
-	@PostMapping(value = { "/addEvent" })
-	public String addEvent(Model model, @RequestParam String name, @RequestParam String destination,
-							@RequestParam Date date, @RequestParam Date time, @RequestParam String description,
-							@RequestParam int attendeesMax, StudentModel student) {
-
-		EventModel event1 = new EventModel(name, destination, date, time, description, attendeesMax, student);
-		eventRepository.save(event1);
-
-
-
-		return "index";
-	}
+	/*
+	 * @PostMapping(value = { "/addEvent" }) public String addEvent(Model
+	 * model, @RequestParam String name, @RequestParam String destination,
+	 * 
+	 * @RequestParam Date date, @RequestParam Date time, @RequestParam String
+	 * description,
+	 * 
+	 * @RequestParam int attendeesMax, StudentModel student) {
+	 * 
+	 * EventModel event1 = new EventModel(name, destination, date, time,
+	 * description, attendeesMax, student); eventRepository.save(event1);
+	 * 
+	 * 
+	 * 
+	 * return "index"; }
+	 */
 	
 	/*
 	 * @PostMapping(value = { "/profile" }) public String addEvent(Model
@@ -223,7 +220,6 @@ public class StudentController {
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String uploadDocument(Model model, @RequestParam("id") int studentId,
 			@RequestParam("myPicture") MultipartFile file) {
-
 		try {
 
 			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
