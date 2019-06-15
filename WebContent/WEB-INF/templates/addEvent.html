@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
+<div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
 <title>Your Event</title>
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
+<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -224,19 +221,26 @@
 								<div class="text-center">
 									<img src="img/defaultEvent.gif"
 										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
-									<br> <a href="#" class="btn btn-secondary btn-icon-split">
+									<br>
+									 <a th:href="@{upload(id?${student.id})}" class="btn btn-secondary btn-icon-split">
 										<span class="icon text-white-50"> <i
 											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload an event picture!</span>
+									</span> <span class="text">Upload a picture</span>
 									</a>
 								</div>
 								<div class="text-center">
 									<br> <a href="#" class="btn btn-secondary btn-icon-split">
 										<span class="icon text-white-50"> <i
 											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload an recipe!</span>
+									</span> <span class="text">Upload a recipe</span>
 									</a>
 								</div>
+
+
+
+								<!-- <a href="@{upload(id=${employee.id})}">...</a>
+								 -->
+
 
 							</div>
 							<!--/col-3-->

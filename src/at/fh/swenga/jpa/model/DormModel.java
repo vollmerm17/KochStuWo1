@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.model;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Dorm")
 
-public class DormModel implements Serializable{
+public class DormModel {
 	
 	@Id
 	@Column(name = "id")
@@ -64,9 +63,9 @@ public class DormModel implements Serializable{
 	}
 
 
-	/*
-	 * public void setId(int id) { this.id = id; }
-	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
 
 	public String getStreetAndNumber() {
