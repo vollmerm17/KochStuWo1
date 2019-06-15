@@ -170,18 +170,22 @@ public class StudentController {
 		return "index";
 	}
 	
-	@PostMapping(value = { "/profile" })
-	public String addEvent(Model model, @RequestParam String name, @RequestParam String destination,
-							@RequestParam Date date, @RequestParam Date time, @RequestParam String description,
-							@RequestParam int attendeesMax, StudentModel student) {
-
-		EventModel event1 = new EventModel(name, destination, date, time, description, attendeesMax, student);
-		eventRepository.save(event1);
-
-		
-
-		return "index";
-	}
+	/*
+	 * @PostMapping(value = { "/profile" }) public String addEvent(Model
+	 * model, @RequestParam String name, @RequestParam String destination,
+	 * 
+	 * @RequestParam Date date, @RequestParam Date time, @RequestParam String
+	 * description,
+	 * 
+	 * @RequestParam int attendeesMax, StudentModel student) {
+	 * 
+	 * EventModel event1 = new EventModel(name, destination, date, time,
+	 * description, attendeesMax, student); eventRepository.save(event1);
+	 * 
+	 * 
+	 * 
+	 * return "index"; }
+	 */
 
 	@RequestMapping(value = { "/delete" })
 	public String deleteData(Model model, @RequestParam int id) {
