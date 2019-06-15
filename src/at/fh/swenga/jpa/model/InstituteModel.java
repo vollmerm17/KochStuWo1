@@ -1,6 +1,6 @@
 package at.fh.swenga.jpa.model;
 
-import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,13 +10,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
 @Table(name = "Institute")
 
-public class InstituteModel implements Serializable {
+public class InstituteModel {
 	
 	@Id
 	@Column(name = "id")

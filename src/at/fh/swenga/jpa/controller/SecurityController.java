@@ -20,13 +20,15 @@ import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
+import at.fh.swenga.jpa.model.UserModel;
+import at.fh.swenga.jpa.model.UserRoleModel;
 
 @Controller
 public class SecurityController {
 
 	@Autowired
 	StudentRepository studentRepo;
-	
+
 	@Autowired
 	StudentRepository studentRepository;
 
@@ -38,10 +40,10 @@ public class SecurityController {
 
 	@Autowired
 	DormRepository dormRepository;
-	
-	@Autowired	
+
+	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
@@ -55,12 +57,12 @@ public class SecurityController {
 	public String handleLogin() {
 		return "login";
 	}
-	
+
 	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
 	public String handleRegister() {
 		return "register";
 	}
-	
+
 	@InitBinder
 	private void dateBinder(WebDataBinder binder) {
 	    //The date format to parse or output your dates
@@ -73,27 +75,27 @@ public class SecurityController {
 
 	/*
 	 * @RequestMapping(value = { "/register" })
-	 * 
+	 *
 	 * @Transactional public String register(Model model, @RequestParam String
 	 * userN, @RequestParam String passwd,
-	 * 
+	 *
 	 * @RequestParam String firstN, @RequestParam String lastN, @RequestParam String
 	 * street,
-	 * 
+	 *
 	 * @RequestParam String postal, @RequestParam String tel, @RequestParam Date
 	 * dob, @RequestParam String mail) {
-	 * 
+	 *
 	 * UserModel userin = new UserModel(userN, passwd, true);
 	 * userin.encryptPassword();
 	 * userin.addUserRole(userRoleRepository.findFirstById(2));
 	 * userRepository.save(userin);
-	 * 
+	 *
 	 * StudentModel student2 = new StudentModel(firstN, lastN, street, postal, tel,
 	 * dob, mail, "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 	 * dietRepository.findFirstByName("vegetarisch"),
 	 * dormRepository.findFirstByName("Greenbox")); userin.setStudent(student2);
 	 * userRepository.save(userin);
-	 * 
+	 *
 	 * return "register"; }
 	 */
 
@@ -101,13 +103,13 @@ public class SecurityController {
 	 * @PostMapping("/register") public String registerUser(Model model, @Valid
 	 * UserModel newUser, @Valid StudentModel newStudent, BindingResult
 	 * bindingResult) {
-	 * 
+	 *
 	 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
 	 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
 	 * fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>"; }
 	 * model.addAttribute("errorMessage", errorMessage); }
-	 * 
-	 * 
+	 *
+	 *
 	 * // StudentModel student =
 	 * studentRepo.findStudentByEmail(newStudent.getEmail()); if
 	 * (studentRepo.findStudentByEmail(newStudent.getEmail()) != null ) {
@@ -121,14 +123,14 @@ public class SecurityController {
 	 * UserRoleModel userRoleModel =
 	 * userRoleRepository.findFirstByRole("ROLE_USER"); if (userRoleModel == null)
 	 * userRoleModel = new UserRoleModel("ROLE_USER");
-	 * 
+	 *
 	 * UserModel userModel = new UserModel("user", "password", true);
 	 * userModel.encryptPassword(); userModel.addUserRole(userRoleModel);
 	 * userRepository.save(userModel);
-	 * 
+	 *
 	 * }
-	 * 
-	 * 
+	 *
+	 *
 	 * return "forward:index"; }
 	 */
 

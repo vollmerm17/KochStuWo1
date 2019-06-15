@@ -66,7 +66,6 @@ public class InitialController {
 
 		return "initPage";
 	}
-	
 
 	public void createUserRoles() {
 		UserRoleModel adminRole = userRoleRepository.findFirstByRole("ROLE_ADMIN");
@@ -108,10 +107,10 @@ public class InitialController {
 	}
 
 	public void createInstitutes() {
-		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraße 30i", " 8020 Graz");
+		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraï¿½e 30i", " 8020 Graz");
 		instituteRepository.save(institute1);
 
-		InstituteModel institute2 = new InstituteModel("Universität Graz", "Sporgasse 5", "8010 Graz");
+		InstituteModel institute2 = new InstituteModel("Universitï¿½t Graz", "Sporgasse 5", "8010 Graz");
 		instituteRepository.save(institute2);
 
 	}
@@ -144,7 +143,7 @@ public class InitialController {
 					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
 			admin.setStudent(student3);
 			userRepository.save(admin);
-			
+
 			UserModel userModel = new UserModel(createId(2), "Maxi", "geheim2345", true);
 			userModel.encryptPassword();
 			userModel.addUserRole(userRoleRepository.findFirstById(2));
@@ -155,7 +154,7 @@ public class InitialController {
 					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
 			userModel.setStudent(student1);
 			userRepository.save(userModel);
-			
+
 			UserModel userin = new UserModel(createId(3), "Maxine", "dasGehtdichNichtsAn", true);
 			userin.encryptPassword();
 			userin.addUserRole(userRoleRepository.findFirstById(2));
