@@ -102,7 +102,7 @@
 
 		</ul>
 		<!-- End of Sidebar -->
-		
+
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
 
@@ -121,7 +121,8 @@
 
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0">
 									<thead>
 										<tr>
 											<th>First Name</th>
@@ -138,10 +139,14 @@
 									</tfoot>
 									<tbody>
 										<tr th:each="student : ${students}">
-											<td th:text="${student.firstName}"></td>
+											<td th:text="${student.name}"></td>
 											<td th:text="${student.diet.name}"></td>
 											<td th:text="${student.dorm.name}"></td>
-									
+											<!-- <td><div th:if="${student.name} == admin">
+													<span th:text="---">---</span>
+												</div>
+												<div th:unless="${student.name}"></div></td> -->
+			
 										</tr>
 									</tbody>
 								</table>

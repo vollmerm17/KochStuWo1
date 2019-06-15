@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,8 +26,8 @@ import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
+import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.StudentModel;
-
 
 @Controller
 public class StudentController {
@@ -42,10 +43,10 @@ public class StudentController {
 
 	@Autowired
 	DormRepository dormRepository;
-	
-	@Autowired	
+
+	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
@@ -71,95 +72,118 @@ public class StudentController {
 		model.addAttribute("count", studentsPage.getTotalElements());
 		return "index";
 	}
-	
+
 	@InitBinder
 	private void dateBinder(WebDataBinder binder) {
-	    //The date format to parse or output your dates
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-	    //Create a new CustomDateEditor
-	    CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
-	    //Register it as custom editor for the Date type
-	    binder.registerCustomEditor(Date.class, editor);
+		// The date format to parse or output your dates
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		// Create a new CustomDateEditor
+		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
+		// Register it as custom editor for the Date type
+		binder.registerCustomEditor(Date.class, editor);
 	}
 
-	
-	@RequestMapping(value = {"/index"}, method = RequestMethod.GET) public String
-	handleIndex() { 
-		  return "index"; 
+	@RequestMapping(value = { "/index" }, method = RequestMethod.GET)
+	public String handleIndex() {
+		return "index";
 	}
-	 
-	
-	@RequestMapping(value = {"/aboutUs"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/aboutUs" }, method = RequestMethod.GET)
 	public String handleAboutUs() {
 		return "aboutUs";
 	}
-	
 
-	@RequestMapping(value = {"/blank"}, method = RequestMethod.GET)
+	@RequestMapping(value = { "/blank" }, method = RequestMethod.GET)
 	public String handleBlank() {
 		return "blank";
 	}
-	
-	@RequestMapping(value = {"/charts"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/charts" }, method = RequestMethod.GET)
 	public String handleCharts() {
 		return "charts";
 	}
-	
-	@RequestMapping(value = {"/allUsers"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/allUsers" }, method = RequestMethod.GET)
 	public String handleAllUsers() {
 		return "allUsers";
 	}
-	
-	@RequestMapping(value = {"/addEvent"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/addEvent" }, method = RequestMethod.GET)
 	public String handleAddEvent() {
 		return "addEvent";
 	}
-	
-	@RequestMapping(value = {"/settings"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/settings" }, method = RequestMethod.GET)
 	public String handleSettings() {
 		return "settings";
 	}
-	
-	@RequestMapping(value = {"/supportMail"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/supportMail" }, method = RequestMethod.GET)
 	public String handleSupportMail() {
 		return "supportMail";
 	}
-	
-	@RequestMapping(value = {"/forgotPassword"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/forgotPassword" }, method = RequestMethod.GET)
 	public String handleForgotPassword() {
 		return "forgotPassword";
 	}
-	
-	@RequestMapping(value = {"/profile"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/profile" }, method = RequestMethod.GET)
 	public String handleProfile() {
 		return "profile";
 	}
-	
-	@RequestMapping(value = {"/eventInfo"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/eventInfo" }, method = RequestMethod.GET)
 	public String handleEventInfo() {
 		return "eventInfo";
 	}
-	
-	@RequestMapping(value = {"/eventsAttending"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
 	public String handleEventsAttending() {
 		return "eventsAttending";
 	}
-	
-	@RequestMapping(value = {"/eventsOwn"}, method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/eventsOwn" }, method = RequestMethod.GET)
 	public String handleEventsOwn() {
 		return "eventsOwn";
 	}
 
-	@RequestMapping(value = {"/search"}, method = RequestMethod.GET)
+	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model) {
-		
+
 		List<StudentModel> students = studentRepository.findAll();
 		model.addAttribute("students", students);
-		
+
 		return "search";
 	}
+
+	@PostMapping(value = { "/addEvent" })
+	public String addEvent(Model model, @RequestParam String name, @RequestParam String destination,
+							@RequestParam Date date, @RequestParam Date time, @RequestParam String description,
+							@RequestParam int attendeesMax, StudentModel student) {
+
+		EventModel event1 = new EventModel(name, destination, date, time, description, attendeesMax, student);
+		eventRepository.save(event1);
+
+		
+
+		return "index";
+	}
 	
-	@RequestMapping(value= {"/delete"})
+	@PostMapping(value = { "/profile" })
+	public String addEvent(Model model, @RequestParam String name, @RequestParam String destination,
+							@RequestParam Date date, @RequestParam Date time, @RequestParam String description,
+							@RequestParam int attendeesMax, StudentModel student) {
+
+		EventModel event1 = new EventModel(name, destination, date, time, description, attendeesMax, student);
+		eventRepository.save(event1);
+
+		
+
+		return "index";
+	}
+
+	@RequestMapping(value = { "/delete" })
 	public String deleteData(Model model, @RequestParam int id) {
 		studentRepository.deleteById(id);
 
@@ -172,6 +196,5 @@ public class StudentController {
 		return "404";
 
 	}
-	
-	
+
 }
