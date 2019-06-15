@@ -66,20 +66,20 @@
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+				<!-- Addons nur für ADMIN -->
+				<div class="sidebar-heading">Admin Center</div>
 
-			<!-- Addons nur f�r ADMIN -->
-			<div class="sidebar-heading">Admin Center</div>
+				<!-- Nav Item - Charts -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
+						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+				</a></li>
 
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
-					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-			</a></li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
-					<i class="fas fa-fw fa-table"></i> <span>Users</span>
-			</a></li>
-
+				<!-- Nav Item - Tables -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
+						<i class="fas fa-fw fa-table"></i> <span>Users</span>
+				</a></li>
+			</div>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -152,9 +152,9 @@
 
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="supportMail.html"
+							class="nav-link dropdown-toggle" th:href="@{/supportMail}"
 							id="messagesDropdown" role="button" aria-expanded="false"> <i
-								class="fas fa-envelope fa-fw" href="supportMail.html"></i>
+								class="fas fa-envelope fa-fw" th:href="@{/supportMail}"></i>
 
 						</a></li>
 						<div class="topbar-divider d-none d-sm-block"></div>
@@ -171,9 +171,9 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="profile.html"> <i
+								<a class="dropdown-item" th:href="@{/profile}"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="settings.html"> <i
+								</a> <a class="dropdown-item" href="@{/settings}"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
 								</a>
@@ -322,7 +322,7 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
-									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+									<a th:href="@{/eventInfo}" class="btn btn-info btn-icon-split">
 										<span class="icon text-white-50"> <i
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
@@ -473,7 +473,7 @@
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-primary"
-										th:value=${event.name}>Dinner</h6>
+										th:text=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -525,7 +525,7 @@
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-primary"
-										th:value=${event.name}>Dinner</h6>
+										th:text=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -594,7 +594,7 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+					<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 				</div>
 			</div>
 		</div>
