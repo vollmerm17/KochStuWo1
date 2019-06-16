@@ -1,6 +1,6 @@
 package at.fh.swenga.jpa.model;
 
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,14 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Dorm")
 
-public class DormModel {
+public class DormModel implements Serializable {
 	
 	@Id
 	@Column(name = "id")

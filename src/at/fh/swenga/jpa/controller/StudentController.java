@@ -52,10 +52,10 @@ public class StudentController {
 
 	@Autowired
 	DormRepository dormRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	EventRepository eventRepository;
 
@@ -141,18 +141,18 @@ public class StudentController {
 	public String handleProfile() {
 		return "profile";
 	}
-	
+
 	@PostMapping(value = { "/profile" })
 	public String changeProfile(Model model,@RequestParam String userName, @RequestParam String email, DormModel dorm, InstituteModel institute, DietModel diet) {
 		UserModel user = userRepository.findFirstByUserName(System.getProperty("user.name"));
 		StudentModel student = studentRepository.findStudentByUser(user.getId());
-		
+
 		user.setUserName(userName);
 		student.setEmail(email);
 		student.setDiet(diet);
 		student.setDorm(dorm);
 		student.setInstitute(institute);
-		
+
 		return "profile";
 	}
 
@@ -173,24 +173,24 @@ public class StudentController {
 	/*
 	 * @PostMapping(value = { "/profile" }) public String addEvent(Model
 	 * model, @RequestParam String name, @RequestParam String destination,
-	 * 
+	 *
 	 * @RequestParam Date date, @RequestParam Date time, @RequestParam String
 	 * description,
-	 * 
+	 *
 	 * @RequestParam int attendeesMax, StudentModel student) {
-	 * 
+	 *
 	 * EventModel event1 = new EventModel(name, destination, date, time,
 	 * description, attendeesMax, student); eventRepository.save(event1);
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
 	 * return "index"; }
 	 */
 	@RequestMapping(value= {"/edit"})
 	public String editData(Model model, @RequestParam int id) {
 		return "profile";
 	}
-	
+
 	@RequestMapping(value = { "/delete" })
 	public String deleteData(Model model, @RequestParam int id) {
 		studentRepository.deleteById(id);

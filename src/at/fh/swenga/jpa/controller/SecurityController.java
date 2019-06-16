@@ -3,6 +3,9 @@ package at.fh.swenga.jpa.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import javax.validation.Valid;
 
@@ -14,12 +17,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DietRepository;
+import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
@@ -32,12 +38,9 @@ import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
-import at.fh.swenga.jpa.model.UserRoleModel;
 
 @Controller
 public class SecurityController {
-
-
 	@Autowired
 	StudentRepository studentRepository;
 
@@ -51,26 +54,24 @@ public class SecurityController {
 	DormRepository dormRepository;
 
 	@Autowired
-	UserRepository userRepository;
-
-	@Autowired
-	UserRoleRepository userRoleRepository;
-
-	@Autowired
 	EventRepository eventRepository;
 
 	@Autowired
 	PositionRepository positionRepository;
 
-	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-	public String handleLogin() {
-		return "login";
-	}
+	@Autowired
+	DocumentRepository documentRepository;
 
-	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
-	public String handleRegister() {
-		return "register";
-	}
+	@Autowired
+	StudentRepository studentRepo;
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	UserRoleRepository userRoleRepository;
+
+
 
 	@InitBinder
 	private void dateBinder(WebDataBinder binder) {
@@ -82,6 +83,44 @@ public class SecurityController {
 	    binder.registerCustomEditor(Date.class, editor);
 	}
 
+    @GetMapping("/")
+    public String root() {
+        return "index";
+    }
+
+	@GetMapping(value = "/login")
+	public String handleLogin() {
+		return "forward:index";
+	}
+
+	@PostMapping(value ="/login")
+	public String login(@RequestParam String username){
+		userRepository.findByUserName(username);
+		System.out.println(username);
+		return "forward:index";
+	}
+
+	@GetMapping("/register")
+	public String handleRegister(Model model){
+
+		List<DormModel> dorms = dormRepository.findAll();
+		model.addAttribute("dorms", dorms);
+
+		List<DietModel> diets = dietRepository.findAll();
+		model.addAttribute("diets", diets);
+
+		List<InstituteModel> institutes = instituteRepository.findAll();
+		model.addAttribute("institutes", institutes);
+
+		return "register";
+	}
+
+	//DOB
+	//Diet
+	//Dorm
+	//Gender
+	//Institute
+	//gender
 	@PostMapping("/register")
 	public String register (@Valid UserModel usernew,@Valid InstituteModel institute,@Valid StudentModel studentnew,@Valid DietModel diet,@Valid DormModel dorm, BindingResult bindingResult,
 			Model model) throws ParseException {
@@ -91,12 +130,12 @@ public class SecurityController {
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
 				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
 			}
-			
+
 			model.addAttribute("errorMessage", errorMessage);
 			return "register";
 		}
 
-		UserModel user = userRepository.findFirstByUserName(usernew.getUserName());
+		UserModel user = userRepository.findUserByUserName(usernew.getUserName());
 		StudentModel student = studentRepository.findStudentByEmail(studentnew.getEmail());
 
 		if (user != null) {
@@ -117,12 +156,12 @@ public class SecurityController {
 			user.encryptPassword();
 			user.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(user);
-			
+
 			InstituteModel insti = instituteRepository.findFirstByName(institute.getName());
 			DormModel dormi = dormRepository.findFirstByName(dorm.getName());
 			DietModel dieti = dietRepository.findFirstByName(diet.getName());
-			
-			
+
+
 			student = new StudentModel();
 			student.setId(user.getId());
 			student.setFirstName(studentnew.getFirstName());
@@ -136,19 +175,50 @@ public class SecurityController {
 			student.setInstitute(insti);
 			student.setDiet(dieti);
 			student.setDorm(dormi);
-			student.setUser(user);
 
 			System.out.println(institute);
-			
+
 			user.setStudent(student);
 			userRepository.save(user);
-			
+
 			model.addAttribute("message", "New user " + user.getUserName() + "added.");
 		}
 		return "forward:login";
-	}
-
-
+	}/*
+		 *
+		 * @PostMapping("/register") public String registerUser(Model model, @Valid
+		 * UserModel newUser, @Valid StudentModel newStudent, BindingResult
+		 * bindingResult) {
+		 *
+		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
+		 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
+		 * fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>"; }
+		 * model.addAttribute("errorMessage", errorMessage); }
+		 *
+		 *
+		 * // StudentModel student =
+		 * studentRepo.findStudentByEmail(newStudent.getEmail()); if
+		 * (studentRepo.findStudentByEmail(newStudent.getEmail()) != null ) {
+		 * model.addAttribute("errorMessage",
+		 * "A profile with this E-Mail already exists!<br>"); } if
+		 * (newUser.getPassword().length() <= 5 ) { model.addAttribute("errorMessage",
+		 * "This Password is too short!<br>"); } // UserModel user =
+		 * userRepository.findByUsername(@RequestParam String searchString ); else if
+		 * (userRepository.findFirstById(newUser.getId()) != null) {
+		 * model.addAttribute("errorMessage", "UserModel already exists!"); } else {
+		 * UserRoleModel userRoleModel =
+		 * userRoleRepository.findFirstByRole("ROLE_USER"); if (userRoleModel == null)
+		 * userRoleModel = new UserRoleModel("ROLE_USER");
+		 *
+		 * UserModel userModel = new UserModel("user", "password", true);
+		 * userModel.encryptPassword(); userModel.addUserRole(userRoleModel);
+		 * userRepository.save(userModel);
+		 *
+		 * }
+		 *
+		 *
+		 * return "forward:index"; }
+		 */
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
