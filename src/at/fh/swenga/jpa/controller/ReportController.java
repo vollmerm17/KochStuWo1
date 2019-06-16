@@ -24,6 +24,7 @@ public class ReportController {
 
 	@Autowired
 	private MailSender mailSender;
+	
 	@Autowired
 	private SimpleMailMessage templateMessage;
 

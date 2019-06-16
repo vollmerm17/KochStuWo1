@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.m3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
+
 <head>
+
+
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
 <title>Register</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
 
 <!--  Error message ----------------------------------------------------------- -->
 <div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
@@ -42,6 +46,7 @@
 							</div>
 							<form th:action="@{/register}" method="POST">
 								<fieldset>
+									<!-- --------------  first Name ---------------- -->
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="text" class="form-control form-control-user"
@@ -49,6 +54,7 @@
 												th:value="${student} ? ${student.firstName}"
 												th:readonly="${student}" placeholder="First Name">
 										</div>
+										<!-- --------------  last Name ---------------- -->
 
 										<div class="col-sm-6">
 											<input type="text" class="form-control form-control-user"
@@ -99,8 +105,6 @@
 										</div>
 									</div>
 									<hr>
-
-
 									<select>
 										<option disabled selected="selected">Dorm</option>
 										<div th:each="dorm: ${#request.getAttribute('dorms')}">

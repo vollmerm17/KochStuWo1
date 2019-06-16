@@ -4,10 +4,9 @@
 
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <title>Search</title>
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
-
 
 </head>
 
@@ -61,7 +60,7 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
-			<!-- Addons nur für ADMIN -->
+			<!-- Addons nur fï¿½r ADMIN -->
 			<div class="sidebar-heading">Admin Center</div>
 
 			<!-- Nav Item - Charts -->
@@ -121,10 +120,10 @@
 									</tfoot>
 									<tbody>
 										<tr th:each="student : ${students}">
-											<td th:text="${student.name}"></td>
+											<td th:text="${student.firstName}"></td>
 											<td th:text="${student.diet.name}"></td>
 											<td th:text="${student.dorm.name}"></td>
-										
+
 										</tr>
 									</tbody>
 								</table>
@@ -151,7 +150,6 @@
 		</div>
 		<!-- End of Content Wrapper -->
 
-
 	</div>
 	<!-- End of Page Wrapper -->
 
@@ -169,7 +167,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">ï¿½</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready

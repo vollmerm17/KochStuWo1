@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.m3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
+
 <head>
 
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
 <title>KochStuWo - Kochen fuer Studenten im Wohnheim</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
-
 
 </head>
 
@@ -73,10 +73,10 @@
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 						<i class="fas fa-fw fa-table"></i> <span>Users</span>
 				</a></li>
-			</div>
+
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
-
+</div>
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -158,8 +158,7 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie
-									Luna</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#users}" ></span> <img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -167,7 +166,7 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" th:href="@{/profile}"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="@{/settings}"> <i
+								</a> <a class="dropdown-item" th:href="@{/settings}"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
 								</a>
@@ -303,14 +302,14 @@
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-primary"
-										th:value=${event.name}>Dinner</h6>
+										th:text="${event.name}">Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
 										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
 											style="width: 25rem;" src="img/dinner.jpg" alt="">
 									</div>
-									<p>
+									<p th:text="${event.description}">
 										Add some quality, svg illustrations to your project courtesy
 										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
 										a constantly updated collection of beautiful svg images that

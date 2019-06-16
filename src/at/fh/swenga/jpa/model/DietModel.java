@@ -1,10 +1,7 @@
 package at.fh.swenga.jpa.model;
 
 
-import java.util.HashSet;
-
 import java.io.Serializable;
-
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,14 +11,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Diet")
 
-public class DietModel {
+public class DietModel implements Serializable{
 
 	@Id
 	@Column(name = "id")
@@ -34,8 +30,10 @@ public class DietModel {
 	@Column(nullable = false, length = 50)
 	private String restriction;
 
+	@OneToMany(mappedBy = "diet", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
+	
     @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
- //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
 
     public DietModel(){
@@ -86,6 +84,18 @@ public class DietModel {
 	public void setStudents(Set<StudentModel> students) {
 		this.students = students;
 	}
+
+
+	public Set<EventModel> getEvents() {
+		return events;
+	}
+
+
+	public void setEvents(Set<EventModel> events) {
+		this.events = events;
+	}
+	
+	
 
 
 }

@@ -1,6 +1,6 @@
 package at.fh.swenga.jpa.model;
 
-import java.util.HashSet;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,14 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Dorm")
 
-public class DormModel {
+public class DormModel implements Serializable {
 	
 	@Id
 	@Column(name = "id")
@@ -35,8 +34,10 @@ public class DormModel {
 	
 	
     @OneToMany(mappedBy="dorm",fetch=FetchType.LAZY)
- //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
+    
+    @OneToMany(mappedBy = "dorm", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
 	
     public DormModel() {
 		// TODO Auto-generated constructor stub
@@ -96,5 +97,16 @@ public class DormModel {
 		this.students = students;
 	}
 
+
+	public Set<EventModel> getEvents() {
+		return events;
+	}
+
+
+	public void setEvents(Set<EventModel> events) {
+		this.events = events;
+	}
+
+	
 
 }
