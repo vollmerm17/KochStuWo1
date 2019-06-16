@@ -182,9 +182,11 @@ public class SecurityController {
 			user.setStudent(student);
 			userRepository.save(user);
 
-			model.addAttribute("message", "New user " + user.getUserName() + "added.");
+			return "login";
+			//model.addAttribute("message", "New user " + user.getUserName() + "added.");
+			
 		}
-		return "forward:login";
+		return "login";
 	}
 
 	@ExceptionHandler(Exception.class)
