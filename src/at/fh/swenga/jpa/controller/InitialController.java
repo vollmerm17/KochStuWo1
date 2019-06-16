@@ -66,7 +66,6 @@ public class InitialController {
 
 		return "initPage";
 	}
-	
 
 	public void createUserRoles() {
 		UserRoleModel adminRole = userRoleRepository.findFirstByRole("ROLE_ADMIN");
@@ -144,7 +143,7 @@ public class InitialController {
 					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
 			admin.setStudent(student3);
 			userRepository.save(admin);
-			
+
 			UserModel userModel = new UserModel(createId(2), "Maxi", "geheim2345", true);
 			userModel.encryptPassword();
 			userModel.addUserRole(userRoleRepository.findFirstById(2));
@@ -155,7 +154,7 @@ public class InitialController {
 					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
 			userModel.setStudent(student1);
 			userRepository.save(userModel);
-			
+
 			UserModel userin = new UserModel(createId(3), "Maxine", "dasGehtdichNichtsAn", true);
 			userin.encryptPassword();
 			userin.addUserRole(userRoleRepository.findFirstById(2));
