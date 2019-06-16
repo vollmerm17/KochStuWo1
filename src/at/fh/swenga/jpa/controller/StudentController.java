@@ -155,10 +155,6 @@ public class StudentController {
 		return "eventsOwn";
 	}
 
-	@RequestMapping(value = {"/uploadPicture"}, method = RequestMethod.GET)
-	public String handleUploadPicture() {
-		return "uploadPicture";
-	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model) {
@@ -211,15 +207,25 @@ public class StudentController {
 		return "forward:list";
 	}
 
-	@RequestMapping(value = "/upload", method = RequestMethod.GET)
-	public String showUploadForm(Model model, @RequestParam("id") int studentId) {
+	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.GET)
+	public String showUploadFormRecipe(Model model, @RequestParam("id") int studentId) {
 		model.addAttribute("studentId", studentId);
-		return "uploadPicture";
+		return "uploadRecipe";
+	}
+	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.GET)
+	public String showUploadFormEventPicture(Model model, @RequestParam("id") int studentId) {
+		model.addAttribute("studentId", studentId);
+		return "uploadEventPicture";
+	}
+	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.GET)
+	public String showUploadFormProfilePicture(Model model, @RequestParam("id") int studentId) {
+		model.addAttribute("studentId", studentId);
+		return "uploadProfilePicture";
 	}
 
-	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String uploadDocument(Model model, @RequestParam("id") int studentId,
-			@RequestParam("myPicture") MultipartFile file) {
+	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.POST)
+	public String uploadRecipe(Model model, @RequestParam("id") int studentId,
+			@RequestParam("myFile") MultipartFile file) {
 		try {
 
 			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
@@ -249,6 +255,74 @@ public class StudentController {
 		}
 
 		return "addEvent";
+	}
+	
+	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.POST)
+	public String uploadEventPicture(Model model, @RequestParam("id") int studentId,
+			@RequestParam("myFile") MultipartFile file) {
+		try {
+
+			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
+			if (!studentOpt.isPresent()) throw new IllegalArgumentException("No student with id "+studentId);
+
+			StudentModel student = studentOpt.get();
+
+			// Already a document available -> delete it
+			if (student.getDocument() != null) {
+				documentRepository.delete(student.getDocument());
+				// Don't forget to remove the relationship too
+				student.setDocument(null);
+			}
+
+			// Create a new document and set all available infos
+
+			DocumentModel document = new DocumentModel();
+			document.setContent(file.getBytes());
+			document.setContentType(file.getContentType());
+			document.setCreated(new Date());
+			document.setFilename(file.getOriginalFilename());
+			document.setName(file.getName());
+			student.setDocument(document);
+			studentRepository.save(student);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+		}
+
+		return "addEvent";
+	}
+	
+	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)
+	public String uploadProfilePicture(Model model, @RequestParam("id") int studentId,
+			@RequestParam("myFile") MultipartFile file) {
+		try {
+
+			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
+			if (!studentOpt.isPresent()) throw new IllegalArgumentException("No student with id "+studentId);
+
+			StudentModel student = studentOpt.get();
+
+			// Already a document available -> delete it
+			if (student.getDocument() != null) {
+				documentRepository.delete(student.getDocument());
+				// Don't forget to remove the relationship too
+				student.setDocument(null);
+			}
+
+			// Create a new document and set all available infos
+
+			DocumentModel document = new DocumentModel();
+			document.setContent(file.getBytes());
+			document.setContentType(file.getContentType());
+			document.setCreated(new Date());
+			document.setFilename(file.getOriginalFilename());
+			document.setName(file.getName());
+			student.setDocument(document);
+			studentRepository.save(student);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+		}
+
+		return "profile";
 	}
 
 
