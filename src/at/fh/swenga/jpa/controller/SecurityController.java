@@ -83,7 +83,7 @@ public class SecurityController {
 
     @GetMapping("/")
     public String root() {
-        return "index";
+    	return "index";
     }
     
     @GetMapping("/index")
@@ -94,7 +94,10 @@ public class SecurityController {
 
 	@GetMapping(value = "/login")
 	public String handleLogin() {
-		return "login";
+    	List<DormModel> test = dormRepository.findAll();
+    	if(test.size() > 0) {
+        return "login";}
+    	else {return "forward:initPage";}
 	}
 
 
