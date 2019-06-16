@@ -24,5 +24,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	@Query("SELECT u FROM UserModel u ORDER BY id DESC")
 	public List<UserModel> findAllId();
  
+	UserModel findFirstByUserName(String userName);
+	
 
 }

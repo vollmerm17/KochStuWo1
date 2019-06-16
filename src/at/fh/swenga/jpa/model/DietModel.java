@@ -34,8 +34,10 @@ public class DietModel {
 	@Column(nullable = false, length = 50)
 	private String restriction;
 
+	@OneToMany(mappedBy = "diet", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
+	
     @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
- //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
 
     public DietModel(){
@@ -86,6 +88,18 @@ public class DietModel {
 	public void setStudents(Set<StudentModel> students) {
 		this.students = students;
 	}
+
+
+	public Set<EventModel> getEvents() {
+		return events;
+	}
+
+
+	public void setEvents(Set<EventModel> events) {
+		this.events = events;
+	}
+	
+	
 
 
 }

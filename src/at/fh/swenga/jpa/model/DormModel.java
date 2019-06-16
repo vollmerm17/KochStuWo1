@@ -35,8 +35,10 @@ public class DormModel {
 	
 	
     @OneToMany(mappedBy="dorm",fetch=FetchType.LAZY)
- //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
+    
+    @OneToMany(mappedBy = "dorm", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
 	
     public DormModel() {
 		// TODO Auto-generated constructor stub
@@ -96,5 +98,16 @@ public class DormModel {
 		this.students = students;
 	}
 
+
+	public Set<EventModel> getEvents() {
+		return events;
+	}
+
+
+	public void setEvents(Set<EventModel> events) {
+		this.events = events;
+	}
+
+	
 
 }
