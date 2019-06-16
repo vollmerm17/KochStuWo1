@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:sec="http://www.springframework.org/schema/security"
 
 	xsi:schemaLocation="
@@ -30,9 +34,10 @@
 	<context:property-placeholder
 		location="classpath:db.properties" />
 
-	<sec:global-method-security secured-annotations="enabled" />
+	<sec:global-method-security
+		secured-annotations="enabled" />
 
-	<!-- - POJOs labeled with the @Controller, @Service,..... annotations are
+	<!-- - POJOs labeled with the @Controller, @Service,..... annotations are 
 		auto-detected. -->
 	<context:component-scan
 		base-package="at.fh.swenga" />
@@ -49,13 +54,11 @@
 
 	<mvc:default-servlet-handler />
 
-	<!--
-	<bean class="org.springframework.data.web.config.SpringDataWebConfiguration"/>
-	-->
+	<!-- <bean class="org.springframework.data.web.config.SpringDataWebConfiguration"/> -->
 
-		<bean id="multipartResolver"
+	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- one of the several properties available; the maximum file size in
+		<!-- one of the several properties available; the maximum file size in 
 			bytes -->
 		<property name="maxUploadSizePerFile" value="15242880" />
 	</bean>
@@ -88,7 +91,7 @@
 
 	<!-- <mvc:annotation-driven/> -->
 
-	<!-- if no Controller can handle a request, ask Servlet Container, if he
+	<!-- if no Controller can handle a request, ask Servlet Container, if he 
 		can handle it, otherwise return 404 -->
 	<mvc:default-servlet-handler />
 
@@ -112,11 +115,11 @@
 		<property name="templateResolver" ref="templateResolver" />
 		<property name="enableSpringELCompiler" value="false" />
 		<property name="additionalDialects">
-		<set>
-			<bean
-			class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
-		</set>
-	</property>
+			<set>
+				<bean
+					class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
+			</set>
+		</property>
 	</bean>
 
 	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
@@ -147,8 +150,8 @@
 		</property>
 		<property name="jpaProperties">
 			<props>
-				<!-- validate: validate the schema, makes no changes to the database.
-					update: update the schema. create: creates the schema, destroying previous
+				<!-- validate: validate the schema, makes no changes to the database. 
+					update: update the schema. create: creates the schema, destroying previous 
 					data. create-drop: drop the schema at the end of the session. -->
 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
@@ -189,7 +192,8 @@
 		class="org.springframework.mail.SimpleMailMessage">
 
 		<property name="from" value="ima@fh.com" />
-		<property name="to" value="clemens.strasser@edu.fh-joanneum.at" />
+		<property name="to"
+			value="clemens.strasser@edu.fh-joanneum.at" />
 		<property name="subject" value="Testing Subject" />
 		<property name="text">
 			<value><![CDATA[Dear %s,

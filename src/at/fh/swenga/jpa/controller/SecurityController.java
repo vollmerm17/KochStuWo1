@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DietRepository;
@@ -62,38 +64,12 @@ public class SecurityController {
 	StudentRepository studentRepo;
 
 	@Autowired
-	StudentRepository studentRepository;
-
-	@Autowired
-	InstituteRepository instituteRepository;
-
-	@Autowired
-	DietRepository dietRepository;
-
-	@Autowired
-	DormRepository dormRepository;
-
-	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
-	@Autowired
-	EventRepository eventRepository;
 
-	@Autowired
-	PositionRepository positionRepository;
-
-	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
-	public String handleLogin() {
-		return "login";
-	}
-
-	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
-	public String handleRegister() {
-		return "register";
-	}
 
 	@InitBinder
 	private void dateBinder(WebDataBinder binder) {

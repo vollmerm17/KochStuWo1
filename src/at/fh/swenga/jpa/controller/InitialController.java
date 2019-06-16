@@ -128,9 +128,8 @@ public class InitialController {
 		Date now = new Date();
 		List<UserModel> sortedUserList = userRepository.findAllId();
 		if (sortedUserList.isEmpty()) {
-			id = 1;
 
-			UserModel admin = new UserModel(id, "administrator", "password", true);
+			UserModel admin = new UserModel("administrator", "password", true);
 
 			admin.encryptPassword();
 			admin.addUserRole(userRoleRepository.findFirstById(1));
