@@ -30,19 +30,6 @@ public class StudentModel implements Serializable {
 	private int id ;
 
 
-//	@OneToOne
-//	@MapsId
-	//private UserModel user;
-//
-//	public UserModel getUser() {
-//		return this.user;
-//	}
-//
-//	public void setUser(UserModel user) {
-//		this.user = user;
-//	}
-
-
 	@Column(nullable = false, length = 30)
 	private String firstName;
 
@@ -88,11 +75,11 @@ public class StudentModel implements Serializable {
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
-
+	@OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     private UserModel user;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    
     public UserModel getUser() {
     	return this.user;
     }
@@ -123,12 +110,11 @@ public class StudentModel implements Serializable {
 		this.dorm = dorm;
 	}
 
-	
-	public StudentModel(int id,String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
+	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
 			DormModel dorm) {
 		super();
-		this.id =id;
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.streetAndNumber = streetAndNumber;
@@ -145,7 +131,7 @@ public class StudentModel implements Serializable {
 
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events, UserModel user) {
+			DormModel dorm, UserModel user) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -159,10 +145,8 @@ public class StudentModel implements Serializable {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
-		//this.events = events;
-		//this.user = user;
+		this.user = user;
 	}
-
 
 	public int getId() {
 		return id;
