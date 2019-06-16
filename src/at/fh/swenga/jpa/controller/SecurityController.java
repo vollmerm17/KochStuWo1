@@ -85,20 +85,23 @@ public class SecurityController {
 
     @GetMapping("/")
     public String root() {
+    	return "index";
+    }
+    
+    @GetMapping("/index")
+    public String handleIndex() {
+    	
         return "index";
     }
 
 	@GetMapping(value = "/login")
 	public String handleLogin() {
-		return "forward:index";
+    	List<DormModel> test = dormRepository.findAll();
+    	if(test.size() > 0) {
+        return "login";}
+    	else {return "forward:initPage";}
 	}
 
-	@PostMapping(value ="/login")
-	public String login(@RequestParam String username){
-		userRepository.findByUserName(username);
-		System.out.println(username);
-		return "forward:index";
-	}
 
 	@GetMapping("/register")
 	public String handleRegister(Model model){
@@ -184,41 +187,7 @@ public class SecurityController {
 			model.addAttribute("message", "New user " + user.getUserName() + "added.");
 		}
 		return "forward:login";
-	}/*
-		 *
-		 * @PostMapping("/register") public String registerUser(Model model, @Valid
-		 * UserModel newUser, @Valid StudentModel newStudent, BindingResult
-		 * bindingResult) {
-		 *
-		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
-		 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
-		 * fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>"; }
-		 * model.addAttribute("errorMessage", errorMessage); }
-		 *
-		 *
-		 * // StudentModel student =
-		 * studentRepo.findStudentByEmail(newStudent.getEmail()); if
-		 * (studentRepo.findStudentByEmail(newStudent.getEmail()) != null ) {
-		 * model.addAttribute("errorMessage",
-		 * "A profile with this E-Mail already exists!<br>"); } if
-		 * (newUser.getPassword().length() <= 5 ) { model.addAttribute("errorMessage",
-		 * "This Password is too short!<br>"); } // UserModel user =
-		 * userRepository.findByUsername(@RequestParam String searchString ); else if
-		 * (userRepository.findFirstById(newUser.getId()) != null) {
-		 * model.addAttribute("errorMessage", "UserModel already exists!"); } else {
-		 * UserRoleModel userRoleModel =
-		 * userRoleRepository.findFirstByRole("ROLE_USER"); if (userRoleModel == null)
-		 * userRoleModel = new UserRoleModel("ROLE_USER");
-		 *
-		 * UserModel userModel = new UserModel("user", "password", true);
-		 * userModel.encryptPassword(); userModel.addUserRole(userRoleModel);
-		 * userRepository.save(userModel);
-		 *
-		 * }
-		 *
-		 *
-		 * return "forward:index"; }
-		 */
+	}
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {

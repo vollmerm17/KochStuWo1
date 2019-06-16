@@ -133,6 +133,7 @@ public class InitialController {
 
 			admin.encryptPassword();
 			admin.addUserRole(userRoleRepository.findFirstById(1));
+			userRepository.save(admin);
 			admin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(admin);
 

@@ -35,14 +35,13 @@ public class UserModel implements Serializable {
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 
-	@Column(name = "enabled",nullable = false)
+	@Column(name = "enabled", nullable = false)
 	private boolean enabled = true;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private StudentModel student;
 
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<UserRoleModel> userRoles;
 
 	public UserModel() {
@@ -61,7 +60,8 @@ public class UserModel implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public UserModel(String userName, String password, boolean enabled, StudentModel student, Set<UserRoleModel> userRoles) {
+	public UserModel(String userName, String password, boolean enabled, StudentModel student,
+			Set<UserRoleModel> userRoles) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -107,17 +107,17 @@ public class UserModel implements Serializable {
 	}
 
 
+	public void addUserRole(UserRoleModel userRole) {
+		if (userRoles == null) {
+			userRoles = new HashSet<UserRoleModel>();
+			userRoles.add(userRole);
+		}
+	}
+
 	public Set<UserRoleModel> getUserRoles() {
 		return userRoles;
 	}
-
-	public void addUserRole(UserRoleModel userRole) {
-		if (userRoles == null)
-			userRoles = new HashSet<UserRoleModel>();
-
-
-	}
-
+	
 	public StudentModel getStudent() {
 		return student;
 	}
@@ -125,7 +125,6 @@ public class UserModel implements Serializable {
 	public void setStudent(StudentModel student) {
 		this.student = student;
 	}
-
 
 	public void encryptPassword() {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();

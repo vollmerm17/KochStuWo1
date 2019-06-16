@@ -20,10 +20,10 @@ public class PositionModel {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;	
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private StudentModel student;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private EventModel event;
 	
 

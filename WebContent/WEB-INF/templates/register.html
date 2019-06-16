@@ -116,10 +116,9 @@
 											<option th:value="${diet.name}" th:text="${diet.name}"></option>
 										</div>
 									</select> <select>
-										<option disabled selected="selected">Educational
-											Institute</option>
-										<div
-											th:each="institute: ${#request.getAttribute('institutes')}">
+
+										<option disabled selected="selected">Educational Institute</option>
+										<div th:each="institute: ${#request.getAttribute('institutes')}">
 											<option th:value="${institute.name}"
 												th:text="${institute.name}"></option>
 										</div>

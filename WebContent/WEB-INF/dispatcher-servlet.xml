@@ -8,7 +8,6 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	xmlns:sec="http://www.springframework.org/schema/security"
 
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/aop
@@ -24,18 +23,14 @@
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/data/jpa
-	    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-		http://www.springframework.org/schema/security
-		http://www.springframework.org/schema/security/spring-security.xsd">
-
-
+	    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 	<!-- Read settings from external file and replace all ${...} in the xml -->
 	<context:property-placeholder
 		location="classpath:db.properties" />
 
-	<sec:global-method-security
-		secured-annotations="enabled" />
+<!-- 	<sec:global-method-security
+		secured-annotations="enabled" /> -->
 
 	<!-- - POJOs labeled with the @Controller, @Service,..... annotations are 
 		auto-detected. -->
@@ -128,16 +123,6 @@
 
 	<!-- ################################################################ -->
 
-	<bean id="dataSource"
-		class="org.apache.commons.dbcp2.BasicDataSource">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
-		<property name="url" value="${db.url}" />
-		<property name="username" value="${db.username}" />
-		<property name="password" value="${db.password}" />
-		<property name="initialSize" value="2" />
-		<property name="maxTotal" value="5" />
-	</bean>
 
 	<bean
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"

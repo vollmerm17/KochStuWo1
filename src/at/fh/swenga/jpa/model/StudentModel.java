@@ -29,6 +29,7 @@ public class StudentModel implements Serializable {
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
 
+
 	@Column(nullable = false, length = 30)
 	private String firstName;
 
@@ -54,13 +55,13 @@ public class StudentModel implements Serializable {
 	@Column(nullable = true, length = 2)
 	private String gender;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private InstituteModel institute;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DormModel dorm;
 
 	@OneToOne(cascade = CascadeType.ALL)
@@ -74,11 +75,11 @@ public class StudentModel implements Serializable {
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
-
+	@OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     private UserModel user;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    
     public UserModel getUser() {
     	return this.user;
     }
@@ -109,12 +110,11 @@ public class StudentModel implements Serializable {
 		this.dorm = dorm;
 	}
 
-	
-	public StudentModel(int id,String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
+	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
 			DormModel dorm) {
 		super();
-		this.id =id;
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.streetAndNumber = streetAndNumber;
@@ -131,7 +131,7 @@ public class StudentModel implements Serializable {
 
 	public StudentModel(int id, String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
-			DormModel dorm, Set<EventModel> events, UserModel user) {
+			DormModel dorm, UserModel user) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -145,10 +145,8 @@ public class StudentModel implements Serializable {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
-		//this.events = events;
-		//this.user = user;
+		this.user = user;
 	}
-
 
 	public int getId() {
 		return id;
