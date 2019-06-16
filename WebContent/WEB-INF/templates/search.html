@@ -120,7 +120,7 @@
 									</tfoot>
 									<tbody>
 										<tr th:each="student : ${students}">
-											<td th:text="${student.firstName}"></td>
+											<td th:text="${student.user.userName}"></td>
 											<td th:text="${student.diet.name}"></td>
 											<td th:text="${student.dorm.name}"></td>
 

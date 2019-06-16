@@ -136,6 +136,7 @@ public class SecurityController {
 			student.setInstitute(insti);
 			student.setDiet(dieti);
 			student.setDorm(dormi);
+			student.setUser(user);
 
 			System.out.println(institute);
 			

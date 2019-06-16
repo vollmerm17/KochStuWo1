@@ -141,7 +141,9 @@ public class InitialController {
 			StudentModel student3 = new StudentModel("admin", "admin", "admin", "admin", "admin", now,
 					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
+			student3.setUser(admin);
 			admin.setStudent(student3);
+			
 			userRepository.save(admin);
 
 			UserModel userModel = new UserModel(createId(2), "Maxi", "geheim2345", true);
@@ -152,7 +154,9 @@ public class InitialController {
 			StudentModel student1 = new StudentModel("Maximillian", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "m", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
+			student1.setUser(userModel);
 			userModel.setStudent(student1);
+			
 			userRepository.save(userModel);
 
 			UserModel userin = new UserModel(createId(3), "Maxine", "dasGehtdichNichtsAn", true);
@@ -163,7 +167,9 @@ public class InitialController {
 			StudentModel student2 = new StudentModel("Maxine", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
+			student2.setUser(userin);
 			userin.setStudent(student2);
+			
 			userRepository.save(userin);
 
 		} else {
