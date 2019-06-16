@@ -28,12 +28,12 @@ public class StudentModel implements Serializable {
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
-	
+
 
 //	@OneToOne
 //	@MapsId
 	//private UserModel user;
-//	
+//
 //	public UserModel getUser() {
 //		return this.user;
 //	}
@@ -76,7 +76,7 @@ public class StudentModel implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private DormModel dorm;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private DocumentModel document;
 
@@ -90,13 +90,13 @@ public class StudentModel implements Serializable {
 
 
     private UserModel user;
-    
+
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     public UserModel getUser() {
     	return this.user;
     }
-    
+
     public void setUser(UserModel user) {
     	this.user = user;
     }
@@ -105,7 +105,7 @@ public class StudentModel implements Serializable {
 
 	public StudentModel() {
 	}
-	
+
 	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
 			DormModel dorm) {
@@ -159,10 +159,11 @@ public class StudentModel implements Serializable {
 		this.institute = institute;
 		this.diet = diet;
 		this.dorm = dorm;
-		this.events = events;
-		this.user = user;
+		//this.events = events;
+		//this.user = user;
 	}
-	
+
+
 	public int getId() {
 		return id;
 	}
@@ -288,15 +289,15 @@ public class StudentModel implements Serializable {
 		}
 		events.add(event);
 	}
-	
+
 	public DocumentModel getDocument() {
 		return document;
 	}
- 
+
 	public void setDocument(DocumentModel document) {
 		this.document = document;
 	}
- 
+
 
 	@Override
 	public int hashCode() {

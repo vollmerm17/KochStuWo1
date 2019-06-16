@@ -2,28 +2,21 @@
 <html xmlns = "http://www.m3.org/1999/xhtml"
 	xmlns:th = "http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	
+
 
 <head>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+<div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
+<title>KochStuWo - Kochen fuer Studenten im Wohnheim</title>
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
+<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-<title>KochStuWo - Kochen für Studenten im Wohnheim</title>
 
-<!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
+
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
-<!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -63,10 +56,10 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-			<li class="nav-item"><a class="nav-link" href="addEvent.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/addEvent}">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="search.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/search}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -89,20 +82,20 @@
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+				<!-- Addons nur für ADMIN -->
+				<div class="sidebar-heading">Admin Center</div>
 
-			<!-- Addons nur für ADMIN -->
-			<div class="sidebar-heading">Admin Center</div>
+				<!-- Nav Item - Charts -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
+						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+				</a></li>
 
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-			</a></li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="allUsers.html">
-					<i class="fas fa-fw fa-table"></i> <span>Users</span>
-			</a></li>
-
+				<!-- Nav Item - Tables -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
+						<i class="fas fa-fw fa-table"></i> <span>Users</span>
+				</a></li>
+			</div>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -175,66 +168,11 @@
 
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
-								<!-- Counter - Messages --> <span
-								class="badge badge-danger badge-counter">7</span>
-						</a> <!-- Dropdown - Messages -->
-							<div
-								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="messagesDropdown">
-								<h6 class="dropdown-header">Message Center</h6>
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle"
-											src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-										<div class="status-indicator bg-success"></div>
-									</div>
-									<div class="font-weight-bold">
-										<div class="text-truncate">Hi there! I am wondering if
-											you can help me with a problem I've been having.</div>
-										<div class="small text-gray-500">Emily Fowler · 58m</div>
-									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle"
-											src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-										<div class="status-indicator"></div>
-									</div>
-									<div>
-										<div class="text-truncate">I have the photos that you
-											ordered last month, how would you like them sent to you?</div>
-										<div class="small text-gray-500">Jae Chun · 1d</div>
-									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle"
-											src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-										<div class="status-indicator bg-warning"></div>
-									</div>
-									<div>
-										<div class="text-truncate">Last month's report looks
-											great, I am very happy with the progress so far, keep up the
-											good work!</div>
-										<div class="small text-gray-500">Morgan Alvarez · 2d</div>
-									</div>
-								</a> <a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle"
-											src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-										<div class="status-indicator bg-success"></div>
-									</div>
-									<div>
-										<div class="text-truncate">Am I a good boy? The reason I
-											ask is because someone told me that people say this to all
-											dogs, even if they aren't good...</div>
-										<div class="small text-gray-500">Chicken the Dog · 2w</div>
-									</div>
-								</a> <a class="dropdown-item text-center small text-gray-500"
-									href="#">Read More Messages</a>
-							</div></li>
+							class="nav-link dropdown-toggle" th:href="@{/supportMail}"
+							id="messagesDropdown" role="button" aria-expanded="false"> <i
+								class="fas fa-envelope fa-fw" th:href="@{/supportMail}"></i>
 
+						</a></li>
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
@@ -248,9 +186,9 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="profile.html"> <i
+								<a class="dropdown-item" th:href="@{/profile}"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="settings.html"> <i
+								</a> <a class="dropdown-item" href="@{/settings}"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
 								</a>
@@ -281,8 +219,9 @@
 								events you want to view!</button>
 							<div class="dropdown-menu animated--fade-in"
 								aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="#">Own Events</a> <a
-									class="dropdown-item" href="#">Attended Events</a>
+								<a class="dropdown-item" th:href="@{/eventsOwn}">Own Events</a>
+								<a class="dropdown-item" th:href="@{/eventsAttending}">Attending
+									Events</a>
 							</div>
 						</div>
 					</div>
@@ -384,7 +323,8 @@
 
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -397,9 +337,8 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
+									<a th:href="@{/eventInfo}" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -410,7 +349,8 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -423,9 +363,8 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -436,7 +375,8 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -449,91 +389,8 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-info-circle"></i>
-									</span> <span class="text">Dinner Info</span>
-									</a>
-								</div>
-
-							</div>
-						</div>
-					</div>
-					<div class="row">
-
-						<div class="col-sm-4">
-
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
-								</div>
-								<div class="card-body">
-									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
-									</div>
-									<p>
-										Add some quality, svg illustrations to your project courtesy
-										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
-										a constantly updated collection of beautiful svg images that
-										you can use completely free and without attribution!
-									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-info-circle"></i>
-									</span> <span class="text">Dinner Info</span>
-									</a>
-								</div>
-
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
-								</div>
-								<div class="card-body">
-									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
-									</div>
-									<p>
-										Add some quality, svg illustrations to your project courtesy
-										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
-										a constantly updated collection of beautiful svg images that
-										you can use completely free and without attribution!
-									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-info-circle"></i>
-									</span> <span class="text">Dinner Info</span>
-									</a>
-								</div>
-
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="card shadow mb-4">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
-								</div>
-								<div class="card-body">
-									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
-									</div>
-									<p>
-										Add some quality, svg illustrations to your project courtesy
-										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
-										a constantly updated collection of beautiful svg images that
-										you can use completely free and without attribution!
-									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -548,7 +405,8 @@
 
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -561,9 +419,8 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -574,7 +431,8 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary">Dinner</h6>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -587,9 +445,8 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -600,7 +457,8 @@
 						<div class="col-sm-4">
 							<div class="card shadow mb-4">
 								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary" th:value=${event.name}></h6>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
@@ -613,9 +471,90 @@
 										a constantly updated collection of beautiful svg images that
 										you can use completely free and without attribution!
 									</p>
-									<a href="blank.html"
-										class="btn btn-info btn-icon-split"> <span
-										class="icon text-white-50"> <i
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Dinner Info</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-sm-4">
+
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text=${event.name}>Dinner</h6>
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" src="img/dinner.jpg" alt="">
+									</div>
+									<p>
+										Add some quality, svg illustrations to your project courtesy
+										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
+										a constantly updated collection of beautiful svg images that
+										you can use completely free and without attribution!
+									</p>
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Dinner Info</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:value=${event.name}>Dinner</h6>
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" src="img/dinner.jpg" alt="">
+									</div>
+									<p>
+										Add some quality, svg illustrations to your project courtesy
+										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
+										a constantly updated collection of beautiful svg images that
+										you can use completely free and without attribution!
+									</p>
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Dinner Info</span>
+									</a>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text=${event.name}>Dinner</h6>
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" src="img/dinner.jpg" alt="">
+									</div>
+									<p>
+										Add some quality, svg illustrations to your project courtesy
+										of <a target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>,
+										a constantly updated collection of beautiful svg images that
+										you can use completely free and without attribution!
+									</p>
+									<a href="eventInfo.html" class="btn btn-info btn-icon-split">
+										<span class="icon text-white-50"> <i
 											class="fas fa-info-circle"></i>
 									</span> <span class="text">Dinner Info</span>
 									</a>
@@ -662,7 +601,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">�</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
@@ -670,28 +609,11 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+					<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin-2.min.js"></script>
-
-	<!-- Page level plugins -->
-	<script src="vendor/chart.js/Chart.min.js"></script>
-
-	<!-- Page level custom scripts -->
-	<script src="js/demo/chart-area-demo.js"></script>
-	<script src="js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>

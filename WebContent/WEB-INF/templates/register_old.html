@@ -13,19 +13,6 @@
 
 <title>Register</title>
 
-		<!--  Error message ----------------------------------------------------------- -->
-		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}" class="alert alert-danger" role="alert"></div>
-		<!--  Error message ----------------------------------------------------------- -->
-
-		<!--  Warning message ----------------------------------------------------------- -->
-		<div th:unless="${warningMessage} == null" th:utext="${warningMessage}" class="alert alert-warning" role="warning"></div>
-		<!--  Warning message ----------------------------------------------------------- -->
-
-		<!--   message ----------------------------------------------------------- -->
-		<div th:unless="${message} == null" th:utext="${message}" class="alert alert-success" role="warning"></div>
-		<!--   message ----------------------------------------------------------- -->
-
-
 <!-- Custom fonts for this template-->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
 	type="text/css">
@@ -52,9 +39,8 @@
 							<div class="text-center">
 								<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
 							</div>
-							<form th:action="@{/register}" method="POST">
+							<form th:action="@{/register}" method="post">
 								<fieldset>
-														<!-- --------------  first Name ---------------- -->
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="text" class="form-control form-control-user"
@@ -62,8 +48,6 @@
 												th:value="${student} ? ${student.firstName}"
 												th:readonly="${student}" placeholder="First Name">
 										</div>
-														<!-- --------------  last Name ---------------- -->
-
 										<div class="col-sm-6">
 											<input type="text" class="form-control form-control-user"
 												id="inputLastName" name="lastName"
@@ -73,12 +57,12 @@
 									</div>
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
-											<input type="radio" name="gender" id="inputGenderF"
+											<input type="checkbox" name="genderF" id="inputGenderF"
 												th:value="${student} ? ${student.gender}"
 												th:readonly="${student}" value="gender"> Female</input>
 										</div>
 										<div class="col-sm-6">
-											<input type="radio" name="gender" id="inputGenderM"
+											<input type="checkbox" name="genderM" id="inputGenderM"
 												th:value="${student} ? ${student.gender}"
 												th:readonly="${student}" value="gender"> Male</input>
 										</div>
@@ -87,7 +71,7 @@
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="date" class="form-control form-control-user"
 												id="inputDayOfBirth" name="dayOfBirth"
-												th:value="${student} ? ${#dates.format(student.dayOfBirth, 'dd.MM.yyyy'}"
+												th:value="${student} ? ${student.dayOfBirth}"
 												th:readonly="${student}" placeholder="Day of Birth">
 										</div>
 										<div class="col-sm-6">
@@ -113,25 +97,24 @@
 										</div>
 									</div>
 									<hr>
-									<select>
-									<option disabled selected="selected">Dorm</option>
-									<div th:each="dorm: ${#request.getAttribute('dorms')}">
-									<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
+									<div class="form-group">
+										<input type="text" class="form-control form-control-user"
+											id="inputDorm" name="dorm"
+											th:value="${student} ? ${student.dorm}"
+											th:readonly="${student}" placeholder="Dorm">
 									</div>
-									</select>
-
-									<select>
-									<option disabled selected="selected">Diet</option>
-									<div th:each="diet: ${#request.getAttribute('diets')}">
-									<option th:value="${diet.name}" th:text="${diet.name}"></option>
+									<div class="form-group">
+										<input type="text" class="form-control form-control-user"
+											id="inputDiet" name="diet"
+											th:value="${student} ? ${student.diet}"
+											th:readonly="${student}" placeholder="Diet">
 									</div>
-									</select>
-									<select>
-									<option disabled selected="selected">Educational Institute</option>
-									<div th:each="institute: ${#request.getAttribute('institutes')}">
-									<option th:value="${institute.name}" th:text="${institute.name}"></option>
+									<div class="form-group">
+										<input type="text" class="form-control form-control-user"
+											id="inputInstitute" name="institute"
+											th:value="${student} ? ${student.institute}"
+											th:readonly="${student}" placeholder="Educational Institute">
 									</div>
-									</select>
 									<hr>
 									<div class="form-group">
 										<input type="text" class="form-control form-control-user"
@@ -139,11 +122,10 @@
 											th:value="${user} ? ${user.userName}" th:readonly="${user}"
 											placeholder="Username">
 									</div>
-
 									<div class="form-group">
 										<input type="email" class="form-control form-control-user"
 											id="inputEmail" name="email"
-											th:value="${user} ? ${student.email}" th:readonly="${user}"
+											th:value="${user} ? ${user.email}" th:readonly="${user}"
 											placeholder="Email Address">
 									</div>
 									<div class="form-group row">
@@ -151,18 +133,18 @@
 											<input type="password" class="form-control form-control-user"
 												id="inputPassword" name="password"
 												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Password">
+												placeholder="Password" required>
 										</div>
 										<div class="col-sm-6">
 											<input type="password" class="form-control form-control-user"
 												id="inputRepeatPassword" name="repeatPassword"
 												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Repeat Password">
+												placeholder="Repeat Password" required>
 										</div>
 									</div>
 
-									<button type="submit"
-										class="btn btn-primary btn-user btn-block"> Register </button>
+									<a th:href="@{/login}"
+										class="btn btn-primary btn-user btn-block"> Register </a>
 								</fieldset>
 							</form>
 							<hr>
@@ -189,7 +171,7 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/sb-admin-2.min.js"></script>
-	<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
 </body>
 
 </html>

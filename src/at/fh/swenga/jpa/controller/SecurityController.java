@@ -59,13 +59,41 @@ public class SecurityController {
 	DocumentRepository documentRepository;
 
 	@Autowired
+	StudentRepository studentRepo;
+
+	@Autowired
+	StudentRepository studentRepository;
+
+	@Autowired
+	InstituteRepository instituteRepository;
+
+	@Autowired
+	DietRepository dietRepository;
+
+	@Autowired
+	DormRepository dormRepository;
+
+	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
 	@Autowired
-	StudentRepository studentRepo;
+	EventRepository eventRepository;
+
+	@Autowired
+	PositionRepository positionRepository;
+
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+	public String handleLogin() {
+		return "login";
+	}
+
+	@RequestMapping(value = { "/register" }, method = RequestMethod.GET)
+	public String handleRegister() {
+		return "register";
+	}
 
 	@InitBinder
 	private void dateBinder(WebDataBinder binder) {
@@ -76,7 +104,7 @@ public class SecurityController {
 	    //Register it as custom editor for the Date type
 	    binder.registerCustomEditor(Date.class, editor);
 	}
-	
+
     @GetMapping("/")
     public String root() {
         return "index";
@@ -86,7 +114,7 @@ public class SecurityController {
 	public String handleLogin() {
 		return "forward:index";
 	}
-	
+
 	@PostMapping(value ="/login")
 	public String login(@RequestParam String username){
 		userRepository.findByUserName(username);
@@ -96,19 +124,19 @@ public class SecurityController {
 
 	@GetMapping("/register")
 	public String handleRegister(Model model){
-		
+
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
-		
+
 		List<DietModel> diets = dietRepository.findAll();
 		model.addAttribute("diets", diets);
-		
+
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
-		
+
 		return "register";
 	}
-	
+
 	//DOB
 	//Diet
 	//Dorm
@@ -124,7 +152,7 @@ public class SecurityController {
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
 				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
 			}
-			
+
 			model.addAttribute("errorMessage", errorMessage);
 			return "register";
 		}
@@ -150,12 +178,12 @@ public class SecurityController {
 			user.encryptPassword();
 			user.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(user);
-			
+
 			InstituteModel insti = instituteRepository.findFirstByName(institute.getName());
 			DormModel dormi = dormRepository.findFirstByName(dorm.getName());
 			DietModel dieti = dietRepository.findFirstByName(diet.getName());
-			
-			
+
+
 			student = new StudentModel();
 			student.setId(user.getId());
 			student.setFirstName(studentnew.getFirstName());
@@ -171,25 +199,25 @@ public class SecurityController {
 			student.setDorm(dormi);
 
 			System.out.println(institute);
-			
+
 			user.setStudent(student);
 			userRepository.save(user);
-			
+
 			model.addAttribute("message", "New user " + user.getUserName() + "added.");
 		}
 		return "forward:login";
 	}/*
-		 * 
+		 *
 		 * @PostMapping("/register") public String registerUser(Model model, @Valid
 		 * UserModel newUser, @Valid StudentModel newStudent, BindingResult
 		 * bindingResult) {
-		 * 
+		 *
 		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
 		 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
 		 * fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>"; }
 		 * model.addAttribute("errorMessage", errorMessage); }
-		 * 
-		 * 
+		 *
+		 *
 		 * // StudentModel student =
 		 * studentRepo.findStudentByEmail(newStudent.getEmail()); if
 		 * (studentRepo.findStudentByEmail(newStudent.getEmail()) != null ) {
@@ -203,14 +231,14 @@ public class SecurityController {
 		 * UserRoleModel userRoleModel =
 		 * userRoleRepository.findFirstByRole("ROLE_USER"); if (userRoleModel == null)
 		 * userRoleModel = new UserRoleModel("ROLE_USER");
-		 * 
+		 *
 		 * UserModel userModel = new UserModel("user", "password", true);
 		 * userModel.encryptPassword(); userModel.addUserRole(userRoleModel);
 		 * userRepository.save(userModel);
-		 * 
+		 *
 		 * }
-		 * 
-		 * 
+		 *
+		 *
 		 * return "forward:index"; }
 		 */
 

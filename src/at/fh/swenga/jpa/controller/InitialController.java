@@ -51,7 +51,7 @@ public class InitialController {
 	@Autowired
 	PositionRepository positionRepository;
 
-	@RequestMapping("/initPage")
+	@RequestMapping(value = {"/initPage"})
 	public String fillData(Model model) {
 
 		this.createUserRoles();
@@ -66,7 +66,6 @@ public class InitialController {
 
 		return "initPage";
 	}
-	
 
 	public void createUserRoles() {
 		UserRoleModel adminRole = userRoleRepository.findFirstByRole("ROLE_ADMIN");
@@ -129,9 +128,9 @@ public class InitialController {
 		Date now = new Date();
 		List<UserModel> sortedUserList = userRepository.findAllId();
 		if (sortedUserList.isEmpty()) {
-			
+			id = 1;
 
-			UserModel admin = new UserModel("administrator", "password", true);
+			UserModel admin = new UserModel(id, "administrator", "password", true);
 
 			admin.encryptPassword();
 			admin.addUserRole(userRoleRepository.findFirstById(1));
@@ -144,7 +143,7 @@ public class InitialController {
 			admin.setStudent(student3);
 
 			userRepository.save(admin);
-			
+
 			UserModel user = new UserModel("Maxi", "geheim2345", true);
 			user.encryptPassword();
 			user.addUserRole(userRoleRepository.findFirstById(2));
@@ -155,7 +154,7 @@ public class InitialController {
 					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
 			user.setStudent(student1);
 			userRepository.save(user);
-			
+
 			UserModel userin = new UserModel("Maxine", "dasGehtdichNichtsAn", true);
 			userin.encryptPassword();
 			userin.addUserRole(userRoleRepository.findFirstById(2));

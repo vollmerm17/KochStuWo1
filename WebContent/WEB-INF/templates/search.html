@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.m3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
+<div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <title>Search</title>
+<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
 <!-- Custom fonts for this template -->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
@@ -64,10 +60,10 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-			<li class="nav-item"><a class="nav-link" href="addEvent.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/addEvent}">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="blank.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/search}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -78,16 +74,16 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
-			<!-- Addons nur fÃ¼r ADMIN -->
+			<!-- Addons nur für ADMIN -->
 			<div class="sidebar-heading">Admin Center</div>
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
 			</a></li>
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 					<i class="fas fa-fw fa-table"></i> <span>Users</span>
 			</a></li>
 
@@ -124,40 +120,24 @@
 									cellspacing="0">
 									<thead>
 										<tr>
-											<th>Fistname</th>
+											<th>First Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Average Points</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Firstname</th>
+											<th>First Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
-											<th>Average Points</th>
 										</tr>
 									</tfoot>
 									<tbody>
-
-										<tr>
-											<td th:value="user.name">Tiger Nixon</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
-										</tr>
-										<tr>
-											<td th:value="user.name">hallo</td>
-											<td th:value="student.diet">Vegan</td>
-											<td th:value="student.dorm">GreenBox</td>
-											<td>3</td>
-
-										<tr th:each="student : ${student}">
-											<td th:text = "${student.firstName}"></td>
-											<td th:text = "${student.diet}"></td>
-											<td th:text = "${student.dorm}"></td>
-											
-
+										<tr th:each="student : ${students}">
+											<td th:text="${student.name}"></td>
+											<td th:text="${student.diet.name}"></td>
+											<td th:text="${student.dorm.name}"></td>
+										
 										</tr>
 									</tbody>
 								</table>
@@ -184,6 +164,7 @@
 		</div>
 		<!-- End of Content Wrapper -->
 
+
 	</div>
 	<!-- End of Page Wrapper -->
 
@@ -201,7 +182,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">Ã—</span>
+						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
@@ -215,15 +196,7 @@
 		</div>
 	</div>
 
-	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
 	<script src="vendor/datatables/jquery.dataTables.min.js"></script>
