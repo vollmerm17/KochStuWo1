@@ -48,7 +48,7 @@ public class EventModel {
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private StudentModel student;
 
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)

@@ -68,13 +68,13 @@ public class StudentModel implements Serializable {
 	@Column(nullable = true, length = 2)
 	private String gender;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private InstituteModel institute;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DormModel dorm;
 
 	@OneToOne(cascade = CascadeType.ALL)

@@ -133,6 +133,7 @@ public class InitialController {
 
 			admin.encryptPassword();
 			admin.addUserRole(userRoleRepository.findFirstById(1));
+			userRepository.save(admin);
 			admin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(admin);
 
@@ -140,7 +141,6 @@ public class InitialController {
 					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
 			admin.setStudent(student3);
-
 			userRepository.save(admin);
 
 			UserModel user = new UserModel("Maxi", "geheim2345", true);
