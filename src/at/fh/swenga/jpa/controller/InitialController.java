@@ -83,7 +83,7 @@ public class InitialController {
 	}
 
 	public void createDorms() {
-		DormModel dorm1 = new DormModel("Greenbox", "tfug", "gcjszhdb");
+		DormModel dorm1 = new DormModel("Greenbox", "tfug 23", "2323 gcjszhdb");
 		dormRepository.save(dorm1);
 
 	}
@@ -139,9 +139,7 @@ public class InitialController {
 			StudentModel student3 = new StudentModel(admin.getId(),"admin", "admin", "admin", "admin", "admin", now,
 					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
-			student3.setUser(admin);
 			admin.setStudent(student3);
-
 			userRepository.save(admin);
 
 			UserModel user = new UserModel("Maxi", "geheim2345", true);
@@ -163,7 +161,7 @@ public class InitialController {
 			StudentModel student2 = new StudentModel(userin.getId(),"Maxine", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
 					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
-			student2.setUser(userin);
+			
 			userin.setStudent(student2);
 
 			userRepository.save(userin);

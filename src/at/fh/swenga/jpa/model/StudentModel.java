@@ -9,6 +9,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -18,30 +20,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 @Entity
 @Table(name = "Student")
 public class StudentModel implements Serializable {
 
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
-
-
-//	@OneToOne
-//	@MapsId
-	//private UserModel user;
-//
-//	public UserModel getUser() {
-//		return this.user;
-//	}
-//
-//	public void setUser(UserModel user) {
-//		this.user = user;
-//	}
-
 
 	@Column(nullable = false, length = 30)
 	private String firstName;
