@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -22,7 +24,7 @@ public class UserModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", insertable = true, updatable = false)
 	private int id;
 
@@ -33,8 +35,8 @@ public class UserModel implements Serializable {
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;
 
-	@Column(name = "enabled", nullable = false)
-	private boolean enabled;
+	@Column(name = "enabled",nullable = false)
+	private boolean enabled = true;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private StudentModel student;
@@ -49,7 +51,6 @@ public class UserModel implements Serializable {
 	public UserModel(String userName, String password, boolean enabled) {
 		this.userName = userName;
 		this.password = password;
-		this.enabled = enabled;
 	}
 
 	public UserModel(int id, String userName, String password, boolean enabled) {

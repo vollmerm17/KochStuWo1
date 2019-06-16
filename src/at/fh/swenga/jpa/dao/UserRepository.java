@@ -21,8 +21,18 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	@Transactional
 	public List<UserModel> findFirstById(int id);
 	
+	public UserModel findUserByUserName(String userName);
+	
 	@Query("SELECT u FROM UserModel u ORDER BY id DESC")
 	public List<UserModel> findAllId();
+	
+	public List<UserModel> findByUserName(String userName);
+	
+	/*
+	 * @Query("Select u from UserModel u where u.userName = :name") public public
+	 * List<UserModel> findByUsername();
+	 */
+	 
  
 
 }

@@ -4,6 +4,7 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:sec="http://www.springframework.org/schema/security"
 
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/aop 
@@ -20,12 +21,15 @@
 		http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/data/jpa
 	    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-		">
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd">		
+		
 
 
 	<!-- Read settings from external file and replace all ${...} in the xml -->
 	<context:property-placeholder location="classpath:db.properties" />
 
+	<sec:global-method-security secured-annotations="enabled" />
 
 	<!-- - POJOs labeled with the @Controller, @Service,..... annotations are auto-detected. -->
 	<context:component-scan base-package="at.fh.swenga" />
@@ -37,6 +41,11 @@
 
 	<!-- ################################################################ -->
 
+	<!-- JSR-303/JSR-349 support will be detected on classpath and enabled automatically -->
+	<mvc:annotation-driven />
+	
+	<mvc:default-servlet-handler />
+	
 	<!-- 
 	<bean class="org.springframework.data.web.config.SpringDataWebConfiguration"/>  
 	-->
@@ -91,7 +100,13 @@
 
 	<bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
 		<property name="templateResolver" ref="templateResolver" />
-		<property name="enableSpringELCompiler" value="true" />
+		<property name="enableSpringELCompiler" value="false" />
+		<property name="additionalDialects">
+		<set>
+			<bean
+			class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
+		</set>
+	</property>
 	</bean>
 	
 	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
@@ -122,7 +137,7 @@
 				<!-- validate: validate the schema, makes no changes to the database. 
 					update: update the schema. create: creates the schema, destroying previous 
 					data. create-drop: drop the schema at the end of the session. -->
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
@@ -132,9 +147,9 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	
 
-	
 	<tx:annotation-driven />
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 
 </beans>

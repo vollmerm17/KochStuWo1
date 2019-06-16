@@ -7,10 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import at.fh.swenga.jpa.model.InstituteModel;
 
 @Repository
+@Transactional
 
 public interface InstituteRepository extends JpaRepository<InstituteModel, Integer> {
 
-	@Transactional
+
 	InstituteModel findFirstByName(String instituteName);
 
 }

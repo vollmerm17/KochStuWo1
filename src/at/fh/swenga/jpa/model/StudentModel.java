@@ -9,8 +9,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -20,12 +18,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "Student")
 public class StudentModel implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
 	
@@ -65,7 +65,7 @@ public class StudentModel implements Serializable {
 	@Column(nullable = false, length = 40)
 	private String email;
 
-	@Column(nullable = false, length = 2)
+	@Column(nullable = true, length = 2)
 	private String gender;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -110,6 +110,25 @@ public class StudentModel implements Serializable {
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
 			DormModel dorm) {
 		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.streetAndNumber = streetAndNumber;
+		this.cityAndPostalCode = cityAndPostalCode;
+		this.phoneNumber = phoneNumber;
+		this.dayOfBirth = dayOfBirth;
+		this.email = email;
+		this.gender = gender;
+		this.institute = institute;
+		this.diet = diet;
+		this.dorm = dorm;
+	}
+
+	
+	public StudentModel(int id,String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
+			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
+			DormModel dorm) {
+		super();
+		this.id =id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.streetAndNumber = streetAndNumber;
