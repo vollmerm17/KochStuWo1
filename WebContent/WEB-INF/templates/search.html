@@ -4,23 +4,9 @@
 
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <title>Search</title>
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
-
-<!-- Custom fonts for this template -->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-<!-- Custom styles for this page -->
-<link href="vendor/datatables/dataTables.bootstrap4.min.css"
-	rel="stylesheet">
 
 </head>
 
@@ -74,7 +60,7 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 
-			<!-- Addons nur für ADMIN -->
+			<!-- Addons nur fï¿½r ADMIN -->
 			<div class="sidebar-heading">Admin Center</div>
 
 			<!-- Nav Item - Charts -->
@@ -134,10 +120,10 @@
 									</tfoot>
 									<tbody>
 										<tr th:each="student : ${students}">
-											<td th:text="${student.name}"></td>
+											<td th:text="${student.firstName}"></td>
 											<td th:text="${student.diet.name}"></td>
 											<td th:text="${student.dorm.name}"></td>
-										
+
 										</tr>
 									</tbody>
 								</table>
@@ -164,7 +150,6 @@
 		</div>
 		<!-- End of Content Wrapper -->
 
-
 	</div>
 	<!-- End of Page Wrapper -->
 
@@ -182,7 +167,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">ï¿½</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
@@ -197,13 +182,6 @@
 	</div>
 
 
-
-	<!-- Page level plugins -->
-	<script src="vendor/datatables/jquery.dataTables.min.js"></script>
-	<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-	<!-- Page level custom scripts -->
-	<script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

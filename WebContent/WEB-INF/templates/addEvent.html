@@ -3,16 +3,14 @@
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>Your Event</title>
+<title>Create an Event</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
 
 
 </head>
-
 
 
 <body id="page-top">
@@ -39,9 +37,9 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link" href="index.html">
-					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span>
-			</a></li>
+			<li class="nav-item active"><a class="nav-link"
+				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
+			</li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -51,10 +49,10 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-			<li class="nav-item"><a class="nav-link" href="addEvent.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/addEvent}">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="blank.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/search}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -64,20 +62,20 @@
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+				<!-- Addons nur für ADMIN -->
+				<div class="sidebar-heading">Admin Center</div>
 
-			<!-- Addons nur für ADMIN -->
-			<div class="sidebar-heading">Admin Center</div>
+				<!-- Nav Item - Charts -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
+						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+				</a></li>
 
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-			</a></li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i> <span>Users</span>
-			</a></li>
-
+				<!-- Nav Item - Tables -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
+						<i class="fas fa-fw fa-table"></i> <span>Users</span>
+				</a></li>
+			</div>
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -88,8 +86,6 @@
 
 		</ul>
 		<!-- End of Sidebar -->
-
-
 
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
@@ -150,15 +146,13 @@
 							</div></li>
 
 
-
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="supportMail.html"
+							class="nav-link dropdown-toggle" th:href="@{/supportMail}"
 							id="messagesDropdown" role="button" aria-expanded="false"> <i
-								class="fas fa-envelope fa-fw" href="supportMail.html"></i>
+								class="fas fa-envelope fa-fw" th:href="@{/supportMail}"></i>
 
 						</a></li>
-
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
@@ -173,9 +167,9 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> <i
+								<a class="dropdown-item" th:href="@{/profile}"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="#"> <i
+								</a> <a class="dropdown-item" href="@{/settings}"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
 								</a>
@@ -199,10 +193,10 @@
 					<div class="container bootstrap snippet">
 						<div class="row">
 							<div class="col-sm-10">
-								<h1>Create your own dinner!</h1>
+								<h1>Create an Event!</h1>
 							</div>
 							<div class="col-sm-2">
-								<a href="#" class="pull-right"><img title="addEvent"
+								<a href="#" class="pull-right"><img title="profile image"
 									class="img-circle img-responsive"
 									src="https://image.flaticon.com/icons/svg/113/113339.svg"></a>
 							</div>
@@ -210,135 +204,113 @@
 
 						<div class="row">
 							<div class="col-sm-3">
+								<!--left col-->
 								<div class="text-center">
-									<img src="img/defaultEvent.gif"
+									<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
 										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
-									<br>
-								</div>
-								<div class="text-center">
-									<a th:href="#" class="btn btn-secondary btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload a picture</span>
-									</a>
-								</div>
-								<div class="text-center">
-									<br> <a th:href="#"
+									<br> <a th:href="@{/uploadRecipe}"
 										class="btn btn-secondary btn-icon-split"> <span
 										class="icon text-white-50"> <i
 											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload a recipe</span>
+									</span> <span class="text">Upload a recipe!</span>
+									</a> <br> <br> <a th:href="@{/uploadEventPicture}"
+										class="btn btn-secondary btn-icon-split"> <span
+										class="icon text-white-50"> <i
+											class="fas fa-arrow-right"></i>
+									</span> <span class="text">Upload a event picture!</span>
 									</a>
 								</div>
-
-
-
-
+								</hr>
+								<br>
 							</div>
 							<!--/col-3-->
 							<div class="col-sm-9">
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
-										<form class="form" action="##" method="post" id="registrationForm">
+										<form class="form" action="##" method="post"
+											id="registrationForm">
 											<div class="form-group">
-
 												<div class="col-xs-6">
 													<label for="inputName"><h4>Title</h4></label> <input
 														type="text" class="form-control" id="inputName"
 														name="name" th:value="${event} ? ${event.name}"
-														th:readonly="${event}"
-														placeholder="Spaghetti Bolognese bei Anna"
-														title="enter the title of your event">
-												</div>
-											</div>
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputDestination"><h4>Destination</h4></label>
-													<input type="text" class="form-control"
-														id="inputDestination" name="destination"
-														th:value="${event} ? ${event.destination}"
-														th:readonly="${destination}"
-														placeholder="GreenBox Wiener Strasse"
-														title="enter the destination of your event">
-
+														th:readonly="${event}" placeholder="Spaghetti bei Anna"
+														title="enter your title">
 												</div>
 											</div>
 
 
-											<div class="form-group">
-												<div class="col-xs-6">
-													<label for="inputDate"><h4>Date</h4></label> <input
-														type="date" class="form-control form-control-user"
-														id="inputDayOfEvent" name="dayOfEvent"
-														th:value="${event} ? ${#dates.format(event.dayOfEvent, 'dd.MM.yyyy'}"
-														th:readonly="${event}" placeholder="Day of Event">
 
-												</div>
+											<div class="col-xs-6">
+												<label for="inputDescription"><h4>Description</h4></label> <input
+													type="text" class="form-control" name="description"
+													id="inputDescription"
+													th:value="${event} ? ${event.description}"
+													th:readonly="${event}"
+													placeholder="Spaghetti Bolognese mit Parmesan"
+													title="enter your description">
 											</div>
-
-
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputTime"><h4>Time</h4></label> <input
-														type="time" class="form-control"
-														name="time" id="inputTime"
-														th:value="${event} ? ${event.timeOfEvent}"
-														th:readonly="${event}" placeholder="hh:mm">
-												</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="inputDayOfEvent"><h4>Day of Event</h4></label> <input
+													type="date" class="form-control" name="dayOfEvent"
+													id="inputDayOfEvent"
+													th:value="${event} ? ${event.dayOfEvent}"
+													th:readonly="${event}" title="enter your day of event"
+													placeholder="dd-mm-yyyy">
 											</div>
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputDescription"><h4>Description</h4></label>
-													<input type="text" class="form-control" name="description"
-														id="inputDescription"
-														th:value="${event} ? ${event.description}"
-														th:readonly="${event}"
-														placeholder="Enter a description of your event!"
-														title="enter a description to your event">
-												</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="inputTimeOfEvent"><h4>Time of Event</h4></label>
+												<input type="time" class="form-control" name="timeOfEvent"
+													id="inputTimeOfEvent"
+													th:value="${event} ? ${event.timeOfEvent}"
+													th:readonly="${event}" title="enter your time of event"
+													placeholder="hh:mm">
 											</div>
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="dietName"><h4>Diet</h4></label> <br>
-													<select>
-														<option disabled selected="selected">Diet</option>
-														<div th:each="diet: ${#request.getAttribute('diets')}">
-															<option th:value="${diet.name}" th:text="${diet.name}"></option>
-														</div>
-													</select>
-												</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="dormName"><h4>Destination</h4></label> <br>
+												<select>
+													<option disabled selected="selected">Dorm</option>
+													<div th:each="dorm: ${#request.getAttribute('dorms')}">
+														<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
+													</div>
+												</select>
 											</div>
-
-											<div class="form-group">
-
-												<div class="col-xs-6">
-													<label for="inputAttendeesMax"><h4>Maximum
-															Attendees</h4></label> <input type="attendeesMax" class="form-control"
-														name="text" id="inputAttendeesMax"
-														th:value="${event} ? ${event.attendeesMax}"
-														th:readonly="${diet}" placeholder="5"
-														title="enter the maximum amount of guests to your event">
-												</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="dietName"><h4>Diet</h4></label> <br>
+												<select>
+													<option disabled selected="selected">Diet</option>
+													<div th:each="diet: ${#request.getAttribute('diets')}">
+														<option th:value="${diet.name}" th:text="${diet.name}"></option>
+													</div>
+												</select>
 											</div>
-											</form>
+											<br>
+											<div class="col-xs-6">
+												<label for="inputAttendeesMax"><h4>Maximum of
+														Attendees</h4></label> <input type="text" class="form-control"
+													name="attendeesMax" id="inputAttendeesMax"
+													th:value="${event} ? ${event.attendeesMax}"
+													th:readonly="${event}" title="enter yourdescription"
+													placeholder="5">
+											</div>
+											<br>
+										</form>
 									</div>
 
 									<div class="form-group">
 										<div class="col-xs-12">
-											<br>
-											<button class="btn btn-lg btn-success" type="submit"
-												th:href="@{/addEvent}">
-												<i class="glyphicon glyphicon-ok-sign"></i> Save
-											</button>
-
-											<button class="btn btn-lg" type="cancel">
-												<i class="glyphicon glyphicon-repeat"></i> Cancel
-											</button>
+											<br> <a href="#"
+												class="btn btn-success btn-circle btn-lg"> <i
+												class="fas fa-check"></i>
+											</a>&emsp;&emsp;<a href="#"
+												class="btn btn-danger btn-circle btn-lg"> <i
+												class="fas fa-trash"></i>
+											</a>
 										</div>
 									</div>
 									</form>
@@ -347,8 +319,6 @@
 
 							</div>
 							<!-- End of Main Content -->
-
-
 
 							<!-- Footer -->
 							<footer class="sticky-footer bg-white">
@@ -395,8 +365,6 @@
 							</div>
 						</div>
 					</div>
-
-
 </body>
 
 </html>

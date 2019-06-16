@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-	
+
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
 <title>Your Profile</title>
@@ -9,15 +9,6 @@
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
 
-<!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
-	type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -202,10 +193,9 @@
 					<div class="container bootstrap snippet">
 						<div class="row">
 							<div class="col-sm-10">
-
+								<h1>Your Profile!</h1>
 							</div>
 							<div class="col-sm-2">
-
 								<a href="#" class="pull-right"><img title="profile image"
 									class="img-circle img-responsive"
 									src="https://image.flaticon.com/icons/svg/113/113339.svg"></a>
@@ -218,8 +208,9 @@
 								<div class="text-center">
 									<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
 										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
-									<br> <a href="@{/uploadPicture}" class="btn btn-secondary btn-icon-split">
-										<span class="icon text-white-50"> <i
+									<br> <a th:href="@{/uploadProfilePicture}"
+										class="btn btn-secondary btn-icon-split"> <span
+										class="icon text-white-50"> <i
 											class="fas fa-arrow-right"></i>
 									</span> <span class="text">Upload a profile picture!</span>
 									</a>
@@ -243,26 +234,20 @@
 							</div>
 							<!--/col-3-->
 							<div class="col-sm-9">
-
-
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
-										<form class="form" action="##" method="post" id="registrationForm">
+										<form class="form" action="##" method="post"
+											id="registrationForm">
 											<div class="form-group">
 												<div class="col-xs-6">
 													<label for="inputUserName"><h4>User Name</h4></label> <input
 														type="text" class="form-control" id="inputUserName"
-														name="lastName"
-														th:value="${user} ? ${user.userName}"
-														th:readonly="${user}"
-														placeholder="ClaudiaVoe1234"
+														name="lastName" th:value="${user} ? ${user.userName}"
+														th:readonly="${user}" placeholder="ClaudiaVoe1234"
 														title="enter your user name">
 												</div>
 											</div>
-
-
-
 											<div class="col-xs-6">
 												<label for="email"><h4>Email</h4></label> <input
 													type="email" class="form-control" name="email"
@@ -272,24 +257,35 @@
 											</div>
 											<br>
 											<div class="col-xs-6">
-												<label for="dormName"><h4>Dorm</h4></label> <br><select>
-														<option disabled selected="selected">Diet</option>
-														<div th:each="dorm: ${#request.getAttribute('dorms')}">
-															<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
-														</div>
-													</select>
+												<label for="dormName"><h4>Dorm</h4></label> <br> <select>
+													<option disabled selected="selected">Diet</option>
+													<div th:each="dorm: ${#request.getAttribute('dorms')}">
+														<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
+													</div>
+												</select>
 											</div>
 											<br>
+											<div class="dropdown mb-4">
+											<label for="dropdownMenuButton"><h4>Institute</h4></label><br>
+												<button class="btn btn-primary dropdown-toggle"
+													type="button" id="dropdownMenuButton"
+													data-toggle="dropdown" aria-haspopup="true"
+													aria-expanded="false">Select your institute</button>
+												<div class="dropdown-menu animated--fade-in"
+													aria-labelledby="dropdownMenuButton" th:each="dorm: ${#request.getAttribute('dorms')}">
+													<option class="dropdown-item" th:value="${dorm.name}" th:text="${dorm.name}"></option> 
+												</div>
+											</div>
 											<div class="col-xs-6">
-												<label for="dietName"><h4>Diet</h4></label> <br><select>
-														<option disabled selected="selected">Diet</option>
-														<div th:each="diet: ${#request.getAttribute('diets')}">
-															<option th:value="${diet.name}" th:text="${diet.name}"></option>
-														</div>
-													</select>
+												<label for="dietName"><h4>Diet</h4></label> <br> <select>
+													<option disabled selected="selected">Diet</option>
+													<div th:each="diet: ${#request.getAttribute('diets')}">
+														<option th:value="${diet.name}" th:text="${diet.name}"></option>
+													</div>
+												</select>
 											</div>
 											<br>
-											</form>
+										</form>
 									</div>
 
 									<div class="form-group">
@@ -358,7 +354,6 @@
 							</div>
 						</div>
 					</div>
-
 </body>
 
 </html>
