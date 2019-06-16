@@ -9,17 +9,22 @@
 <title>Register</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
-		<!--  Error message ----------------------------------------------------------- -->
-		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}" class="alert alert-danger" role="alert"></div>
-		<!--  Error message ----------------------------------------------------------- -->
 
-		<!--  Warning message ----------------------------------------------------------- -->
-		<div th:unless="${warningMessage} == null" th:utext="${warningMessage}" class="alert alert-warning" role="warning"></div>
-		<!--  Warning message ----------------------------------------------------------- -->
 
-		<!--   message ----------------------------------------------------------- -->
-		<div th:unless="${message} == null" th:utext="${message}" class="alert alert-success" role="warning"></div>
-		<!--   message ----------------------------------------------------------- -->
+<!--  Error message ----------------------------------------------------------- -->
+<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+	class="alert alert-danger" role="alert"></div>
+<!--  Error message ----------------------------------------------------------- -->
+
+<!--  Warning message ----------------------------------------------------------- -->
+<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+	class="alert alert-warning" role="warning"></div>
+<!--  Warning message ----------------------------------------------------------- -->
+
+<!--   message ----------------------------------------------------------- -->
+<div th:unless="${message} == null" th:utext="${message}"
+	class="alert alert-success" role="warning"></div>
+<!--   message ----------------------------------------------------------- -->
 
 
 
@@ -41,7 +46,7 @@
 							</div>
 							<form th:action="@{/register}" method="POST">
 								<fieldset>
-														<!-- --------------  first Name ---------------- -->
+									<!-- --------------  first Name ---------------- -->
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="text" class="form-control form-control-user"
@@ -49,7 +54,7 @@
 												th:value="${student} ? ${student.firstName}"
 												th:readonly="${student}" placeholder="First Name">
 										</div>
-														<!-- --------------  last Name ---------------- -->
+										<!-- --------------  last Name ---------------- -->
 
 										<div class="col-sm-6">
 											<input type="text" class="form-control form-control-user"
@@ -101,23 +106,23 @@
 									</div>
 									<hr>
 									<select>
-									<option disabled selected="selected">Dorm</option>
-									<div th:each="dorm: ${#request.getAttribute('dorms')}">
-									<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
-									</div>
-									</select>
-
-									<select>
-									<option disabled selected="selected">Diet</option>
-									<div th:each="diet: ${#request.getAttribute('diets')}">
-									<option th:value="${diet.name}" th:text="${diet.name}"></option>
-									</div>
-									</select>
-									<select>
-									<option disabled selected="selected">Educational Institute</option>
-									<div th:each="institute: ${#request.getAttribute('institutes')}">
-									<option th:value="${institute.name}" th:text="${institute.name}"></option>
-									</div>
+										<option disabled selected="selected">Dorm</option>
+										<div th:each="dorm: ${#request.getAttribute('dorms')}">
+											<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
+										</div>
+									</select> <select>
+										<option disabled selected="selected">Diet</option>
+										<div th:each="diet: ${#request.getAttribute('diets')}">
+											<option th:value="${diet.name}" th:text="${diet.name}"></option>
+										</div>
+									</select> <select>
+										<option disabled selected="selected">Educational
+											Institute</option>
+										<div
+											th:each="institute: ${#request.getAttribute('institutes')}">
+											<option th:value="${institute.name}"
+												th:text="${institute.name}"></option>
+										</div>
 									</select>
 									<hr>
 									<div class="form-group">
@@ -149,7 +154,7 @@
 									</div>
 
 									<button type="submit"
-										class="btn btn-primary btn-user btn-block"> Register </button>
+										class="btn btn-primary btn-user btn-block">Register</button>
 								</fieldset>
 							</form>
 							<hr>
