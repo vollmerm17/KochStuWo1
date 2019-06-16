@@ -44,7 +44,7 @@ public class EventModel {
 	@Column(nullable = false, length = 50)
 	private String destination;
 	
-
+	
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
 
@@ -52,7 +52,6 @@ public class EventModel {
 	private StudentModel student;
 
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
-//	@OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
 	public EventModel() {
