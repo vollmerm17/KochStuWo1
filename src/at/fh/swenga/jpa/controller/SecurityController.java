@@ -115,14 +115,10 @@ public class SecurityController {
 	// DOB
 	// Diet
 	// Dorm
-	// Gender
 	// Institute
-	// gender
 	@PostMapping("/register")
-	public String register(@Valid UserModel usernew, BindingResult userResult, @Valid InstituteModel institute,
-			BindingResult instituteResult, @Valid StudentModel studentnew, BindingResult studentResult,
-			@Valid DietModel diet, BindingResult dietResult, @Valid DormModel dorm, BindingResult dormResult,
-			Model model) throws ParseException {
+	public String register(@Valid UserModel usernew, BindingResult userResult,
+			@Valid StudentModel studentnew,	Model model, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId) throws ParseException {
 
 		if (userResult.hasErrors()) {
 			String errorMessage = "";
@@ -133,46 +129,7 @@ public class SecurityController {
 			model.addAttribute("errorMessage", errorMessage);
 			return "register";
 		}
-
-		if (studentResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : studentResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
-			}
-
-			model.addAttribute("errorMessage", errorMessage);
-			return "register";
-		}
-
-		if (instituteResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : instituteResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
-			}
-
-			model.addAttribute("errorMessage", errorMessage);
-			return "register";
-		}
-		if (dormResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : dormResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
-			}
-
-			model.addAttribute("errorMessage", errorMessage);
-			return "register";
-		}
-
-		if (dietResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : dietResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
-			}
-
-			model.addAttribute("errorMessage", errorMessage);
-			return "register";
-		}
-
+		
 		UserModel user = userRepository.findUserByUserName(usernew.getUserName());
 		StudentModel student = studentRepository.findStudentByEmail(studentnew.getEmail());
 
@@ -195,9 +152,9 @@ public class SecurityController {
 			user.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(user);
 
-			InstituteModel insti = instituteRepository.findFirstByName(institute.getName());
-			DormModel dormi = dormRepository.findFirstByName(dorm.getName());
-			DietModel dieti = dietRepository.findFirstByName(diet.getName());
+			InstituteModel insti = instituteRepository.getOne(instituteId);
+			DormModel dormi = dormRepository.getOne(dormId);
+			DietModel dieti = dietRepository.getOne(dietId);
 
 			student = new StudentModel();
 			student.setId(user.getId());
@@ -212,8 +169,6 @@ public class SecurityController {
 			student.setInstitute(insti);
 			student.setDiet(dieti);
 			student.setDorm(dormi);
-
-			System.out.println(institute);
 
 			user.setStudent(student);
 			userRepository.save(user);
