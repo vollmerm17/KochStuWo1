@@ -65,7 +65,7 @@ public class StudentController {
 	@Autowired
 	DocumentRepository documentRepository;
 
-	/* eigener Controller f�r Request Mappings? */
+	/* eigener Controller fuer Request Mappings? */
 
 
 	@RequestMapping(value = { "/getPage" })
@@ -126,7 +126,17 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = { "/profile" }, method = RequestMethod.GET)
-	public String handleProfile() {
+	public String handleProfile(Model model) {
+		
+		List<DormModel> dorms = dormRepository.findAll();
+		model.addAttribute("dorms", dorms);
+
+		List<DietModel> diets = dietRepository.findAll();
+		model.addAttribute("diets", diets);
+
+		List<InstituteModel> institutes = instituteRepository.findAll();
+		model.addAttribute("institutes", institutes);
+		
 		return "profile";
 	}
 

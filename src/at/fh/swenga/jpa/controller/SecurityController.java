@@ -94,7 +94,7 @@ public class SecurityController {
         return "index";
     }
 
-	@GetMapping(value = "/login")
+    @GetMapping(value = "/login")
 	public String handleLogin() {
     	List<DormModel> test = dormRepository.findAll();
     	if(test.size() > 0) {
@@ -118,12 +118,9 @@ public class SecurityController {
 		return "register";
 	}
 
-	//DOB
-	//Diet
-	//Dorm
-	//Gender
-	//Institute
-	//gender
+
+	
+	
 	@PostMapping("/register")
 	public String register (@Valid UserModel usernew,@Valid InstituteModel institute,@Valid StudentModel studentnew,@Valid DietModel diet,@Valid DormModel dorm, BindingResult bindingResult,
 			Model model) throws ParseException {
@@ -184,9 +181,10 @@ public class SecurityController {
 			user.setStudent(student);
 			userRepository.save(user);
 
-			model.addAttribute("message", "New user " + user.getUserName() + "added.");
+			return "login";
+			
 		}
-		return "forward:login";
+		return "login";
 	}
 
 	@ExceptionHandler(Exception.class)

@@ -63,7 +63,7 @@
 			<!-- Divider -->
 			<hr class="sidebar-divider">
 			<div sec:authorize="hasRole('ROLE_ADMIN')">
-				<!-- Addons nur für ADMIN -->
+				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
 
 				<!-- Nav Item - Charts -->
@@ -75,10 +75,10 @@
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 						<i class="fas fa-fw fa-table"></i> <span>Users</span>
 				</a></li>
-			</div>
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
 
+				<!-- Divider -->
+				<hr class="sidebar-divider d-none d-md-block">
+			</div>
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -271,9 +271,9 @@
 												</div>
 												<br>
 												<div class="col-xs-6">
-													<label for="dormName"><h4>Destination</h4></label> <br>
-													<select>
-														<option disabled selected="selected">Dorm</option>
+													<label for="dormName"><h4>Dorm</h4></label> <br> <select
+														class="browser-default custom-select">
+														<option selected>Select your dorm</option>
 														<div th:each="dorm: ${#request.getAttribute('dorms')}">
 															<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
 														</div>
@@ -281,8 +281,9 @@
 												</div>
 												<br>
 												<div class="col-xs-6">
-													<label for="dietName"><h4>Diet</h4></label> <br> <select>
-														<option disabled selected="selected">Diet</option>
+													<label for="dietName"><h4>Diet</h4></label> <br> <select
+														class="browser-default custom-select">
+														<option selected>Select your diet</option>
 														<div th:each="diet: ${#request.getAttribute('diets')}">
 															<option th:value="${diet.name}" th:text="${diet.name}"></option>
 														</div>
@@ -299,73 +300,72 @@
 												</div>
 												<br>
 
-									</div>
+												<div class="form-group">
+													<div class="col-xs-12">
+														<br> <a th:href="@{/addEvent}"
+															class="btn btn-success btn-circle btn-lg"> <i
+															class="fas fa-check" type="submit"></i>
+														</a>&emsp;&emsp;<a href="#"
+															class="btn btn-danger btn-circle btn-lg"> <i
+															class="fas fa-trash"></i>
+														</a>
+													</div>
+													
+												</div>
+											</fieldset>
 
-									<div class="form-group">
-										<div class="col-xs-12">
-											<br> <a href="#"
-												class="btn btn-success btn-circle btn-lg"> <i
-												class="fas fa-check"></i>
-											</a>&emsp;&emsp;<a href="#"
-												class="btn btn-danger btn-circle btn-lg"> <i
-												class="fas fa-trash"></i>
-											</a>
+										</form>
+									</div>
+									<!-- /.container-fluid -->
+
+								</div>
+								<!-- End of Main Content -->
+
+								<!-- Footer -->
+								<footer class="sticky-footer bg-white">
+									<div class="container my-auto">
+										<div class="copyright text-center my-auto">
+											<span>Copyright &copy; KochStuWo 2019</span>
 										</div>
 									</div>
-									</fieldset>
-
-									</form>
-								</div>
-								<!-- /.container-fluid -->
+								</footer>
+								<!-- End of Footer -->
 
 							</div>
-							<!-- End of Main Content -->
+							<!-- End of Content Wrapper -->
 
-							<!-- Footer -->
-							<footer class="sticky-footer bg-white">
-								<div class="container my-auto">
-									<div class="copyright text-center my-auto">
-										<span>Copyright &copy; KochStuWo 2019</span>
+						</div>
+						<!-- End of Page Wrapper -->
+
+						<!-- Scroll to Top Button-->
+						<a class="scroll-to-top rounded" href="#page-top"> <i
+							class="fas fa-angle-up"></i>
+						</a>
+
+						<!-- Logout Modal-->
+						<div class="modal fade" id="logoutModal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Ready to
+											Leave?</h5>
+										<button class="close" type="button" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">×</span>
+										</button>
+									</div>
+									<div class="modal-body">Select "Logout" below if you are
+										ready to end your current session.</div>
+									<div class="modal-footer">
+										<button class="btn btn-secondary" type="button"
+											data-dismiss="modal">Cancel</button>
+										<a class="btn btn-primary" href="login.html">Logout</a>
 									</div>
 								</div>
-							</footer>
-							<!-- End of Footer -->
-
-						</div>
-						<!-- End of Content Wrapper -->
-
-					</div>
-					<!-- End of Page Wrapper -->
-
-					<!-- Scroll to Top Button-->
-					<a class="scroll-to-top rounded" href="#page-top"> <i
-						class="fas fa-angle-up"></i>
-					</a>
-
-					<!-- Logout Modal-->
-					<div class="modal fade" id="logoutModal" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalLabel"
-						aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Ready to
-										Leave?</h5>
-									<button class="close" type="button" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">×</span>
-									</button>
-								</div>
-								<div class="modal-body">Select "Logout" below if you are
-									ready to end your current session.</div>
-								<div class="modal-footer">
-									<button class="btn btn-secondary" type="button"
-										data-dismiss="modal">Cancel</button>
-									<a class="btn btn-primary" href="login.html">Logout</a>
-								</div>
 							</div>
 						</div>
-					</div>
 </body>
 
 </html>

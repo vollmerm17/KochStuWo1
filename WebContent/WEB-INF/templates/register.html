@@ -45,7 +45,6 @@
 								<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
 							</div>
 							<form th:action="@{/register}" method="POST">
-								<fieldset>
 									<!-- --------------  first Name ---------------- -->
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
@@ -116,7 +115,6 @@
 											<option th:value="${diet.name}" th:text="${diet.name}"></option>
 										</div>
 									</select> <select>
-
 										<option disabled selected="selected">Educational Institute</option>
 										<div th:each="institute: ${#request.getAttribute('institutes')}">
 											<option th:value="${institute.name}"
@@ -152,9 +150,8 @@
 										</div>
 									</div>
 
-									<button type="submit"
-										class="btn btn-primary btn-user btn-block">Register</button>
-								</fieldset>
+									<button th:href="@{/login}"
+										class="btn btn-primary btn-user btn-block" type="submit">Register</button>
 							</form>
 							<hr>
 							<div class="text-center">
