@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,18 +40,19 @@ public class EventModel {
 	@Temporal(TemporalType.TIME)
 	private Date timeOfEvent;
 	
-	@Column(nullable = false, length = 50)
-	private String destination;
-	
-
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private DormModel dorm;
+	
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private DietModel diet;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private StudentModel student;
 
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
-//	@OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
 	public EventModel() {
@@ -61,14 +61,15 @@ public class EventModel {
 
 	
 
-	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, String destination,
+	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, StudentModel student) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.dayOfEvent = dayOfEvent;
 		this.timeOfEvent = timeOfEvent;
-		this.destination = destination;
+		this.dorm = dorm;
+		this.diet = diet;
 		this.attendeesMax = attendeesMax;
 		this.student = student;
 	}
@@ -129,14 +130,29 @@ public class EventModel {
 
 
 
-	public String getDestination() {
-		return destination;
+	
+	
+
+	public DormModel getDorm() {
+		return dorm;
 	}
 
 
 
-	public void setDestination(String destination) {
-		this.destination = destination;
+	public void setDorm(DormModel dorm) {
+		this.dorm = dorm;
+	}
+
+
+
+	public DietModel getDiet() {
+		return diet;
+	}
+
+
+
+	public void setDiet(DietModel diet) {
+		this.diet = diet;
 	}
 
 
@@ -177,7 +193,7 @@ public class EventModel {
 	@Override
 	public String toString() {
 		return "EventModel [id=" + id + ", name=" + name + ", description=" + description + ", dayOfEvent=" + dayOfEvent
-				+ ", timeOfEvent=" + timeOfEvent + ", destination=" + destination + ", attendeesMax=" + attendeesMax
+				+ ", timeOfEvent=" + timeOfEvent + ", dorm=" + dorm + ", attendeesMax=" + attendeesMax
 				+ ", student=" + student + ", positions=" + positions + "]";
 	}
 

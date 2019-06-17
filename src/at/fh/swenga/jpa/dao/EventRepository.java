@@ -13,4 +13,5 @@ public interface EventRepository extends JpaRepository<EventModel, Integer> {
 	@Transactional
 	EventModel findFirstByName(String eventName);
 
+	
 }

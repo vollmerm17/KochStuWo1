@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -85,7 +87,7 @@ public class SecurityController {
 		return "index";
 	}
 
-	@GetMapping(value = "/login")
+    @GetMapping(value = "/login")
 	public String handleLogin() {
 		List<DormModel> test = dormRepository.findAll();
 		if (test.size() > 0) {
@@ -217,7 +219,6 @@ public class SecurityController {
 			userRepository.save(user);
 
 			return "login";
-			// model.addAttribute("message", "New user " + user.getUserName() + "added.");
 
 		}
 		return "login";

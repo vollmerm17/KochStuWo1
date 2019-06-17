@@ -19,7 +19,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<ul
+				<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
@@ -49,10 +49,10 @@
 
 			<!-- Nav Item - Pages Collapse Menu -->
 			<li class="nav-item">
-			<li class="nav-item"><a class="nav-link" href="addEvent.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/addEvent}">
 					<i class="fas fa-fw fa-table"></i> <span>Add Event</span>
 			</a></li>
-			<li class="nav-item"><a class="nav-link" href="blank.html">
+			<li class="nav-item"><a class="nav-link" th:href="@{/search}">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Search</span>
 			</a></li>
 			</li>
@@ -62,23 +62,23 @@
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+			<div sec:authorize="hasRole('ROLE_ADMIN')">
+				<!-- Addons nur fuer ADMIN -->
+				<div class="sidebar-heading">Admin Center</div>
 
-			<!-- Addons nur für ADMIN -->
-			<div class="sidebar-heading">Admin Center</div>
+				<!-- Nav Item - Charts -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
+						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+				</a></li>
 
-			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-			</a></li>
+				<!-- Nav Item - Tables -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
+						<i class="fas fa-fw fa-table"></i> <span>Users</span>
+				</a></li>
 
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i> <span>Users</span>
-			</a></li>
-
-			<!-- Divider -->
-			<hr class="sidebar-divider d-none d-md-block">
-
+				<!-- Divider -->
+				<hr class="sidebar-divider d-none d-md-block">
+			</div>
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
