@@ -69,35 +69,34 @@ public class SecurityController {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 
-
-
 	@InitBinder
 	public void initDateBinder(final WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
- }
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
+	}
 
-    @GetMapping("/")
-    public String root() {
-    	return "index";
-    }
-    
-    @GetMapping("/index")
-    public String handleIndex() {
-    	
-        return "index";
-    }
+	@GetMapping("/")
+	public String root() {
+		return "index";
+	}
+
+	@GetMapping("/index")
+	public String handleIndex() {
+
+		return "index";
+	}
 
 	@GetMapping(value = "/login")
 	public String handleLogin() {
-    	List<DormModel> test = dormRepository.findAll();
-    	if(test.size() > 0) {
-        return "login";}
-    	else {return "forward:initPage";}
+		List<DormModel> test = dormRepository.findAll();
+		if (test.size() > 0) {
+			return "login";
+		} else {
+			return "forward:initPage";
+		}
 	}
 
-
 	@GetMapping("/register")
-	public String handleRegister(Model model){
+	public String handleRegister(Model model) {
 
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
@@ -111,19 +110,60 @@ public class SecurityController {
 		return "register";
 	}
 
-	//DOB
-	//Diet
-	//Dorm
-	//Gender
-	//Institute
-	//gender
+	// DOB
+	// Diet
+	// Dorm
+	// Gender
+	// Institute
+	// gender
 	@PostMapping("/register")
-	public String register (@Valid UserModel usernew,@Valid InstituteModel institute,@Valid StudentModel studentnew,@Valid DietModel diet,@Valid DormModel dorm, BindingResult bindingResult,
+	public String register(@Valid UserModel usernew, BindingResult userResult, @Valid InstituteModel institute,
+			BindingResult instituteResult, @Valid StudentModel studentnew, BindingResult studentResult,
+			@Valid DietModel diet, BindingResult dietResult, @Valid DormModel dorm, BindingResult dormResult,
 			Model model) throws ParseException {
 
-		if (bindingResult.hasErrors()) {
+		if (userResult.hasErrors()) {
 			String errorMessage = "";
-			for (FieldError fieldError : bindingResult.getFieldErrors()) {
+			for (FieldError fieldError : userResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
+			}
+
+			model.addAttribute("errorMessage", errorMessage);
+			return "register";
+		}
+
+		if (studentResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : studentResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
+			}
+
+			model.addAttribute("errorMessage", errorMessage);
+			return "register";
+		}
+
+		if (instituteResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : instituteResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
+			}
+
+			model.addAttribute("errorMessage", errorMessage);
+			return "register";
+		}
+		if (dormResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : dormResult.getFieldErrors()) {
+				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
+			}
+
+			model.addAttribute("errorMessage", errorMessage);
+			return "register";
+		}
+
+		if (dietResult.hasErrors()) {
+			String errorMessage = "";
+			for (FieldError fieldError : dietResult.getFieldErrors()) {
 				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
 			}
 
@@ -157,7 +197,6 @@ public class SecurityController {
 			DormModel dormi = dormRepository.findFirstByName(dorm.getName());
 			DietModel dieti = dietRepository.findFirstByName(diet.getName());
 
-
 			student = new StudentModel();
 			student.setId(user.getId());
 			student.setFirstName(studentnew.getFirstName());
@@ -178,8 +217,8 @@ public class SecurityController {
 			userRepository.save(user);
 
 			return "login";
-			//model.addAttribute("message", "New user " + user.getUserName() + "added.");
-			
+			// model.addAttribute("message", "New user " + user.getUserName() + "added.");
+
 		}
 		return "login";
 	}
