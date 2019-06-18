@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.model;
 
-import java.util.HashSet;
+
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,58 +11,59 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "Diet")
 
-public class DietModel {
+public class DietModel implements Serializable{
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "dietId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int dietId;
 
 	@Column(nullable = false, length = 50)
-	private String name;
-	
+	private String dietName;
+
 	@Column(nullable = false, length = 50)
 	private String restriction;
+
+	@OneToMany(mappedBy = "diet", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
 	
     @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
- //   @OrderBy("lastName, firstName")
     private Set<StudentModel> students;
-    
+
     public DietModel(){
-    	
+
     }
-    
-    
-	public DietModel(String name, String restriction) {
+
+
+	public DietModel(String dietName, String restriction) {
 		super();
-		this.name = name;
+		this.dietName = dietName;
 		this.restriction = restriction;
 	}
 
-	public int getId() {
-		return id;
+	public int getDietId() {
+		return dietId;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setDietId(int id) {
+		this.dietId = id;
 	}
 
 
-	public String getName() {
-		return name;
+	public String getDietName() {
+		return dietName;
 	}
 
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDietName(String dietName) {
+		this.dietName = dietName;
 	}
 
 
@@ -74,7 +76,7 @@ public class DietModel {
 		this.restriction = restriction;
 	}
 
-	
+
 	public Set<StudentModel> getStudents() {
 		return students;
 	}
@@ -82,5 +84,18 @@ public class DietModel {
 	public void setStudents(Set<StudentModel> students) {
 		this.students = students;
 	}
+
+
+	public Set<EventModel> getEvents() {
+		return events;
+	}
+
+
+	public void setEvents(Set<EventModel> events) {
+		this.events = events;
+	}
+	
+	
+
 
 }

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.m3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+
+<div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
+<title>Login</title>
+<div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
+<div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
+
+		<!--  Error message ----------------------------------------------------------- -->
+		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}" class="alert alert-danger" role="alert"></div>
+		<!--  Error message ----------------------------------------------------------- -->
+
+		<!--  Warning message ----------------------------------------------------------- -->
+		<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+			class="alert alert-warning" role="warning"></div>
+		<!--  Warning message ----------------------------------------------------------- -->
+
+		<!--   message ----------------------------------------------------------- -->
+		<div th:unless="${message} == null" th:utext="${message}" class="alert alert-success" role="warning"></div>
+		<!--   message ----------------------------------------------------------- -->
+</head>
+
+<body class="bg-gradient-warning">
+
+	<div class="container">
+
+		<!-- Outer Row -->
+		<div class="row justify-content-center">
+
+			<div class="col-xl-10 col-lg-12 col-md-9">
+
+				<div class="card o-hidden border-0 shadow-lg my-5">
+					<div class="card-body p-0">
+						<div th:if="${param.error}" class="alert alert-danger">Invalid
+							username and password.</div>
+
+						<div th:if="${param.logout}" class="alert alert-success">You
+							have been logged out.</div>
+
+						<!-- Nested Row within Card Body -->
+						<div class="row">
+							<div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+							<div class="col-lg-6">
+								<div class="p-5">
+									<div class="text-center">
+										<h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+									</div>
+									<form class="user" th:action="@{/perform_login}" method="post">
+
+										<div th:if="${param.logout}" class="alert alert-success">You
+											have been logged out.</div>
+										<div class="form-group">
+											<input type="text" class="form-control form-control-user"
+												id="username" name="username"
+												placeholder="Enter Username...">
+										</div>
+										<div class="form-group">
+											<input type="password" class="form-control form-control-user"
+												id="password" name="password" placeholder="Password">
+										</div>
+										<button type="submit"
+											class="btn btn-primary btn-user btn-block">Login</button>
+									</form>
+									<hr>
+
+									<div class="text-center">
+										<a class="small" th:href="@{/register}">Create an Account!</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+</body>
+
+</html>

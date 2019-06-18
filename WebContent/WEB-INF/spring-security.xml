@@ -11,8 +11,14 @@
 	<http>
 		<csrf disabled="true" /> <!-- enable in the end of the project -->
 		<intercept-url pattern="/login" access="permitAll" />
-		<intercept-url pattern="/fillUsers" access="permitAll" />
-		<intercept-url pattern="/images/**" access="permitAll" />
+		<intercept-url pattern="/initPage" access="permitAll" />
+		<intercept-url pattern="/register" access="permitAll" />
+		<intercept-url pattern="/img/**" access="permitAll" />
+		<intercept-url pattern="/css/**" access="permitAll" />
+		<intercept-url pattern="/scss/**" access="permitAll" />
+		<intercept-url pattern="/vendor/**" access="permitAll" />
+		<intercept-url pattern="/js/**" access="permitAll" />
+		<intercept-url pattern="/**" access="permitAll" />
 
 		<!-- intercept-url pattern="/**" access="hasRole('USER')" / -->
 		<!-- intercept-url pattern="/**" access="hasRole('USER') or hasRole('ADMIN')" 
@@ -21,28 +27,26 @@
 		<intercept-url pattern="/delete"
 			access="hasRole('ADMIN')" />
 
-		<form-login login-page="/login" default-target-url='/'
-			always-use-default-target='true' />
+		<form-login login-page="/login" default-target-url='/index'
+			always-use-default-target='true'
+			login-processing-url="/perform_login" />
 		<logout logout-url="/logout" />
 	</http>
-
 	<authentication-manager>
 		<authentication-provider>
 			<password-encoder hash="bcrypt" />
 			<jdbc-user-service data-source-ref="dataSource"
-
-				users-by-username-query="
-		        SELECT username, password, CASE enabled WHEN 1 THEN 'true' ELSE 'false' END 'enabled'
-		        FROM users
-		        WHERE username=?;"
-
-				authorities-by-username-query="
-		       	SELECT u.username, ur.role
-				FROM users u
-				INNER JOIN users_user_roles u2r ON u.id = u2r.users_id
-				INNER JOIN user_roles ur        ON u2r.userRoles_id = ur.id
-				WHERE u.username=?;" />
+				users-by-username-query=" 
+					SELECT username, password, CASE enabled WHEN 1 THEN 'true' ELSE 'false' END 'enabled' 
+					FROM Users 
+					WHERE username=?;"
+				authorities-by-username-query=" SELECT 
+					u.username, ur.role FROM Users u 
+					INNER JOIN Users_UserRoles u2r ON u.id = u2r.users_id 
+					INNER JOIN UserRoles ur ON u2r.userRoles_id = ur.id WHERE 
+					u.username=?;" />
 		</authentication-provider>
 	</authentication-manager>
+
 
 </b:beans>
