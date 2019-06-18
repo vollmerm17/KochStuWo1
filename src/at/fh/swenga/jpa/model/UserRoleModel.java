@@ -20,21 +20,28 @@ public class UserRoleModel implements java.io.Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
  
-	@ManyToMany(mappedBy = "userRoles", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "userRoles", fetch = FetchType.EAGER)
 	private Set<UserModel> users;
  
 	@Column(name = "role", nullable = false, length = 45)
 	private String role;
  
 	public UserRoleModel() {
-		// TODO Auto-generated constructor stub
+	
 	}
  
 	public UserRoleModel(String role) {
 		super();
 		this.role = role;
 	}
+	
  
+	public UserRoleModel(Set<UserModel> users, String role) {
+		super();
+		this.users = users;
+		this.role = role;
+	}
+
 	public int getId() {
 		return id;
 	}

@@ -49,7 +49,7 @@ public class EventModel {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private StudentModel student;
 
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)

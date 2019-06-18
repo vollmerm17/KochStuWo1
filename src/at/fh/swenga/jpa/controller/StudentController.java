@@ -65,15 +65,8 @@ public class StudentController {
 	@Autowired
 	DocumentRepository documentRepository;
 
-	/* eigener Controller f�r Request Mappings? */
+	/* eigener Controller fuer Request Mappings? */
 
-	@RequestMapping(value = { "/", "list" })
-	public String index(Model model) {
-		List<StudentModel> students = studentRepository.findAll();
-		model.addAttribute("students", students);
-		model.addAttribute("count", students.size());
-		return "index";
-	}
 
 	@RequestMapping(value = { "/getPage" })
 	public String getPage(Pageable page, Model model) {
@@ -92,11 +85,6 @@ public class StudentController {
 		CustomDateEditor editor = new CustomDateEditor(dateFormat, true);
 		// Register it as custom editor for the Date type
 		binder.registerCustomEditor(Date.class, editor);
-	}
-
-	@RequestMapping(value = { "/index" }, method = RequestMethod.GET)
-	public String handleIndex() {
-		return "index";
 	}
 
 	@RequestMapping(value = { "/aboutUs" }, method = RequestMethod.GET)
@@ -138,7 +126,17 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = { "/profile" }, method = RequestMethod.GET)
-	public String handleProfile() {
+	public String handleProfile(Model model) {
+		
+		List<DormModel> dorms = dormRepository.findAll();
+		model.addAttribute("dorms", dorms);
+
+		List<DietModel> diets = dietRepository.findAll();
+		model.addAttribute("diets", diets);
+
+		List<InstituteModel> institutes = instituteRepository.findAll();
+		model.addAttribute("institutes", institutes);
+		
 		return "profile";
 	}
 

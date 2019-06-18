@@ -19,18 +19,18 @@ import javax.persistence.Table;
 public class DormModel implements Serializable {
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "dormId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int dormId;
 
 	@Column(nullable = false, length = 50)
-	private String name;
+	private String dormName;
 	
 	@Column(nullable = false, length = 50)	
-	private String streetAndNumber;
+	private String dormStreetAndNumber;
 	
 	@Column(nullable = false, length = 50)
-	private String cityAndPostalCode;
+	private String dormCityAndPostalCode;
 	
 	
     @OneToMany(mappedBy="dorm",fetch=FetchType.LAZY)
@@ -44,48 +44,48 @@ public class DormModel implements Serializable {
     }
 	
 
-	public DormModel(String name, String streetAndNumber, String cityAndPostalCode) {
+	public DormModel(String dormName, String dormStreetAndNumber, String dormCityAndPostalCode) {
 		super();
-		this.name = name;
-		this.streetAndNumber = streetAndNumber;
-		this.cityAndPostalCode = cityAndPostalCode;
+		this.dormName = dormName;
+		this.dormStreetAndNumber = dormStreetAndNumber;
+		this.dormCityAndPostalCode = dormCityAndPostalCode;
 	}
 	
-	public String getName() {
-		return name;
+	public String getDormName() {
+		return dormName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDormName(String dormName) {
+		this.dormName = dormName;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
+	public int getDormId() {
+		return dormId;
 	}
 
 
-	public String getStreetAndNumber() {
-		return streetAndNumber;
+	public void setDormId(int id) {
+		this.dormId = id;
 	}
 
 
-	public void setStreetAndNumber(String streetAndNumber) {
-		this.streetAndNumber = streetAndNumber;
+	public String getDormStreetAndNumber() {
+		return dormStreetAndNumber;
 	}
 
 
-	public String getCityAndPostalCode() {
-		return cityAndPostalCode;
+	public void setDormStreetAndNumber(String dormStreetAndNumber) {
+		this.dormStreetAndNumber = dormStreetAndNumber;
 	}
 
 
-	public void setCityAndPostalCode(String cityAndPostalCode) {
-		this.cityAndPostalCode = cityAndPostalCode;
+	public String getDormCityAndPostalCode() {
+		return dormCityAndPostalCode;
+	}
+
+
+	public void setDormCityAndPostalCode(String dormCityAndPostalCode) {
+		this.dormCityAndPostalCode = dormCityAndPostalCode;
 	}
 
 
