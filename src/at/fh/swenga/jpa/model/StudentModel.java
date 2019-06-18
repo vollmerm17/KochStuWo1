@@ -74,6 +74,8 @@ public class StudentModel implements Serializable {
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
+	
+
 
 	@OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
@@ -274,6 +276,10 @@ public class StudentModel implements Serializable {
 		events.add(event);
 	}
 
+
+
+
+
 	public DocumentModel getDocument() {
 		return document;
 	}
@@ -281,7 +287,6 @@ public class StudentModel implements Serializable {
 	public void setDocument(DocumentModel document) {
 		this.document = document;
 	}
-
 
 	@Override
 	public int hashCode() {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -203,8 +204,7 @@ public class StudentController {
 		return "uploadEventPicture";
 	}
 	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.GET)
-	public String showUploadFormProfilePicture(Model model, @RequestParam("id") int studentId) {
-		model.addAttribute("studentId", studentId);
+	public String showUploadFormProfilePicture() {
 		return "uploadProfilePicture";
 	}
 
@@ -278,14 +278,10 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.POST)
-	public String uploadProfilePicture(Model model, @RequestParam("id") int studentId,
+	public String uploadProfilePicture(Model model, @Valid StudentModel student,
 			@RequestParam("myFile") MultipartFile file) {
 		try {
 
-			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
-			if (!studentOpt.isPresent()) throw new IllegalArgumentException("No student with id "+studentId);
-
-			StudentModel student = studentOpt.get();
 
 			// Already a document available -> delete it
 			if (student.getDocument() != null) {
