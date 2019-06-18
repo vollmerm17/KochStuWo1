@@ -85,7 +85,7 @@
 											<input type="text" class="form-control form-control-user"
 												id="inputPhoneNumber" name="phoneNumber"
 												th:value="${student} ? ${student.phoneNumber}"
-												th:readonly="${student}" placeholder="Phone Number">
+												th:readonly="${student}" placeholder="Phone Number" minlength="9" maxlength="15">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -107,18 +107,18 @@
 									<select name = "dormId">
 										<option disabled selected="selected">Dorm</option>
 										<div th:each="dorm: ${#request.getAttribute('dorms')}">
-											<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"></option>
+											<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"  required="required"></option>
 										</div>
 									</select> <select name = "dietId">
 										<option disabled selected="selected">Diet</option>
 										<div th:each="diet: ${#request.getAttribute('diets')}">
-											<option th:value="${diet.dietId}" th:text="${diet.dietName}"></option>
+											<option th:value="${diet.dietId}" th:text="${diet.dietName}"  required="required"></option>
 										</div>
 									</select> <select name = "instituteId">
 										<option disabled selected="selected">Educational Institute</option>
 										<div th:each="institute: ${#request.getAttribute('institutes')}">
 											<option th:value="${institute.instituteId}"
-												th:text="${institute.instituteName}"></option>
+												th:text="${institute.instituteName}"  required="required"></option>
 										</div>
 									</select>
 									<hr>
@@ -126,30 +126,23 @@
 										<input type="text" class="form-control form-control-user"
 											id="inputUserName" name="userName"
 											th:value="${user} ? ${user.userName}" th:readonly="${user}"
-											placeholder="Username">
+											placeholder="Username"  required="required">
 									</div>
 
 									<div class="form-group">
 										<input type="email" class="form-control form-control-user"
 											id="inputEmail" name="email"
 											th:value="${user} ? ${student.email}" th:readonly="${user}"
-											placeholder="Email Address">
+											placeholder="Email Address"  required="required">
 									</div>
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="password" class="form-control form-control-user"
 												id="inputPassword" name="password"
 												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Password">
+												placeholder="Password" minlength="6" maxlength="45" required="required">
 										</div>
-										<div class="col-sm-6">
-											<input type="password" class="form-control form-control-user"
-												id="inputRepeatPassword" name="repeatPassword"
-												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Repeat Password">
 										</div>
-									</div>
-
 									<button th:href="@{/login}"
 										class="btn btn-primary btn-user btn-block" type="submit">Register</button>
 							</form>

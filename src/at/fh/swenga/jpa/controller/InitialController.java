@@ -133,12 +133,11 @@ public class InitialController {
 
 			admin.encryptPassword();
 			admin.addUserRole(userRoleRepository.findFirstById(1));
-			userRepository.save(admin);
 			admin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(admin);
 
 			StudentModel student3 = new StudentModel(admin.getId(),"admin", "admin", "admin", "admin", "admin", now,
-					"admin@admin", "w", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
+					"admin@admin", "f", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
 					dietRepository.findFirstByDietName("vegan"), dormRepository.findFirstByDormName("Greenbox"));
 			admin.setStudent(student3);
 			userRepository.save(admin);
@@ -160,7 +159,7 @@ public class InitialController {
 			userRepository.save(userin);
 
 			StudentModel student2 = new StudentModel(userin.getId(),"Maxine", "Mustermann", "sd", "sd", "12345", now,
-					"jhds@fhg", "w", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
+					"jhds@fhg", "f", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
 					dietRepository.findFirstByDietName("vegetarisch"), dormRepository.findFirstByDormName("Greenbox"));
 			
 			userin.setStudent(student2);

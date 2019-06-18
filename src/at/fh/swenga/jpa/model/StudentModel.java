@@ -52,7 +52,7 @@ public class StudentModel implements Serializable {
 	@Column(nullable = false, length = 40)
 	private String email;
 
-	@Column(nullable = true, length = 1)
+	@Column(nullable = false, length = 1)
 	private String gender;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
