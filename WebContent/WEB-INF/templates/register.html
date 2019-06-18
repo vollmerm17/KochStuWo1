@@ -65,13 +65,13 @@
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="radio" name="gender" id="inputGenderF"
-												th:value="${student} ? ${student.gender} : f"
-												th:readonly="${student}" > Female</input>
+												th:value="${student} ? ${student.gender}"
+												th:readonly="${student}" value="gender"> Female</input>
 										</div>
 										<div class="col-sm-6">
 											<input type="radio" name="gender" id="inputGenderM"
-												th:value="${student} ? ${student.gender} : m"
-												th:readonly="${student}" > Male</input>
+												th:value="${student} ? ${student.gender}"
+												th:readonly="${student}" value="gender"> Male</input>
 										</div>
 									</div>
 									<div class="form-group row">
@@ -85,7 +85,7 @@
 											<input type="text" class="form-control form-control-user"
 												id="inputPhoneNumber" name="phoneNumber"
 												th:value="${student} ? ${student.phoneNumber}"
-												th:readonly="${student}" placeholder="Phone Number" minlength="9" maxlength="15">
+												th:readonly="${student}" placeholder="Phone Number">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -104,21 +104,21 @@
 										</div>
 									</div>
 									<hr>
-									<select name = "dormId">
+									<select>
 										<option disabled selected="selected">Dorm</option>
 										<div th:each="dorm: ${#request.getAttribute('dorms')}">
-											<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"  required="required"></option>
+											<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
 										</div>
-									</select> <select name = "dietId">
+									</select> <select>
 										<option disabled selected="selected">Diet</option>
 										<div th:each="diet: ${#request.getAttribute('diets')}">
-											<option th:value="${diet.dietId}" th:text="${diet.dietName}"  required="required"></option>
+											<option th:value="${diet.name}" th:text="${diet.name}"></option>
 										</div>
-									</select> <select name = "instituteId">
+									</select> <select>
 										<option disabled selected="selected">Educational Institute</option>
 										<div th:each="institute: ${#request.getAttribute('institutes')}">
-											<option th:value="${institute.instituteId}"
-												th:text="${institute.instituteName}"  required="required"></option>
+											<option th:value="${institute.name}"
+												th:text="${institute.name}"></option>
 										</div>
 									</select>
 									<hr>
@@ -126,23 +126,30 @@
 										<input type="text" class="form-control form-control-user"
 											id="inputUserName" name="userName"
 											th:value="${user} ? ${user.userName}" th:readonly="${user}"
-											placeholder="Username"  required="required">
+											placeholder="Username">
 									</div>
 
 									<div class="form-group">
 										<input type="email" class="form-control form-control-user"
 											id="inputEmail" name="email"
 											th:value="${user} ? ${student.email}" th:readonly="${user}"
-											placeholder="Email Address"  required="required">
+											placeholder="Email Address">
 									</div>
 									<div class="form-group row">
 										<div class="col-sm-6 mb-3 mb-sm-0">
 											<input type="password" class="form-control form-control-user"
 												id="inputPassword" name="password"
 												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Password" minlength="6" maxlength="45" required="required">
+												placeholder="Password">
 										</div>
+										<div class="col-sm-6">
+											<input type="password" class="form-control form-control-user"
+												id="inputRepeatPassword" name="repeatPassword"
+												th:value="${user} ? ${user.password}" th:readonly="${user}"
+												placeholder="Repeat Password">
 										</div>
+									</div>
+
 									<button th:href="@{/login}"
 										class="btn btn-primary btn-user btn-block" type="submit">Register</button>
 							</form>

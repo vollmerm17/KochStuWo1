@@ -131,11 +131,4 @@ public class UserModel implements Serializable {
 		password = passwordEncoder.encode(password);
 	}
 
-	@Override
-	public String toString() {
-		return "UserModel [userName=" + userName + ", password=" + password + ", enabled=" + enabled + ", student="
-				+ student + ", userRoles=" + userRoles + "]";
-	}
-	
-
 }

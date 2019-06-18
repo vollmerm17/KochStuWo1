@@ -20,12 +20,12 @@ import javax.persistence.Table;
 public class DietModel implements Serializable{
 
 	@Id
-	@Column(name = "dietId")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int dietId;
+	private int id;
 
 	@Column(nullable = false, length = 50)
-	private String dietName;
+	private String name;
 
 	@Column(nullable = false, length = 50)
 	private String restriction;
@@ -41,29 +41,29 @@ public class DietModel implements Serializable{
     }
 
 
-	public DietModel(String dietName, String restriction) {
+	public DietModel(String name, String restriction) {
 		super();
-		this.dietName = dietName;
+		this.name = name;
 		this.restriction = restriction;
 	}
 
-	public int getDietId() {
-		return dietId;
+	public int getId() {
+		return id;
 	}
 
 
-	public void setDietId(int id) {
-		this.dietId = id;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
-	public String getDietName() {
-		return dietName;
+	public String getName() {
+		return name;
 	}
 
 
-	public void setDietName(String dietName) {
-		this.dietName = dietName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 

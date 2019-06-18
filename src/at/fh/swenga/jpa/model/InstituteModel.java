@@ -17,21 +17,20 @@ import javax.persistence.Version;
 @Table(name = "Institute")
 
 public class InstituteModel implements Serializable {
-
-
+	
 	@Id
-	@Column(name = "instituteId")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int instituteId;
+	private int id;
 
 	@Column(nullable = false, length = 50)
-	private String instituteName;
+	private String name;
 	
 	@Column(nullable = true, length = 50)	
-	private String instituteStreetAndNumber;
+	private String streetAndNumber;
 	
 	@Column(nullable = true, length = 50)
-	private String instituteCityAndPostalCode;
+	private String cityAndPostalCode;
 	
     @OneToMany(mappedBy="institute",fetch=FetchType.LAZY)
 //    @OrderBy("lastName, firstName")
@@ -45,60 +44,51 @@ public class InstituteModel implements Serializable {
 		// TODO Auto-generated constructor stub
     }
     
-    
-    
-	public InstituteModel(String instituteName) {
+
+	public InstituteModel(String name, String streetAndNumber, String cityAndPostalCode) {
 		super();
-		this.instituteName = instituteName;
+		this.name = name;
+		this.streetAndNumber = streetAndNumber;
+		this.cityAndPostalCode = cityAndPostalCode;
 	}
 
 
 
+	public String getName() {
+		return name;
+	}
 
-	public InstituteModel(String instituteName, String instituteStreetAndNumber, String instituteCityAndPostalCode) {
-		super();
-		this.instituteName = instituteName;
-		this.instituteStreetAndNumber = instituteStreetAndNumber;
-		this.instituteCityAndPostalCode = instituteCityAndPostalCode;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 
-
-	public String getInstituteName() {
-		return instituteName;
-	}
-
-	public void setInstituteName(String instituteName) {
-		this.instituteName = instituteName;
-	}
-
-	public int getInstituteId() {
-		return instituteId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
-	public void setInstituteId(int id) {
-		this.instituteId = id;
+	public String getStreetAndNumber() {
+		return streetAndNumber;
 	}
 
 
-	public String getInstituteStreetAndNumber() {
-		return instituteStreetAndNumber;
+	public void setStreetAndNumber(String streetAndNumber) {
+		this.streetAndNumber = streetAndNumber;
 	}
 
 
-	public void setInstituteStreetAndNumber(String instituteStreetAndNumber) {
-		this.instituteStreetAndNumber = instituteStreetAndNumber;
+	public String getCityAndPostalCode() {
+		return cityAndPostalCode;
 	}
 
 
-	public String getInstituteCityAndPostalCode() {
-		return instituteCityAndPostalCode;
-	}
-
-
-	public void setCityAndPostalCode(String instituteCityAndPostalCode) {
-		this.instituteCityAndPostalCode = instituteCityAndPostalCode;
+	public void setCityAndPostalCode(String cityAndPostalCode) {
+		this.cityAndPostalCode = cityAndPostalCode;
 	}
 
 
@@ -110,13 +100,10 @@ public class InstituteModel implements Serializable {
 		this.students = students;
 	}
 	
-	
-	@Override
-	public String toString() {
-		return "InstituteModel [instituteId=" + instituteId + ", instituteName=" + instituteName + ", instituteStreetAndNumber=" + instituteStreetAndNumber
-				+ ", instituteCityAndPostalCode=" + instituteCityAndPostalCode + ", students=" + students + ", version=" + version + "]";
-	}
-
+	/*
+	 * public void addStudent(StudentModel student) { if (students==null) {
+	 * students= new HashSet<StudentModel>(); } students.add(student); }
+	 */
 	
     
 }

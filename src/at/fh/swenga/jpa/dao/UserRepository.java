@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,9 +24,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	UserModel findFirstByUserName(String userName);
 
 
-	@Query("select u from UserModel u where u.userName = :name")
-	List<UserModel> findByUserName(@Param("name") String userName);
-
+	public List<UserModel> findByUserName(String userName);
 
 	/*
 	 * @Query("Select u from UserModel u where u.userName = :name") public public
