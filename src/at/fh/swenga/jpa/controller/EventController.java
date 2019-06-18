@@ -61,6 +61,8 @@ public class EventController {
 	@PostMapping("/addEvent")
 	public String register (@Valid EventModel event, @Valid StudentModel student, BindingResult bindingResult, Model model) throws ParseException {
 
+		
+		
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
 			for (FieldError fieldError : bindingResult.getFieldErrors()) {
@@ -115,13 +117,6 @@ public class EventController {
 		return "eventsOwn";
 	}
 
-	@PostMapping(value = { "/addEvent" })
-	public String addEvent(Model model, @RequestParam String name, @RequestParam String description, @RequestParam Date date, @RequestParam Date time, DormModel dorm,DietModel diet,@RequestParam int attendeesMax, StudentModel student) {
-
-		EventModel event1 = new EventModel(name, description,date, time, dorm,diet, attendeesMax, student);
-		eventRepository.save(event1);
-
-		return "index";
-	}
+	
 
 }

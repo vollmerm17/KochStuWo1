@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import at.fh.swenga.jpa.model.EventModel;
 
 @Repository
-
 public interface EventRepository extends JpaRepository<EventModel, Integer> {
 
 	@Transactional

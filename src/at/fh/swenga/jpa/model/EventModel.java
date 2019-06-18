@@ -19,7 +19,6 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Event")
-
 public class EventModel {
 	@Id
 	@Column(name = "id")

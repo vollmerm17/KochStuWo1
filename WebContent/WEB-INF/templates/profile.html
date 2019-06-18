@@ -19,7 +19,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-				<ul
+		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
@@ -254,27 +254,22 @@
 													th:readonly="${student}" placeholder="you@email.com"
 													title="enter your email">
 											</div>
-											<br>
-											<label for="dormName"><h4>Dorm</h4></label> <br>
+											<br> <label for="dormName"><h4>Dorm</h4></label> <br>
 											<select class="browser-default custom-select">
 												<option selected>Select your dorm</option>
 												<div th:each="dorm: ${#request.getAttribute('dorms')}">
 													<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
 												</div>
-											</select>
-											<br>
-											<br>
-											<label for="instituteName"><h4>Institute</h4></label> <br>
-											<select class="browser-default custom-select">
+											</select> <br> <br> <label for="instituteName"><h4>Institute</h4></label>
+											<br> <select class="browser-default custom-select">
 												<option selected>Select your institute</option>
-												<div th:each="institute: ${#request.getAttribute('institutes')}">
-													<option th:value="${institute.name}" th:text="${institute.name}"></option>
+												<div
+													th:each="institute: ${#request.getAttribute('institutes')}">
+													<option th:value="${institute.name}"
+														th:text="${institute.name}"></option>
 												</div>
-											</select>
-											<br>
-											<br>
-											<label for="dietName"><h4>Diet</h4></label> <br>
-											<select class="browser-default custom-select">
+											</select> <br> <br> <label for="dietName"><h4>Diet</h4></label>
+											<br> <select class="browser-default custom-select">
 												<option selected>Select your diet</option>
 												<div th:each="diet: ${#request.getAttribute('diets')}">
 													<option th:value="${diet.name}" th:text="${diet.name}"></option>
@@ -285,12 +280,16 @@
 											<div class="form-group">
 												<div class="col-xs-12">
 													<br>
-													<button class="btn btn-lg btn-success" type="submit">
+													<br>
+													<button th:href="@{/profile}"
+														class="btn btn-primary btn-user btn-block" type="submit">Submit</button>
+
+													<!-- <button class="btn btn-lg btn-success" type="submit">
 														<i class="glyphicon glyphicon-ok-sign"></i> Save
 													</button>
 													<button class="btn btn-lg" type="reset">
 														<i class="glyphicon glyphicon-repeat"></i> Reset
-													</button>
+													</button> -->
 												</div>
 											</div>
 										</form>
