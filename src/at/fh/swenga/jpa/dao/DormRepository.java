@@ -11,6 +11,6 @@ import at.fh.swenga.jpa.model.DormModel;
 public interface DormRepository extends JpaRepository<DormModel, Integer> {
 
 	@Transactional
-	DormModel findFirstByName(String dormName);
+	DormModel findFirstByDormName(String dormName);
 
 }

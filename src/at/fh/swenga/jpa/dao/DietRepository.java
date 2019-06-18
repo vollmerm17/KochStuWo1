@@ -12,6 +12,6 @@ import at.fh.swenga.jpa.model.DietModel;
 public interface DietRepository extends JpaRepository<DietModel, Integer> {
 
 	@Transactional
-	DietModel findFirstByName(String dietName);
+	DietModel findFirstByDietName(String dietName);
 
 }

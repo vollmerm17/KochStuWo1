@@ -52,16 +52,16 @@ public class StudentModel implements Serializable {
 	@Column(nullable = false, length = 40)
 	private String email;
 
-	@Column(nullable = true, length = 2)
+	@Column(nullable = false, length = 1)
 	private String gender;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private InstituteModel institute;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private DormModel dorm;
 
 	@OneToOne(cascade = CascadeType.ALL)
