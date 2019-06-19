@@ -84,7 +84,7 @@ public class EventController {
 	@PostMapping("/addEvent")
 	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,  @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, Authentication aut) throws ParseException {
 
-		System.out.println(event);
+	
 		
 		/*
 		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
