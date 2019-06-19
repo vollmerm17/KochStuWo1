@@ -109,10 +109,6 @@ public class SecurityController {
 		return "register";
 	}
 
-	// DOB
-	// Diet
-	// Dorm
-	// Institute
 	@Transactional
 	@PostMapping("/register")
 	public String register(@Valid UserModel usernew, BindingResult userResult,
@@ -183,4 +179,6 @@ public class SecurityController {
 		return "404";
 
 	}
+	
+	
 }
