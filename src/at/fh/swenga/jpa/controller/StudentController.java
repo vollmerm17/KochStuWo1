@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -68,7 +69,7 @@ public class StudentController {
 	@Autowired
 	DocumentRepository documentRepository;
 
-	/* eigener Controller fuer Request Mappings? */
+
 
 	@RequestMapping(value = { "/getPage" })
 	public String getPage(Pageable page, Model model) {
@@ -138,6 +139,28 @@ public class StudentController {
 
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
+<<<<<<< Updated upstream
+=======
+		
+		return "profile";
+	}
+	
+	@Transactional
+	@PostMapping("/profile")
+	public String changeProfile(Model model, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value="instituteId") int instituteId, StudentModel student, Authentication aut) throws ParseException {
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student1 = userRepository.findStudentByUser(user);
+
+		DormModel dorm1 = dormRepository.getOne(dormId);
+		DietModel diet1 = dietRepository.getOne(dietId);
+		
+		
+		user.setUserName(userName);
+		student.setEmail(email);
+		student.setDiet(diet);
+		student.setDorm(dorm);
+		student.setInstitute(institute);
+>>>>>>> Stashed changes
 
 		return "profile";
 	}
