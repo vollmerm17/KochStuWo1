@@ -26,7 +26,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				th:href="@{/index}">
+				href="index.html">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -37,8 +37,8 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link"
-				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
+			<li class="nav-item active"><a class="nav-link"
+				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
 			</li>
 
 			<!-- Divider -->
@@ -160,9 +160,8 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"
-								sec:authentication="name"></span> <img
-								class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie
+									Luna</span> <img class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -170,7 +169,7 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" th:href="@{/profile}"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" th:href="@{/settings}"> <i
+								</a> <a class="dropdown-item" href="@{/settings}"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
 								</a>
@@ -240,107 +239,94 @@
 										<br>
 										<form action="@{/profile}" method="post">
 											<div class="form-group">
+
+												<!-- User Name -->
 												<div class="col-xs-6">
 													<label for="inputUserName"><h4>User Name</h4></label> <input
-														type="text" class="form-control" id="inputUserName"
-														name="userName" th:value="${user} ? ${user.userName}"
-														th:readonly="${user}" placeholder="ClaudiaVoe1234"
+														type="text" class="form-control form-control-user"
+														id="inputUserName" name="userName"
+														th:value="${user} ? ${user.userName}"
+														th:readonly="${user}" th:placeholder="maxi123"
 														title="enter your user name">
 												</div>
+												<!-- E-Mail -->
+
 											</div>
 											<div class="col-xs-6">
-												<label for="email"><h4>Email</h4></label> <input
+												<label for="inputEmail"><h4>Email</h4></label> <input
 													type="email" class="form-control" name="email"
 													id="inputEmail" th:value="${student} ? ${student.email}"
 													th:readonly="${student}" placeholder="you@email.com"
 													title="enter your email">
 											</div>
-											<br> <label for="dormName"><h4>Dorm</h4></label> <br>
-											<select class="browser-default custom-select">
+											<br> <label for="inputPhoneNumber"><h4>Phone
+													Number</h4></label>
+
+
+											<div class="col-xs-6">
+												<input type="text" class="form-control form-control-user"
+													id="inputPhoneNumber" name="phoneNumber"
+													th:value="${student} ? ${student.phoneNumber}"
+													th:readonly="${student}" placeholder="Phone Number"
+													minlength="9" maxlength="15">
+											</div>
+											<br> <label for="inputStreetAndNumber"><h4>Adress</h4></label>
+
+
+											<div class="form-group row">
+												<div class="col-sm-6 mb-3 mb-sm-0">
+													<input type="text" class="form-control form-control-user"
+														id="inputStreetAndNumber" name="streetAndNumber"
+														th:value="${student} ? ${student.streetAndNumber}"
+														th:readonly="${student}"
+														placeholder="Street and House Number">
+												</div>
+												<div class="col-sm-6">
+													<input type="text" class="form-control form-control-user"
+														id="inputCityAndPostalCode" name="cityAndPostalCode"
+														th:value="${student} ? ${student.cityAndPostalCode}"
+														th:readonly="${student}"
+														placeholder="City and Postal Code">
+												</div>
+											</div>
+
+
+
+
+											<label for="dormId"><h4>Dorm</h4></label> <br> <select
+												class="browser-default custom-select" name="dormId">
 												<option selected>Select your dorm</option>
 												<div th:each="dorm: ${#request.getAttribute('dorms')}">
-													<option th:value="${dorm.dormName}" th:text="${dorm.dormName}"></option>
+													<option th:value="${dorm.dormId}"
+														th:text="${dorm.dormName}"></option>
 												</div>
-											</select> <br> <br> <label for="instituteName"><h4>Institute</h4></label>
-											<br> <select class="browser-default custom-select">
+											</select> <br> <br> <label for="instituteId"><h4>Institute</h4></label>
+											<br> <select class="browser-default custom-select"
+												name="instituteId">
 												<option selected>Select your institute</option>
 												<div
 													th:each="institute: ${#request.getAttribute('institutes')}">
-													<option th:value="${institute.intituteName}"
-														th:text="${institute.intituteName}"></option>
+													<option th:value="${institute.instituteId}"
+														th:text="${institute.instituteName}"></option>
 												</div>
-											</select> <br> <br> <label for="dietName"><h4>Diet</h4></label>
-											<br> <select class="browser-default custom-select">
+											</select> <br> <br> <label for="dietId"><h4>Diet</h4></label>
+											<br> <select class="browser-default custom-select"
+												name="dietId">
 												<option selected>Select your diet</option>
 												<div th:each="diet: ${#request.getAttribute('diets')}">
-													<option th:value="${diet.dietName}" th:text="${diet.dietName}"></option>
+													<option th:value="${diet.dietId}"
+														th:text="${diet.dietName}"></option>
 												</div>
-											</select> <br>
-
-
+											</select> <br> <br>
 											<div class="form-group">
 												<div class="col-xs-12">
 													<br>
-													<br>
 													<button th:href="@{/profile}"
-														class="btn btn-primary btn-user btn-block" type="submit">Submit</button>
+														class="btn btn-primary btn-user btn-block" type="submit">Save</button>
+													<button th:href="@{/profile}"
+														class="btn btn-danger btn-user btn-block" type="reset">Cancel</button>
+
 												</div>
 											</div>
+
 										</form>
-
-
-
-									</div>
-									<!-- /.container-fluid -->
-
-								</div>
-								<!-- End of Main Content -->
-
-								<!-- Footer -->
-								<footer class="sticky-footer bg-white">
-									<div class="container my-auto">
-										<div class="copyright text-center my-auto">
-											<span>Copyright &copy; KochStuWo 2019</span>
-										</div>
-									</div>
-								</footer>
-								<!-- End of Footer -->
-
-							</div>
-							<!-- End of Content Wrapper -->
-
-						</div>
-						<!-- End of Page Wrapper -->
-
-						<!-- Scroll to Top Button-->
-						<a class="scroll-to-top rounded" href="#page-top"> <i
-							class="fas fa-angle-up"></i>
-						</a>
-
-						<!-- Logout Modal-->
-						<div class="modal fade" id="logoutModal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Ready to
-											Leave?</h5>
-										<button class="close" type="button" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">×</span>
-										</button>
-									</div>
-									<div class="modal-body">Select "Logout" below if you are
-										ready to end your current session.</div>
-									<div class="modal-footer">
-										<button class="btn btn-secondary" type="button"
-											data-dismiss="modal">Cancel</button>
-										<a class="btn btn-primary" th:href="@{/login}">Logout</a>
-									</div>
-								</div>
-							</div>
-						</div>
-</body>
-
-</html>
