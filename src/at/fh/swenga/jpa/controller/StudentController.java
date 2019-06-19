@@ -1,7 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
 import java.io.OutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -68,8 +67,6 @@ public class StudentController {
 
 	@Autowired
 	DocumentRepository documentRepository;
-
-
 
 	@RequestMapping(value = { "/getPage" })
 	public String getPage(Pageable page, Model model) {
@@ -139,28 +136,6 @@ public class StudentController {
 
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
-<<<<<<< Updated upstream
-=======
-		
-		return "profile";
-	}
-	
-	@Transactional
-	@PostMapping("/profile")
-	public String changeProfile(Model model, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value="instituteId") int instituteId, StudentModel student, Authentication aut) throws ParseException {
-		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student1 = userRepository.findStudentByUser(user);
-
-		DormModel dorm1 = dormRepository.getOne(dormId);
-		DietModel diet1 = dietRepository.getOne(dietId);
-		
-		
-		user.setUserName(userName);
-		student.setEmail(email);
-		student.setDiet(diet);
-		student.setDorm(dorm);
-		student.setInstitute(institute);
->>>>>>> Stashed changes
 
 		return "profile";
 	}
@@ -169,17 +144,17 @@ public class StudentController {
 	 * @Transactional
 	 * 
 	 * @PostMapping(value = { "/profile" }) public String changeProfile(Model
-	 * model,@Valid StudentModel studentnew, @RequestParam String
-	 * userName,Authentication aut, @RequestParam(value="dormId") int
-	 * dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value
-	 * ="instituteId") int instituteId) { UserModel user =
+	 * model, @Valid StudentModel studentnew, @RequestParam(value = "userName")
+	 * String userName, Authentication aut, @RequestParam(value = "dormId") int
+	 * dormId, @RequestParam(value = "dietId") int dietId,
+	 * 
+	 * @RequestParam(value = "instituteId") int instituteId) { UserModel user =
 	 * userRepository.findFirstByUserName(aut.getName()); StudentModel student1 =
 	 * studentRepository.findStudentByEmail(user.getStudent().getEmail());
 	 * 
 	 * InstituteModel insti = instituteRepository.getOne(instituteId); DormModel
 	 * dormi = dormRepository.getOne(dormId); DietModel dieti =
 	 * dietRepository.getOne(dietId);
-	 * 
 	 * 
 	 * if (user != null) { model.addAttribute("errorMessage",
 	 * "A profile with this username already exists!<br>");
@@ -189,8 +164,7 @@ public class StudentController {
 	 * 
 	 * else {
 	 * 
-	 * 
-	 * student1 = new StudentModel(); user=new UserModel();
+	 * student1 = new StudentModel(); user = new UserModel();
 	 * user.setUserName(userName); student1.setEmail(studentnew.getEmail());
 	 * student1.setDiet(dieti); student1.setDorm(dormi);
 	 * student1.setInstitute(insti);
@@ -198,7 +172,7 @@ public class StudentController {
 	 * student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
 	 * student1.setLastName(studentnew.getLastName());
 	 * 
-	 * studentRepository.merge(student1):
+	 * studentRepository.merge(student1);
 	 * 
 	 * return "profile"; } return "profile"; }
 	 */
