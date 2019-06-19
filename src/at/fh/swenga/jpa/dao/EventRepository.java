@@ -11,7 +11,7 @@ import at.fh.swenga.jpa.model.EventModel;
 public interface EventRepository extends JpaRepository<EventModel, Integer> {
 
 	@Transactional
-	EventModel findFirstByName(String eventName);
+	EventModel findFirstByEventName(String eventName);
 
 	
 }

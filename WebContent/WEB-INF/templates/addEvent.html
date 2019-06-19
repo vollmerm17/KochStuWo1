@@ -26,7 +26,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.html">
+				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
 					<i class="fas fa-laugh-wink"></i>
 				</div>
@@ -38,7 +38,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
+				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
 			</li>
 
 			<!-- Divider -->
@@ -160,8 +160,9 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie
-									Luna</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"
+								sec:authentication="name"></span> <img
+								class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -169,7 +170,7 @@
 								aria-labelledby="userDropdown">
 								<a class="dropdown-item" th:href="@{/profile}"> <i
 									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" href="@{/settings}"> <i
+								</a> <a class="dropdown-item" th:href="@{/settings}"> <i
 									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 									Settings
 								</a>
@@ -229,90 +230,81 @@
 									<div class="tab-pane active" id="home">
 										<br>
 										<form th:action="@{/addEvent}" method="POST">
-											<fieldset>
-												<div class="form-group">
-													<div class="col-xs-6">
-														<label for="inputName"><h4>Title</h4></label> <input
-															type="text" class="form-control" id="inputName"
-															name="name" th:value="${event} ? ${event.name}"
-															th:readonly="${event}" placeholder="Spaghetti bei Anna"
-															title="enter your title">
+											<div class="form-group">
+												<div class="col-xs-6">
+													<label for="inputEventName"><h4>Title</h4></label> <input
+														type="text" class="form-control form-control-user" id="inputEventName"
+														name="eventName" th:value="${event} ? ${event.eventName}"
+														th:readonly="${event}" placeholder="Spaghetti bei Anna"
+														title="enter your title">
+												</div>
+											</div>
+											<div class="col-xs-6">
+												<label for="inputEventDescription"><h4>Description</h4></label> <input
+													type="text" class="form-control form-control-user" name="eventDescription"
+													id="inputEventDescription"
+													th:value="${event} ? ${event.eventDescription}"
+													th:readonly="${event}"
+													placeholder="Spaghetti Bolognese mit Parmesan"
+													title="enter your description">
+											</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="inputDayOfEvent"><h4>Day of Event</h4></label> <input type="date" class="form-control form-control-user"
+												id="inputDayOfEvent" name="dayOfEvent"
+												th:value="${event} ? ${#dates.format(event.dayOfEvent, 'dd.MM.yyyy'}"
+												th:readonly="${event}" placeholder="Day of Event">
+											</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="inputTimeOfEvent"><h4>Time of Event</h4></label>
+												<input type="time" class="form-control form-control-user" name="timeOfEvent"
+													id="inputTimeOfEvent"
+													th:value="${event} ? ${event.timeOfEvent}"
+													th:readonly="${event}" title="enter your time of event"
+													placeholder="hh:mm">
+											</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="dormId"><h4>Dorm</h4></label> <br> <select name="dormId"
+													class="browser-default custom-select">
+													<option disabled selected="selected">Select your dorm</option>
+													<div th:each="dorm: ${#request.getAttribute('dorms')}">
+														<option th:value="${dorm.dormId}" th:text="${dorm.dormName}" required="required"></option>
 													</div>
-												</div>
-
-
-
-												<div class="col-xs-6">
-													<label for="inputDescription"><h4>Description</h4></label>
-													<input type="text" class="form-control" name="description"
-														id="inputDescription"
-														th:value="${event} ? ${event.description}"
-														th:readonly="${event}"
-														placeholder="Spaghetti Bolognese mit Parmesan"
-														title="enter your description">
-												</div>
-												<br>
-												<div class="col-xs-6">
-													<label for="inputDayOfEvent"><h4>Day of Event</h4></label>
-													<input type="date" class="form-control" name="dayOfEvent"
-														id="inputDayOfEvent"
-														th:value="${event} ? ${event.dayOfEvent}"
-														th:readonly="${event}" title="enter your day of event"
-														placeholder="dd-mm-yyyy">
-												</div>
-												<br>
-												<div class="col-xs-6">
-													<label for="inputTimeOfEvent"><h4>Time of
-															Event</h4></label> <input type="time" class="form-control"
-														name="timeOfEvent" id="inputTimeOfEvent"
-														th:value="${event} ? ${event.timeOfEvent}"
-														th:readonly="${event}" title="enter your time of event"
-														placeholder="hh:mm">
-												</div>
-												<br>
-												<div class="col-xs-6">
-													<label for="dormName"><h4>Dorm</h4></label> <br> <select
-														class="browser-default custom-select">
-														<option selected>Select your dorm</option>
-														<div th:each="dorm: ${#request.getAttribute('dorms')}">
-															<option th:value="${dorm.name}" th:text="${dorm.name}"></option>
-														</div>
-													</select>
-												</div>
-												<br>
-												<div class="col-xs-6">
-													<label for="dietName"><h4>Diet</h4></label> <br> <select
-														class="browser-default custom-select">
-														<option selected>Select your diet</option>
-														<div th:each="diet: ${#request.getAttribute('diets')}">
-															<option th:value="${diet.name}" th:text="${diet.name}"></option>
-														</div>
-													</select>
-												</div>
-												<br>
-												<div class="col-xs-6">
-													<label for="inputAttendeesMax"><h4>Maximum of
-															Attendees</h4></label> <input type="text" class="form-control"
-														name="attendeesMax" id="inputAttendeesMax"
-														th:value="${event} ? ${event.attendeesMax}"
-														th:readonly="${event}" title="enter yourdescription"
-														placeholder="5">
-												</div>
-												<br>
-
-												<div class="form-group">
-													<div class="col-xs-12">
-														<br> <a th:href="@{/addEvent}"
-															class="btn btn-success btn-circle btn-lg"> <i
-															class="fas fa-check" type="submit"></i>
-														</a>&emsp;&emsp;<a href="#"
-															class="btn btn-danger btn-circle btn-lg"> <i
-															class="fas fa-trash"></i>
-														</a>
+												</select>
+											</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="dietId"><h4>Diet</h4></label> <br> <select name="dietId"
+													class="browser-default custom-select">
+													<option disabled selected="selected">Select your diet</option>
+													<div th:each="diet: ${#request.getAttribute('diets')}">
+														<option th:value="${diet.dietId}" th:text="${diet.dietName}" required="required"></option>
 													</div>
-													
+												</select>
+											</div>
+											<br>
+											<div class="col-xs-6">
+												<label for="inputAttendeesMax"><h4>Maximum of
+														Attendees</h4></label> <input type="text" class="form-control"
+													name="attendeesMax" id="inputAttendeesMax"
+													th:value="${event} ? ${event.attendeesMax}"
+													th:readonly="${event}" title="enter yourdescription"
+													placeholder="5">
+											</div>
+											<br>
+
+											<div class="form-group">
+												<div class="col-xs-12">
+													<br>
+													<button th:href="@{/addEvent}"
+														class="btn btn-primary btn-user btn-block" type="submit">Submit</button>
+
 												</div>
-											</fieldset>
+
+											</div>
+
 
 										</form>
 									</div>
@@ -361,7 +353,7 @@
 									<div class="modal-footer">
 										<button class="btn btn-secondary" type="button"
 											data-dismiss="modal">Cancel</button>
-										<a class="btn btn-primary" href="login.html">Logout</a>
+										<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 									</div>
 								</div>
 							</div>

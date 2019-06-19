@@ -7,11 +7,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,8 +19,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DietRepository;
@@ -35,6 +32,7 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
+import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -82,8 +80,11 @@ public class SecurityController {
 	}
 
 	@GetMapping("/index")
-	public String handleIndex() {
+	public String handleIndex(Model model) {
 
+		List<EventModel> events = eventRepository.findAll();
+		model.addAttribute("events", events);
+		
 		return "index";
 	}
 
@@ -112,10 +113,9 @@ public class SecurityController {
 		return "register";
 	}
 
-	// DOB
-	// Diet
-	// Dorm
-	// Institute
+
+
+	@Transactional
 	@PostMapping("/register")
 	public String register(@Valid UserModel usernew, BindingResult userResult,
 			@Valid StudentModel studentnew,	Model model, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId) throws ParseException {
@@ -127,7 +127,6 @@ public class SecurityController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "register";
 		}
 		
 		UserModel user = userRepository.findUserByUserName(usernew.getUserName());
@@ -147,7 +146,7 @@ public class SecurityController {
 			user.setUserName(usernew.getUserName());
 			user.setPassword(usernew.getPassword());
 			user.setEnabled(true);
-
+			System.out.println(user.getPassword());
 			user.encryptPassword();
 			user.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(user);

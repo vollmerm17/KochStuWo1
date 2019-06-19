@@ -33,7 +33,7 @@ public class DietModel implements Serializable{
 	@OneToMany(mappedBy = "diet", fetch = FetchType.LAZY)
 	private Set<EventModel> events;
 	
-    @OneToMany(mappedBy="diet",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="diet",fetch = FetchType.LAZY)
     private Set<StudentModel> students;
 
     public DietModel(){

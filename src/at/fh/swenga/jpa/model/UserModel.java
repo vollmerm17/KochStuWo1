@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -43,6 +44,9 @@ public class UserModel implements Serializable {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<UserRoleModel> userRoles;
+	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
 
 	public UserModel() {
 	}
@@ -130,5 +134,27 @@ public class UserModel implements Serializable {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		password = passwordEncoder.encode(password);
 	}
+
+	public Set<EventModel> getEvent() {
+		return events;
+	}
+
+	public void setEvent(Set<EventModel> events) {
+		this.events = events;
+	}
+
+	public void addEvent(EventModel event) {
+		if (events == null) {
+			events = new HashSet<EventModel>();
+		}
+		events.add(event);
+	}
+	
+	@Override
+	public String toString() {
+		return "UserModel [userName=" + userName + ", password=" + password + ", enabled=" + enabled + ", student="
+				+ student + ", userRoles=" + userRoles + "]";
+	}
+	
 
 }
