@@ -64,6 +64,8 @@ public class InitialController {
 		this.createInstitutes();
 
 		this.createUsersAndStudent();
+		
+		this.createEvents();
 
 		
 		return "initPage";
@@ -119,10 +121,9 @@ public class InitialController {
 
 	}
 
-
+	private Date now = new Date();
 	public void createUsersAndStudent() {
 
-		Date now = new Date();
 		List<UserModel> sortedUserList = userRepository.findAllId();
 		if (sortedUserList.isEmpty()) {
 
@@ -166,10 +167,33 @@ public class InitialController {
 		} else {
 
 			;
+		}}
+		
+		public void createEvents(){
+			
+			List<EventModel> sortedEventList = eventRepository.findAll();
+			if (sortedEventList.isEmpty()) {
+			
+			UserModel maxi = userRepository.findFirstByUserName("Maxi");
+			UserModel maxine = userRepository.findFirstByUserName("Maxine");
+			DormModel dorm1 = dormRepository.findFirstByDormName("Greenbox");
+			DietModel diet1 = dietRepository.findFirstByDietName("vegan");
+			DietModel diet2 = dietRepository.findFirstByDietName("keine");
+
+				
+				EventModel event1 = new EventModel("Salami Party","Ich mag Salami und Brot",now,now,dorm1,diet1,3,maxi);
+				eventRepository.save(event1);
+				EventModel event2 = new EventModel("Pizza Party","Ich mag Pizza mit Sardellen und Mais",now,now,dorm1,diet2,3,maxine);
+				eventRepository.save(event2);
 		}
+			else{ 
+				;}
+			}
 		
 	
-	}
+
+	
+	
 
 
 }

@@ -2,7 +2,6 @@ package at.fh.swenga.jpa.model;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +16,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "Event")
@@ -39,18 +41,19 @@ public class EventModel {
 
 	// Time Only, no date part:
 	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(iso = ISO.TIME)
 	private Date timeOfEvent;
 	
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private DormModel dorm;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserModel user;
 
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
@@ -61,7 +64,6 @@ public class EventModel {
 	}
 
 	
-
 	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, UserModel user) {
 		super();
