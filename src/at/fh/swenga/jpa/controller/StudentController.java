@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -190,6 +191,15 @@ public class StudentController {
 		studentRepository.deleteById(id);
 
 		return "forward:list";
+	}
+	
+	@RequestMapping(value = { "/deleteOwn"})
+	public String deleteOwnData(Model model, Authentication aut) {
+	UserModel user = userRepository.findFirstByUserName(aut.getName());
+		int currentId =user.getId();
+		studentRepository.deleteById(currentId);
+		userRepository.deleteById(currentId);
+		return "login";
 	}
 
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.GET)
