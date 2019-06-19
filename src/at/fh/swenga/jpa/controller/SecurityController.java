@@ -127,7 +127,7 @@ public class SecurityController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "register";
+
 		}
 		
 		UserModel user = userRepository.findUserByUserName(usernew.getUserName());
