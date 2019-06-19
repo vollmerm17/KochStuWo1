@@ -12,6 +12,6 @@ import at.fh.swenga.jpa.model.InstituteModel;
 public interface InstituteRepository extends JpaRepository<InstituteModel, Integer> {
 
 
-	InstituteModel findFirstByName(String instituteName);
+	InstituteModel findFirstByInstituteName(String instituteName);
 
 }

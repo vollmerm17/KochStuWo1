@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
@@ -19,6 +19,7 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
+import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -64,6 +65,8 @@ public class InitialController {
 
 		this.createUsersAndStudent();
 
+		this.createEvents();
+		
 		return "initPage";
 	}
 
@@ -87,6 +90,8 @@ public class InitialController {
 		dormRepository.save(dorm1);
 
 	}
+	
+	
 
 	public void createDiets() {
 		DietModel diet1 = new DietModel("vegan", "tierische Produkte");
@@ -133,13 +138,12 @@ public class InitialController {
 
 			admin.encryptPassword();
 			admin.addUserRole(userRoleRepository.findFirstById(1));
-			userRepository.save(admin);
 			admin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(admin);
 
 			StudentModel student3 = new StudentModel(admin.getId(),"admin", "admin", "admin", "admin", "admin", now,
-					"admin@admin", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
-					dietRepository.findFirstByName("vegan"), dormRepository.findFirstByName("Greenbox"));
+					"admin@admin", "f", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
+					dietRepository.findFirstByDietName("vegan"), dormRepository.findFirstByDormName("Greenbox"));
 			admin.setStudent(student3);
 			userRepository.save(admin);
 
@@ -149,8 +153,8 @@ public class InitialController {
 			userRepository.save(user);
 
 			StudentModel student1 = new StudentModel(user.getId(),"Maximillian", "Mustermann", "sd", "sd", "12345", now,
-					"jhds@fhg", "m", instituteRepository.findFirstByName("FH JOANNEUM"),
-					dietRepository.findFirstByName("keine"), dormRepository.findFirstByName("Greenbox"));
+					"jhds@fhg", "m", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
+					dietRepository.findFirstByDietName("keine"), dormRepository.findFirstByDormName("Greenbox"));
 			user.setStudent(student1);
 			userRepository.save(user);
 
@@ -160,8 +164,8 @@ public class InitialController {
 			userRepository.save(userin);
 
 			StudentModel student2 = new StudentModel(userin.getId(),"Maxine", "Mustermann", "sd", "sd", "12345", now,
-					"jhds@fhg", "w", instituteRepository.findFirstByName("FH JOANNEUM"),
-					dietRepository.findFirstByName("vegetarisch"), dormRepository.findFirstByName("Greenbox"));
+					"jhds@fhg", "f", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
+					dietRepository.findFirstByDietName("vegetarisch"), dormRepository.findFirstByDormName("Greenbox"));
 			
 			userin.setStudent(student2);
 
@@ -171,6 +175,15 @@ public class InitialController {
 
 			;
 		}
+		
+	
+	}
+	
+	public void createEvents() {
+		Date now = new Date();
+		
+		EventModel event1 = new EventModel("Spaghetti bei Anna", "hi",now,now, dormRepository.findFirstByDormName("Greenbox"), dietRepository.findFirstByDietName("vegetarisch"), 10, studentRepository.findFirstById(2));
+		eventRepository.save(event1);
 
 	}
 

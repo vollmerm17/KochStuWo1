@@ -142,7 +142,7 @@ public class StudentController {
 
 	@PostMapping(value = { "/profile" })
 	public String changeProfile(Model model,@RequestParam String userName, @RequestParam String email, DormModel dorm, InstituteModel institute, DietModel diet) {
-		UserModel user = userRepository.findFirstByUserName(System.getProperty("user"));
+		UserModel user = userRepository.findFirstByUserName(System.getProperty("user.name"));
 		StudentModel student = studentRepository.findStudentByUser(user.getId());
 
 		user.setUserName(userName);

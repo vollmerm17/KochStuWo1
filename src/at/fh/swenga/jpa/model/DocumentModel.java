@@ -18,12 +18,12 @@ import javax.persistence.Version;
 public class DocumentModel implements java.io.Serializable {
  
 	@Id
-	@Column(name = "id")
+	@Column(name = "documentId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int documentId;
  
-	private String name;
-	private String description;
+	private String documentName;
+	private String documentDescription;
 	private String filename;
  
 	@Lob
@@ -37,27 +37,27 @@ public class DocumentModel implements java.io.Serializable {
 	long version;
  
 	public int getId() {
-		return id;
+		return documentId;
 	}
  
 	public void setId(int id) {
-		this.id = id;
+		this.documentId = id;
 	}
  
 	public String getName() {
-		return name;
+		return documentName;
 	}
  
 	public void setName(String name) {
-		this.name = name;
+		this.documentName = name;
 	}
  
 	public String getDescription() {
-		return description;
+		return documentDescription;
 	}
  
 	public void setDescription(String description) {
-		this.description = description;
+		this.documentDescription = description;
 	}
  
 	public String getFilename() {

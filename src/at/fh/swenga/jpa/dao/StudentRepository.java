@@ -19,6 +19,8 @@ public interface StudentRepository extends JpaRepository<StudentModel, Integer> 
 
 	StudentModel findStudentByUser(int id);
 	
+	StudentModel findFirstById(int id);
+	
 	StudentModel findFirstByFirstName(String firstName);
 
 	/*

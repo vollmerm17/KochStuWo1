@@ -2,6 +2,7 @@ package at.fh.swenga.jpa.model;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,17 +20,18 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Event")
+
 public class EventModel {
 	@Id
-	@Column(name = "id")
+	@Column(name = "eventId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int eventId;
 
 	@Column(nullable = false, length = 50)
-	private String name;
+	private String eventName;
 
 	@Column(nullable = false, length = 150)
-	private String description;
+	private String eventDescription;
 
 	// Date Only, no time part:
 	@Temporal(TemporalType.DATE)
@@ -42,10 +44,10 @@ public class EventModel {
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DormModel dorm;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(/*cascade = CascadeType.ALL*/)
 	private DietModel diet;
 
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -63,8 +65,8 @@ public class EventModel {
 	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, StudentModel student) {
 		super();
-		this.name = name;
-		this.description = description;
+		this.eventName = name;
+		this.eventDescription = description;
 		this.dayOfEvent = dayOfEvent;
 		this.timeOfEvent = timeOfEvent;
 		this.dorm = dorm;
@@ -75,32 +77,33 @@ public class EventModel {
 
 
 
+
 	public int getId() {
-		return id;
+		return eventId;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.eventId = id;
 	}
 
 	public String getName() {
-		return name;
+		return eventName;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.eventName = name;
 	}
 	
 	
 
 	public String getDescription() {
-		return description;
+		return eventDescription;
 	}
 
 
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.eventDescription = description;
 	}
 
 
@@ -131,6 +134,54 @@ public class EventModel {
 
 	
 	
+
+	public int getEventId() {
+		return eventId;
+	}
+
+
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
+	}
+
+
+
+	public String getEventName() {
+		return eventName;
+	}
+
+
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
+	}
+
+
+
+	public String getEventDescription() {
+		return eventDescription;
+	}
+
+
+
+	public void setEventDescription(String eventDescription) {
+		this.eventDescription = eventDescription;
+	}
+
+
+
+	public Set<PositionModel> getPositions() {
+		return positions;
+	}
+
+
+
+	public void setPositions(Set<PositionModel> positions) {
+		this.positions = positions;
+	}
+
+
 
 	public DormModel getDorm() {
 		return dorm;
@@ -191,7 +242,7 @@ public class EventModel {
 
 	@Override
 	public String toString() {
-		return "EventModel [id=" + id + ", name=" + name + ", description=" + description + ", dayOfEvent=" + dayOfEvent
+		return "EventModel [id=" + eventId + ", name=" + eventName + ", description=" + eventDescription + ", dayOfEvent=" + dayOfEvent
 				+ ", timeOfEvent=" + timeOfEvent + ", dorm=" + dorm + ", attendeesMax=" + attendeesMax
 				+ ", student=" + student + ", positions=" + positions + "]";
 	}
@@ -202,7 +253,7 @@ public class EventModel {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + eventId;
 		return result;
 	}
 
@@ -215,7 +266,7 @@ public class EventModel {
 		if (getClass() != obj.getClass())
 			return false;
 		EventModel other = (EventModel) obj;
-		if (id != other.id)
+		if (eventId != other.eventId)
 			return false;
 		return true;
 	}
