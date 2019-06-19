@@ -47,11 +47,11 @@ public class EventModel {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private DormModel dorm;
 	
-	@ManyToOne(/*cascade = CascadeType.ALL*/)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DietModel diet;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	private StudentModel student;
+	private UserModel user;
 
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
 	private Set<PositionModel> positions;
@@ -63,7 +63,7 @@ public class EventModel {
 	
 
 	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
-			int attendeesMax, StudentModel student) {
+			int attendeesMax, UserModel user) {
 		super();
 		this.eventName = name;
 		this.eventDescription = description;
@@ -72,7 +72,7 @@ public class EventModel {
 		this.dorm = dorm;
 		this.diet = diet;
 		this.attendeesMax = attendeesMax;
-		this.student = student;
+		this.user = user;
 	}
 
 
@@ -215,13 +215,18 @@ public class EventModel {
 		this.attendeesMax = attendeesMax;
 	}
 
-	public StudentModel getStudent() {
-		return student;
+	
+	public UserModel getUser() {
+		return user;
 	}
 
-	public void setStudent(StudentModel student) {
-		this.student = student;
+
+
+	public void setUser(UserModel user) {
+		this.user = user;
 	}
+
+
 
 	public Set<PositionModel> getPosition() {
 		return positions;
@@ -244,7 +249,7 @@ public class EventModel {
 	public String toString() {
 		return "EventModel [id=" + eventId + ", name=" + eventName + ", description=" + eventDescription + ", dayOfEvent=" + dayOfEvent
 				+ ", timeOfEvent=" + timeOfEvent + ", dorm=" + dorm + ", attendeesMax=" + attendeesMax
-				+ ", student=" + student + ", positions=" + positions + "]";
+				+ ", user=" + user + ", positions=" + positions + "]";
 	}
 
 

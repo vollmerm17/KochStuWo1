@@ -65,7 +65,6 @@ public class InitialController {
 
 		this.createUsersAndStudent();
 
-		this.createEvents();
 		
 		return "initPage";
 	}
@@ -178,13 +177,6 @@ public class InitialController {
 		
 	
 	}
-	
-	public void createEvents() {
-		Date now = new Date();
-		
-		EventModel event1 = new EventModel("Spaghetti bei Anna", "hi",now,now, dormRepository.findFirstByDormName("Greenbox"), dietRepository.findFirstByDietName("vegetarisch"), 10, studentRepository.findFirstById(2));
-		eventRepository.save(event1);
 
-	}
 
 }

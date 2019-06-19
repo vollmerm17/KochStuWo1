@@ -69,10 +69,6 @@ public class StudentModel implements Serializable {
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	// @OrderBy("lastName, firstName")
-	private Set<EventModel> events;
-
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-	// @OrderBy("lastName, firstName")
 	private Set<PositionModel> positions;
 
 	@OneToOne(fetch = FetchType.LAZY)
@@ -259,20 +255,7 @@ public class StudentModel implements Serializable {
 		positions.add(position);
 	}
 
-	public Set<EventModel> getEvent() {
-		return events;
-	}
 
-	public void setEvent(Set<EventModel> events) {
-		this.events = events;
-	}
-
-	public void addEvent(EventModel event) {
-		if (events == null) {
-			events = new HashSet<EventModel>();
-		}
-		events.add(event);
-	}
 
 	public DocumentModel getDocument() {
 		return document;
@@ -310,7 +293,7 @@ public class StudentModel implements Serializable {
 		return "StudentModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAndNumber="
 				+ streetAndNumber + ", cityAndPostalCode=" + cityAndPostalCode + ", phoneNumber=" + phoneNumber
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
-				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", positions=" + positions + "]";
+				+ ", diet=" + diet + ", dorm=" + dorm +  ", positions=" + positions + "]";
 	}
 
 
