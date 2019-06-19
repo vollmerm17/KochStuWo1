@@ -26,7 +26,7 @@ public class StudentModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id", insertable = true, updatable = false)
+	@Column(name="id")
 	private int id ;
 
 
@@ -65,7 +65,8 @@ public class StudentModel implements Serializable {
 	private DormModel dorm;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	private DocumentModel document;
+	private ProfilePictureModel picture;
+	
 
 	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
 	// @OrderBy("lastName, firstName")
@@ -157,6 +158,7 @@ public class StudentModel implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 
 	public String getFirstName() {
 		return firstName;
@@ -280,12 +282,14 @@ public class StudentModel implements Serializable {
 
 
 
-	public DocumentModel getDocument() {
-		return document;
+
+
+	public ProfilePictureModel getPicture() {
+		return picture;
 	}
 
-	public void setDocument(DocumentModel document) {
-		this.document = document;
+	public void setPicture(ProfilePictureModel picture) {
+		this.picture = picture;
 	}
 
 	@Override

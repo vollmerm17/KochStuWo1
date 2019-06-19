@@ -18,8 +18,8 @@ import javax.persistence.Table;
 import javax.persistence.Version;
  
 @Entity
-@Table(name = "Document")
-public class DocumentModel implements java.io.Serializable {
+@Table(name = "ProfilePicture")
+public class ProfilePictureModel implements java.io.Serializable {
  
 	@Id
 	@Column(name = "id")
