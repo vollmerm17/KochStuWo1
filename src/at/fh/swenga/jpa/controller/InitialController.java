@@ -119,13 +119,6 @@ public class InitialController {
 
 	}
 
-	public int createId(int id) {
-		List<UserModel> sortedUserList = userRepository.findAllId();
-		for (int i = 0; sortedUserList.size() < i; i++) {
-			id = sortedUserList.get(0).getId() + 1;
-		}
-		return id;
-	}
 
 	public void createUsersAndStudent() {
 
