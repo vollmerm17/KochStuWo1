@@ -13,6 +13,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class ReportController {
 	}
 	
 	@PostMapping(value = { "/supportMail" })
-	public static void main(String[] args, @RequestParam(value="content") String content, Authentication aut) {
+	public static void main(String[] args,Model model, @RequestParam(value="content") String content, Authentication aut) {
 		// Put recipient’s address
 		String to = "KochStuWo@office.com";
 
@@ -84,6 +85,8 @@ public class ReportController {
 			Transport.send(message);
 
 			System.out.println("Sent message successfully....");
+			
+			model.addAttribute("message", "Your message was sent!<br>");
 			
 
 		} catch (MessagingException e) {

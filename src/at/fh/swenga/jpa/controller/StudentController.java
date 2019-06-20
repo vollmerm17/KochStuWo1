@@ -148,16 +148,11 @@ public class StudentController {
 	@PostMapping(value = { "/profile" })
 	@Transactional
 	public String changeProfile(StudentModel newStudent,
-		Authentication aut, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId){
-
-
-		
-		///Optional<StudentModel> studentOptional = studentRepository.findById(newstudent.getId());
+		Authentication aut,Model model, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId){
 		
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = user.getStudent();
-		//StudentModel student1 = userRepository.findFirstByUserName(aut.getName()).getStudent();
-
+		
 		InstituteModel insti = instituteRepository.getOne(instituteId);
 		DormModel dormi = dormRepository.getOne(dormId);
 		DietModel dieti = dietRepository.getOne(dietId);
@@ -173,7 +168,7 @@ public class StudentController {
 		
 		System.out.println(student);
 		
-		
+		model.addAttribute("message", "Your profile was updated!<br>");
 
 		return "login";
 
