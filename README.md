@@ -42,7 +42,7 @@ KochStuWo is an web application that allows students who live in dorms to create
 6. Adapt the database.properties to your own connection and rename it to db.properties.
 7. Configure the Server to host the Application (e.g. Tomcat).
 8. Publish the project to Tomcat an start the server.
-9. Default User credentials are: Maxi/geheim2345, Maxine/2345.
+9. Default credentials are: Maxi/geheim2345, Maxine/2345 for users and administrator/password for the administrator.
 10. Try out the application.
 
 
