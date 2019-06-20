@@ -45,113 +45,119 @@
 								<h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
 							</div>
 							<form th:action="@{/register}" method="POST">
-									<!-- --------------  first Name ---------------- -->
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<input type="text" class="form-control form-control-user"
-												id="inputFirstName" name="firstName"
-												th:value="${student} ? ${student.firstName}"
-												th:readonly="${student}" placeholder="First Name">
-										</div>
-										<!-- --------------  last Name ---------------- -->
-
-										<div class="col-sm-6">
-											<input type="text" class="form-control form-control-user"
-												id="inputLastName" name="lastName"
-												th:value="${student} ? ${student.lastName}"
-												th:readonly="${student}" placeholder="Last Name">
-										</div>
-									</div>
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<input type="radio" name="gender" id="inputGenderF"
-												th:value="${student} ? ${student.gender} : f"
-												th:readonly="${student}" > Female</input>
-										</div>
-										<div class="col-sm-6">
-											<input type="radio" name="gender" id="inputGenderM"
-												th:value="${student} ? ${student.gender} : m"
-												th:readonly="${student}" > Male</input>
-										</div>
-									</div>
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<input type="date" class="form-control form-control-user"
-												id="inputDayOfBirth" name="dayOfBirth"
-												th:value="${student} ? ${#dates.format(student.dayOfBirth, 'dd.MM.yyyy'}"
-												th:readonly="${student}" placeholder="Day of Birth">
-										</div>
-										<div class="col-sm-6">
-											<input type="text" class="form-control form-control-user"
-												id="inputPhoneNumber" name="phoneNumber"
-												th:value="${student} ? ${student.phoneNumber}"
-												th:readonly="${student}" placeholder="Phone Number" minlength="9" maxlength="15">
-										</div>
-									</div>
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<input type="text" class="form-control form-control-user"
-												id="inputStreetAndNumber" name="streetAndNumber"
-												th:value="${student} ? ${student.streetAndNumber}"
-												th:readonly="${student}"
-												placeholder="Street and House Number">
-										</div>
-										<div class="col-sm-6">
-											<input type="text" class="form-control form-control-user"
-												id="inputCityAndPostalCode" name="cityAndPostalCode"
-												th:value="${student} ? ${student.cityAndPostalCode}"
-												th:readonly="${student}" placeholder="City and Postal Code">
-										</div>
-									</div>
-									<hr>
-									<select name = "dormId">
-										<option disabled selected="selected">Dorm</option>
-										<div th:each="dorm: ${#request.getAttribute('dorms')}">
-											<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"  required="required"></option>
-										</div>
-									</select> <select name = "dietId">
-										<option disabled selected="selected">Diet</option>
-										<div th:each="diet: ${#request.getAttribute('diets')}">
-											<option th:value="${diet.dietId}" th:text="${diet.dietName}"  required="required"></option>
-										</div>
-									</select> <select name = "instituteId">
-										<option disabled selected="selected">Educational Institute</option>
-										<div th:each="institute: ${#request.getAttribute('institutes')}">
-											<option th:value="${institute.instituteId}"
-												th:text="${institute.instituteName}"  required="required"></option>
-										</div>
-									</select>
-									<hr>
-									<div class="form-group">
+								<!-- --------------  first Name ---------------- -->
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="text" class="form-control form-control-user"
-											id="inputUserName" name="userName"
-											th:value="${user} ? ${user.userName}" th:readonly="${user}"
-											placeholder="Username"  required="required">
+											id="inputFirstName" name="firstName"
+											th:value="${student} ? ${student.firstName}"
+											th:readonly="${student}" placeholder="First Name">
 									</div>
+									<!-- --------------  last Name ---------------- -->
 
-									<div class="form-group">
-										<input type="email" class="form-control form-control-user"
-											id="inputEmail" name="email"
-											th:value="${user} ? ${student.email}" th:readonly="${user}"
-											placeholder="Email Address"  required="required">
+									<div class="col-sm-6">
+										<input type="text" class="form-control form-control-user"
+											id="inputLastName" name="lastName"
+											th:value="${student} ? ${student.lastName}"
+											th:readonly="${student}" placeholder="Last Name">
 									</div>
-									<div class="form-group row">
-										<div class="col-sm-6 mb-3 mb-sm-0">
-											<input type="password" class="form-control form-control-user"
-												id="inputPassword" name="password"
-												th:value="${user} ? ${user.password}" th:readonly="${user}"
-												placeholder="Password" minlength="6" maxlength="45" required="required">
-										</div>
-										</div>
-									<button th:href="@{/login}"
-										class="btn btn-primary btn-user btn-block" type="submit">Register</button>
-							
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="radio" name="gender" id="inputGenderF"
+											th:value="${student} ? ${student.gender} : f"
+											th:readonly="${student}"> Female</input>
+									</div>
+									<div class="col-sm-6">
+										<input type="radio" name="gender" id="inputGenderM"
+											th:value="${student} ? ${student.gender} : m"
+											th:readonly="${student}"> Male</input>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="date" class="form-control form-control-user"
+											id="inputDayOfBirth" name="dayOfBirth"
+											th:value="${student} ? ${#dates.format(student.dayOfBirth, 'dd.MM.yyyy'}"
+											th:readonly="${student}" placeholder="Day of Birth">
+									</div>
+									<div class="col-sm-6">
+										<input type="text" class="form-control form-control-user"
+											id="inputPhoneNumber" name="phoneNumber"
+											th:value="${student} ? ${student.phoneNumber}"
+											th:readonly="${student}" placeholder="Phone Number"
+											minlength="9" maxlength="15">
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="text" class="form-control form-control-user"
+											id="inputStreetAndNumber" name="streetAndNumber"
+											th:value="${student} ? ${student.streetAndNumber}"
+											th:readonly="${student}"
+											placeholder="Street and House Number">
+									</div>
+									<div class="col-sm-6">
+										<input type="text" class="form-control form-control-user"
+											id="inputCityAndPostalCode" name="cityAndPostalCode"
+											th:value="${student} ? ${student.cityAndPostalCode}"
+											th:readonly="${student}" placeholder="City and Postal Code">
+									</div>
+								</div>
+								<hr>
+								<select name="dormId">
+									<option disabled selected="selected">Dorm</option>
+									<div th:each="dorm: ${#request.getAttribute('dorms')}">
+										<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"
+											required="required"></option>
+									</div>
+								</select> <select name="dietId">
+									<option disabled selected="selected">Diet</option>
+									<div th:each="diet: ${#request.getAttribute('diets')}">
+										<option th:value="${diet.dietId}" th:text="${diet.dietName}"
+											required="required"></option>
+									</div>
+								</select> <select name="instituteId">
+									<option disabled selected="selected">Educational
+										Institute</option>
+									<div
+										th:each="institute: ${#request.getAttribute('institutes')}">
+										<option th:value="${institute.instituteId}"
+											th:text="${institute.instituteName}" required="required"></option>
+									</div>
+								</select>
+								<hr>
+								<div class="form-group">
+									<input type="text" class="form-control form-control-user"
+										id="inputUserName" name="userName"
+										th:value="${user} ? ${user.userName}" th:readonly="${user}"
+										placeholder="Username" required="required">
+								</div>
+
+								<div class="form-group">
+									<input type="email" class="form-control form-control-user"
+										id="inputEmail" name="email"
+										th:value="${user} ? ${student.email}" th:readonly="${user}"
+										placeholder="Email Address" required="required">
+								</div>
+								<div class="form-group row">
+									<div class="col-sm-6 mb-3 mb-sm-0">
+										<input type="password" class="form-control form-control-user"
+											id="inputPassword" name="password"
+											th:value="${user} ? ${user.password}" th:readonly="${user}"
+											placeholder="Password" minlength="6" maxlength="45"
+											required="required">
+									</div>
+								</div>
+								<button th:href="@{/login}"
+									class="btn btn-primary btn-user btn-block" type="submit">Register</button>
+							</form>
 							<hr>
 							<div class="text-center">
 								<a class="small" th:href="@{/login}">Already have an
 									account? Login!</a>
 							</div>
-							
+
 							</form>
 
 

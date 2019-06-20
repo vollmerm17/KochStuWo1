@@ -33,14 +33,13 @@ public class DormModel implements Serializable {
 	private String dormCityAndPostalCode;
 	
 	
-    @OneToMany(mappedBy="dorm",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy="dorm",fetch = FetchType.LAZY)
     private Set<StudentModel> students;
     
     @OneToMany(mappedBy = "dorm", fetch = FetchType.LAZY)
 	private Set<EventModel> events;
 	
     public DormModel() {
-		// TODO Auto-generated constructor stub
     }
 	
 

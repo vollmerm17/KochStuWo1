@@ -32,6 +32,7 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
+import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -79,7 +80,10 @@ public class SecurityController {
 	}
 
 	@GetMapping("/index")
-	public String handleIndex() {
+	public String handleIndex(Model model) {
+
+		List<EventModel> events = eventRepository.findAll();
+		model.addAttribute("events", events);
 
 		return "index";
 	}
@@ -109,6 +113,8 @@ public class SecurityController {
 		return "register";
 	}
 
+
+
 	@Transactional
 	@PostMapping("/register")
 	public String register(@Valid UserModel usernew, BindingResult userResult,
@@ -121,9 +127,8 @@ public class SecurityController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-			return "register";
 		}
-		
+
 		UserModel user = userRepository.findUserByUserName(usernew.getUserName());
 		StudentModel student = studentRepository.findStudentByEmail(studentnew.getEmail());
 
@@ -179,6 +184,6 @@ public class SecurityController {
 		return "404";
 
 	}
-	
-	
+
+
 }

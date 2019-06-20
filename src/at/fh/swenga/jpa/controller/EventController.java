@@ -9,7 +9,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -25,15 +27,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
+import at.fh.swenga.jpa.dao.InstituteRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
+import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.StudentModel;
+import at.fh.swenga.jpa.model.UserModel;
 
 @Controller
 public class EventController {
-	
+
 	@Autowired
 	EventRepository eventRepository;
 
@@ -42,52 +47,66 @@ public class EventController {
 
 	@Autowired
 	DormRepository dormRepository;
-	
+
 	@Autowired
 	StudentRepository studentRepository;
-	
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	InstituteRepository instituteRepository;
+
 	@InitBinder
 	public void initDateBinder(final WebDataBinder binder) {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
 
-	
-	@GetMapping("/addEvent" )
+	@InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+    }
+
+	@GetMapping("/addEvent")
 	public String handleAddEvent(Model model) {
-		
+
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
 
 		List<DietModel> diets = dietRepository.findAll();
 		model.addAttribute("diets", diets);
-		
-		
+
 		return "addEvent";
 	}
-	
+
+	@Transactional
 	@PostMapping("/addEvent")
-	public String register (@Valid EventModel event, @Valid StudentModel student, BindingResult bindingResult, Model model) throws ParseException {
+	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,  @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, Authentication aut) throws ParseException {
 
-		if (bindingResult.hasErrors()) {
-			String errorMessage = "";
-			for (FieldError fieldError : bindingResult.getFieldErrors()) {
-				errorMessage += fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>";
-			}
 
-			model.addAttribute("errorMessage", errorMessage);
-			return "register";
-		}
 
-		EventModel event1 = eventRepository.findFirstByName(event.getName());
-		StudentModel student1 = studentRepository.findFirstByFirstName(student.getFirstName());
+		/*
+		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
+		 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
+		 * fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>"; }
+		 *
+		 * model.addAttribute("errorMessage", errorMessage); return "addEvent"; }
+		 */
 
+
+		EventModel event1 = eventRepository.findFirstByEventName(event.getName());
+
+		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+		DormModel dorm1 = dormRepository.getOne(dormId);
+		DietModel diet1 = dietRepository.getOne(dietId);
 
 		if (event1 != null) {
 			model.addAttribute("errorMessage", "A event with this name already exists!<br>");
+		} else {
 
-		}
 
-		else {
 
 			event1 = new EventModel();
 			event1.setName(event.getName());
@@ -95,16 +114,17 @@ public class EventController {
 			event1.setDayOfEvent(event.getDayOfEvent());
 			event1.setTimeOfEvent(event.getTimeOfEvent());
 			event1.setAttendeesMax(event.getAttendeesMax());
-			event1.setDorm(event.getDorm());
-			event1.setDiet(event.getDiet());
-			event1.setStudent(student1);
-
+			event1.setDorm(dorm1);
+			event1.setDiet(diet1);
+			event1.setUser(user1);
 			eventRepository.save(event1);
 
-			return "index";
-			
+			return "addEvent";
+
 		}
-		return "addEvent";
+
+		return"addEvent";
+
 	}
 
 	@RequestMapping(value = { "/eventInfo" }, method = RequestMethod.GET)
@@ -122,22 +142,11 @@ public class EventController {
 		return "eventsOwn";
 	}
 
-	/*
-	 * @PostMapping(value = { "/addEvent" }) public String addEvent(Model
-	 * model, @RequestParam String name, @RequestParam String
-	 * description, @RequestParam Date date, @RequestParam Date time, DormModel
-	 * dorm,DietModel diet,@RequestParam int attendeesMax, StudentModel student) {
-	 * 
-	 * EventModel event1 = new EventModel(name, description,date, time, dorm,diet,
-	 * attendeesMax, student); eventRepository.save(event1);
-	 * 
-	 * return "index"; }
-	 * 
-	 */
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
 		return "404";
 
 	}
+
 }

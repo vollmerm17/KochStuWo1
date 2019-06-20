@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -71,7 +72,6 @@ public class StudentController {
 	DocumentRepository documentRepository;
 
 	/* eigener Controller fuer Request Mappings? */
-
 
 	@RequestMapping(value = { "/getPage" })
 	public String getPage(Pageable page, Model model) {
@@ -132,7 +132,7 @@ public class StudentController {
 
 	@RequestMapping(value = { "/profile" }, method = RequestMethod.GET)
 	public String handleProfile(Model model) {
-		
+
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
 
@@ -141,24 +141,47 @@ public class StudentController {
 
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
-		
-		return "profile";
-	}
-
-	@PostMapping(value = { "/profile" })
-	public String changeProfile(Model model,@RequestParam String userName, @RequestParam String email, DormModel dorm, InstituteModel institute, DietModel diet) {
-		UserModel user = userRepository.findFirstByUserName(System.getProperty("user.name"));
-		StudentModel student = studentRepository.findStudentByUser(user.getId());
-
-		user.setUserName(userName);
-		student.setEmail(email);
-		student.setDiet(diet);
-		student.setDorm(dorm);
-		student.setInstitute(institute);
 
 		return "profile";
 	}
 
+	/*
+	 * @Transactional
+	 * 
+	 * @PostMapping(value = { "/profile" }) public String changeProfile(Model
+	 * model,@Valid StudentModel studentnew, @RequestParam String
+	 * userName,Authentication aut, @RequestParam(value="dormId") int
+	 * dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value
+	 * ="instituteId") int instituteId) { UserModel user =
+	 * userRepository.findFirstByUserName(aut.getName()); StudentModel student1 =
+	 * studentRepository.findStudentByEmail(user.getStudent().getEmail());
+	 * 
+	 * InstituteModel insti = instituteRepository.getOne(instituteId); DormModel
+	 * dormi = dormRepository.getOne(dormId); DietModel dieti =
+	 * dietRepository.getOne(dietId);
+	 * 
+	 * 
+	 * if (user != null) { model.addAttribute("errorMessage",
+	 * "A profile with this username already exists!<br>");
+	 * 
+	 * } if (student1 != null) { model.addAttribute("errorMessage",
+	 * "A profile with this E-Mail already exists!<br>"); }
+	 * 
+	 * else {
+	 * 
+	 * 
+	 * student1 = new StudentModel(); user=new UserModel();
+	 * user.setUserName(userName); student1.setEmail(studentnew.getEmail());
+	 * student1.setDiet(dieti); student1.setDorm(dormi);
+	 * student1.setInstitute(insti);
+	 * student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
+	 * student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
+	 * student1.setLastName(studentnew.getLastName());
+	 * 
+	 * studentRepository.merge(student1):
+	 * 
+	 * return "profile"; } return "profile"; }
+	 */
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model) {
@@ -185,7 +208,7 @@ public class StudentController {
 	 *
 	 * return "index"; }
 	 */
-	@RequestMapping(value= {"/edit"})
+	@RequestMapping(value = { "/edit" })
 	public String editData(Model model, @RequestParam int id) {
 		return "profile";
 	}
@@ -202,11 +225,13 @@ public class StudentController {
 		model.addAttribute("studentId", studentId);
 		return "uploadRecipe";
 	}
+
 	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.GET)
 	public String showUploadFormEventPicture(Model model, @RequestParam("id") int studentId) {
 		model.addAttribute("studentId", studentId);
 		return "uploadEventPicture";
 	}
+
 	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.GET)
 	public String showUploadFormProfilePicture(Model model, @RequestParam("id") int studentId) {
 		model.addAttribute("studentId", studentId);
@@ -254,7 +279,8 @@ public class StudentController {
 		try {
 
 			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
-			if (!studentOpt.isPresent()) throw new IllegalArgumentException("No student with id "+studentId);
+			if (!studentOpt.isPresent())
+				throw new IllegalArgumentException("No student with id " + studentId);
 
 			StudentModel student = studentOpt.get();
 
@@ -288,7 +314,8 @@ public class StudentController {
 		try {
 
 			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
-			if (!studentOpt.isPresent()) throw new IllegalArgumentException("No student with id "+studentId);
+			if (!studentOpt.isPresent())
+				throw new IllegalArgumentException("No student with id " + studentId);
 
 			StudentModel student = studentOpt.get();
 

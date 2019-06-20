@@ -1,5 +1,6 @@
 package at.fh.swenga.jpa.controller;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
@@ -19,6 +19,7 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
+import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -64,6 +65,7 @@ public class InitialController {
 
 		this.createUsersAndStudent();
 
+		
 		return "initPage";
 	}
 
@@ -87,6 +89,8 @@ public class InitialController {
 		dormRepository.save(dorm1);
 
 	}
+	
+	
 
 	public void createDiets() {
 		DietModel diet1 = new DietModel("vegan", "tierische Produkte");
@@ -115,13 +119,6 @@ public class InitialController {
 
 	}
 
-	public int createId(int id) {
-		List<UserModel> sortedUserList = userRepository.findAllId();
-		for (int i = 0; sortedUserList.size() < i; i++) {
-			id = sortedUserList.get(0).getId() + 1;
-		}
-		return id;
-	}
 
 	public void createUsersAndStudent() {
 
@@ -170,7 +167,9 @@ public class InitialController {
 
 			;
 		}
-
+		
+	
 	}
+
 
 }
