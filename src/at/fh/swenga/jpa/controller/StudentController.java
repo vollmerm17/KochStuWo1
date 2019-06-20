@@ -1,13 +1,13 @@
 package at.fh.swenga.jpa.controller;
 
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -17,8 +17,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +34,6 @@ import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.DietModel;
@@ -62,8 +64,6 @@ public class StudentController {
 	@Autowired
 	EventRepository eventRepository;
 
-	@Autowired
-	PositionRepository positionRepository;
 
 	@Autowired
 	DocumentRepository documentRepository;
@@ -125,7 +125,7 @@ public class StudentController {
 		return "forgotPassword";
 	}
 
-	@RequestMapping(value = { "/profile" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/profile" })
 	public String handleProfile(Model model, Authentication aut) {
 
 		List<DormModel> dorms = dormRepository.findAll();
@@ -136,49 +136,47 @@ public class StudentController {
 
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
-
-		/*
-		 * int studentId =
-		 * userRepository.findFirstByUserName(aut.getName()).getStudent().getId();
-		 * model.addAttribute("studentId", studentId);
-		 */
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel studi = user.getStudent();
+		
+		model.addAttribute("student", studi);
 
 		return "profile";
 	}
 
-	@Transactional
 	@PostMapping(value = { "/profile" })
-	public String changeProfile(Model model, @Valid UserModel usernew, @Valid StudentModel studentnew,
-			Authentication aut, @RequestParam(value = "dormId") int dormId, @RequestParam(value = "dietId") int dietId,
-			@RequestParam(value = "instituteId") int instituteId) {
+	@Transactional
+	public String changeProfile(StudentModel newStudent,
+		Authentication aut, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId){
 
+
+		
+		///Optional<StudentModel> studentOptional = studentRepository.findById(newstudent.getId());
+		
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student1 = studentRepository.findStudentByEmail(user.getStudent().getEmail());
+		StudentModel student = user.getStudent();
+		//StudentModel student1 = userRepository.findFirstByUserName(aut.getName()).getStudent();
 
 		InstituteModel insti = instituteRepository.getOne(instituteId);
 		DormModel dormi = dormRepository.getOne(dormId);
 		DietModel dieti = dietRepository.getOne(dietId);
 
-		if (student1 != null) {
-			model.addAttribute("errorMessage", "A profile with this E-Mail already exists!<br>");
-		}
+		student.setEmail(newStudent.getEmail());
+		student.setPhoneNumber(newStudent.getPhoneNumber());
+		student.setDiet(dieti);
+		student.setDorm(dormi);
+		student.setInstitute(insti);
+		student.setCityAndPostalCode(newStudent.getCityAndPostalCode());
+		student.setStreetAndNumber(newStudent.getStreetAndNumber());
+		studentRepository.save(student);
+		
+		System.out.println(student);
+		
+		
 
-		else {
+		return "login";
 
-			student1 = new StudentModel();
-			student1.setEmail(studentnew.getEmail());
-			student1.setPhoneNumber(studentnew.getPhoneNumber());
-			student1.setDiet(dieti);
-			student1.setDorm(dormi);
-			student1.setInstitute(insti);
-			student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
-			student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
-			studentRepository.save(student1);
-
-			return "profile";
-		}
-
-		return "profile";
 	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)

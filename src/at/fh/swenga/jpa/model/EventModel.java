@@ -53,9 +53,6 @@ public class EventModel {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserModel user;
 
-	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
-	private Set<PositionModel> positions;
-
 	public EventModel() {
 
 	}
@@ -171,16 +168,6 @@ public class EventModel {
 
 
 
-	public Set<PositionModel> getPositions() {
-		return positions;
-	}
-
-
-
-	public void setPositions(Set<PositionModel> positions) {
-		this.positions = positions;
-	}
-
 
 
 	public DormModel getDorm() {
@@ -228,28 +215,11 @@ public class EventModel {
 
 
 
-	public Set<PositionModel> getPosition() {
-		return positions;
-	}
-
-	public void setPosition(Set<PositionModel> positions) {
-		this.positions = positions;
-	}
-
-	public void addPosition(PositionModel position) {
-		if (positions == null) {
-			positions = new HashSet<PositionModel>();
-		}
-		positions.add(position);
-	}
-
-
-
 	@Override
 	public String toString() {
 		return "EventModel [id=" + eventId + ", name=" + eventName + ", description=" + eventDescription + ", dayOfEvent=" + dayOfEvent
 				+ ", timeOfEvent=" + timeOfEvent + ", dorm=" + dorm + ", attendeesMax=" + attendeesMax
-				+ ", user=" + user + ", positions=" + positions + "]";
+				+ ", user=" + user +  "]";
 	}
 
 

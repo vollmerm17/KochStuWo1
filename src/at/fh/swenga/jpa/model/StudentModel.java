@@ -67,9 +67,6 @@ public class StudentModel implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private DocumentModel document;
 
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-	// @OrderBy("lastName, firstName")
-	private Set<PositionModel> positions;
 
 	@OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
@@ -242,20 +239,6 @@ public class StudentModel implements Serializable {
 		this.dorm = dorm;
 	}
 
-	public Set<PositionModel> getPositions() {
-		return positions;
-	}
-
-	public void setPositions(Set<PositionModel> positions) {
-		this.positions = positions;
-	}
-
-	public void addPosition(PositionModel position) {
-		if (positions == null) {
-			positions = new HashSet<PositionModel>();
-		}
-		positions.add(position);
-	}
 
 
 	public DocumentModel getDocument() {
@@ -294,7 +277,7 @@ public class StudentModel implements Serializable {
 		return "StudentModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAndNumber="
 				+ streetAndNumber + ", cityAndPostalCode=" + cityAndPostalCode + ", phoneNumber=" + phoneNumber
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
-				+ ", diet=" + diet + ", dorm=" + dorm +  ", positions=" + positions + "]";
+				+ ", diet=" + diet + ", dorm=" + dorm +  "]";
 	}
 
 
