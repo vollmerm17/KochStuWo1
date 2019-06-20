@@ -105,7 +105,7 @@ public class StudentController {
 	@RequestMapping(value = { "/allUsers" }, method = RequestMethod.GET)
 	public String handleAllUsers(Model model) {
 
-		List<StudentModel> students = studentRepository.findAll();
+		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
 		model.addAttribute("students", students);
 		return "allUsers";
 	}
@@ -184,7 +184,7 @@ public class StudentController {
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model) {
 
-		List<StudentModel> students = studentRepository.findAll();
+		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
 		model.addAttribute("students", students);
 
 		return "search";
