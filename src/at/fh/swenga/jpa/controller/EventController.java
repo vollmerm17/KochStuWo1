@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -131,6 +132,12 @@ public class EventController {
 	 * attendeesMax, student); eventRepository.save(event1);
 	 * 
 	 * return "index"; }
+	 * 
 	 */
-	 
+	@ExceptionHandler(Exception.class)
+	public String handleAllException(Exception ex) {
+
+		return "404";
+
+	}
 }

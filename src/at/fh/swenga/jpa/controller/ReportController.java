@@ -30,14 +30,14 @@ public class ReportController {
 
 	@RequestMapping(value = { "/report" })
 	public String report(Model model, /*@RequestParam(required = false) String excel,*/
-			@RequestParam(required = false) String pdf, @RequestParam(required = false) String mail,
+			/* @RequestParam(required = false) String pdf, */ @RequestParam(required = false) String mail,
 			@RequestParam(name = "studentId", required = false) List<Integer> studentIds) {
 
 		// User didn't select any student ? -> go back to list
-		if (CollectionUtils.isEmpty(studentIds)) {
-			model.addAttribute("errorMessage", "No students selected!");
-			return "forward:/list";
-		}
+		/*
+		 * if (CollectionUtils.isEmpty(studentIds)) { model.addAttribute("errorMessage",
+		 * "No students selected!"); return "forward:/list"; }
+		 */
 
 		// Convert the list of ids to a list of students.
 		// The method findAll() can do this
@@ -51,14 +51,11 @@ public class ReportController {
 			return "excelReport";
 		} else */
 		
-		if (StringUtils.isNoneEmpty(pdf)) {
-			return "pdfReport";
-			// return "pdfReportV5";
-		} else if (StringUtils.isNoneEmpty(mail)) {
-			sendMail(students);
-			model.addAttribute("errorMessage", "Mail sent");
-			return "forward:/list";
-		} else if (StringUtils.isNoneEmpty(mail)) {
+		/*
+		 * if (StringUtils.isNoneEmpty(pdf)) { return "pdfReport"; // return
+		 * "pdfReportV5"; } else
+		 */
+		if (StringUtils.isNoneEmpty(mail)) {
 			sendMail(students);
 			model.addAttribute("errorMessage", "Mail sent");
 			return "forward:/list";
@@ -94,7 +91,7 @@ public class ReportController {
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
-		return "error";
+		return "404";
 	}
 
 }
