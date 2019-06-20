@@ -13,7 +13,6 @@ import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
@@ -49,9 +48,7 @@ public class InitialController {
 	@Autowired
 	EventRepository eventRepository;
 
-	@Autowired
-	PositionRepository positionRepository;
-
+	
 	@RequestMapping(value = {"/initPage"})
 	public String fillData(Model model) {
 
