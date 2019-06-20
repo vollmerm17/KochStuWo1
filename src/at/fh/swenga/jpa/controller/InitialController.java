@@ -85,15 +85,19 @@ public class InitialController {
 	}
 
 	public void createDorms() {
-		DormModel dorm1 = new DormModel("Greenbox", "tfug 23", "2323 gcjszhdb");
+		DormModel dorm1 = new DormModel("Greenbox", "Eggenberger Allee 31", "8020 Graz");
 		dormRepository.save(dorm1);
+		DormModel dorm2 = new DormModel("ÖJAB-Haus", "Glacisstraße 39", "8010 Graz");
+		dormRepository.save(dorm2);
+		DormModel dorm3 = new DormModel("home4students", "Leechgasse 1", "8010 Graz");
+		dormRepository.save(dorm3);
 
 	}
 	
 	
 
 	public void createDiets() {
-		DietModel diet1 = new DietModel("vegan", "tierische Produkte");
+		DietModel diet1 = new DietModel("vegan", "Tierische Produkte");
 		dietRepository.save(diet1);
 
 		DietModel diet2 = new DietModel("keine", "Allesesser");
@@ -102,7 +106,7 @@ public class InitialController {
 		DietModel diet3 = new DietModel("vegetarisch", "Ohne Fleisch und Fisch");
 		dietRepository.save(diet3);
 
-		DietModel diet4 = new DietModel("pesketarisch", "Ohne Fleisch aber mit Fisch");
+		DietModel diet4 = new DietModel("pescetarisch", "Ohne Fleisch aber mit Fisch");
 		dietRepository.save(diet4);
 
 		DietModel diet5 = new DietModel("laktosefrei", "Keine Laktose");
@@ -111,10 +115,13 @@ public class InitialController {
 	}
 
 	public void createInstitutes() {
-		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstraï¿½e 30i", " 8020 Graz");
+		InstituteModel institute1 = new InstituteModel("FH JOANNEUM", "Eckertstrasse 30i", " 8020 Graz");
 		instituteRepository.save(institute1);
 
 		InstituteModel institute2 = new InstituteModel("Universitaet Graz", "Sporgasse 5", "8010 Graz");
+		instituteRepository.save(institute2);
+		
+		InstituteModel institute3 = new InstituteModel("Technische Univertität Graz", "Rechbauerstrasse 12", "8010 Graz");
 		instituteRepository.save(institute2);
 
 	}
@@ -150,7 +157,7 @@ public class InitialController {
 			user.setStudent(student1);
 			userRepository.save(user);
 
-			UserModel userin = new UserModel("Maxine", "dasGehtdichNichtsAn", true);
+			UserModel userin = new UserModel("Maxine", "geheim2345", true);
 			userin.encryptPassword();
 			userin.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(userin);
