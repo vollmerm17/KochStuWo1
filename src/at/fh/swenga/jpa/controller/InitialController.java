@@ -86,7 +86,7 @@ public class InitialController {
 	public void createDorms() {
 		DormModel dorm1 = new DormModel("Greenbox", "Eggenberger Allee 31", "8020 Graz");
 		dormRepository.save(dorm1);
-		DormModel dorm2 = new DormModel("�JAB-Haus", "Glacisstra�e 39", "8010 Graz");
+		DormModel dorm2 = new DormModel("JAB-Haus", "Glacisstrasse 39", "8010 Graz");
 		dormRepository.save(dorm2);
 		DormModel dorm3 = new DormModel("home4students", "Leechgasse 1", "8010 Graz");
 		dormRepository.save(dorm3);
@@ -120,7 +120,7 @@ public class InitialController {
 		InstituteModel institute2 = new InstituteModel("Universitaet Graz", "Sporgasse 5", "8010 Graz");
 		instituteRepository.save(institute2);
 
-		InstituteModel institute3 = new InstituteModel("Technische Univertit�t Graz", "Rechbauerstrasse 12", "8010 Graz");
+		InstituteModel institute3 = new InstituteModel("Technische Universitaet Graz", "Rechbauerstrasse 12", "8010 Graz");
 		instituteRepository.save(institute2);
 
 	}
@@ -185,14 +185,18 @@ public class InitialController {
 		UserModel maxi = userRepository.findFirstByUserName("Maxi");
 		UserModel maxine = userRepository.findFirstByUserName("Maxine");
 		DormModel dorm1 = dormRepository.findFirstByDormName("Greenbox");
+		DormModel dorm2 = dormRepository.findFirstByDormName("home4students");
 		DietModel diet1 = dietRepository.findFirstByDietName("vegan");
 		DietModel diet2 = dietRepository.findFirstByDietName("keine");
 
 
-			EventModel event1 = new EventModel("Salami Party","Ich mag Salami und Brot",now,now,dorm1,diet1,3,maxi);
+			EventModel event1 = new EventModel("Salami Party","Ich mag Salami und Brot",now,now,dorm2,diet1,3,maxi);
 			eventRepository.save(event1);
 			EventModel event2 = new EventModel("Pizza Party","Ich mag Pizza mit Sardellen und Mais",now,now,dorm1,diet2,3,maxine);
 			eventRepository.save(event2);
+			EventModel event3 = new EventModel("Late Night Dinner","Ich hoffe wir haben einen schoenen Abend",now,now,dorm1,diet2,1,maxine);
+			eventRepository.save(event3);
+			
 	}
 		else{
 			;}

@@ -168,7 +168,17 @@ public class EventController {
 
 
 	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
-	public String handleEventsAttending() {
+	public String handleEventsAttending(Authentication aut, Model model) {
+		
+			UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+			List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
+			System.out.println(events);
+			if(events.isEmpty()) {
+
+				model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
+				return "forward:index";
+			}
+			model.addAttribute("events",events);
 		
 		return "eventsAttending";
 	}
@@ -185,9 +195,6 @@ public class EventController {
 		model.addAttribute("events",events);
 		return "eventsOwn";
 	}
-
-
-
 
 
 	@ExceptionHandler(Exception.class)
@@ -208,7 +215,7 @@ public class EventController {
 			EventModel event1 = eventO.get();
 
 			System.out.println();
-			if (event1.getAttendeesMax() > 0) {
+			if (event1.getAttendeesMax() > 0 && !event1.getStudents().contains(student1)) {
 
 				event1.addStudi(student1);
 				event1.setAttendeesMax(event1.getAttendeesMax() - 1);
@@ -217,8 +224,12 @@ public class EventController {
 				return "forward:index";}
 			else {
 
-
-			model.addAttribute("errorMessage", "Sorry this event is already full, maybe next time!<br>");
+if (event1.getAttendeesMax() > 0) {
+	model.addAttribute("errorMessage", "Sorry this event is already full, maybe next time!<br>");
+}
+else {
+	model.addAttribute("warningMessage", "Sorry you are already attending this event. See you soon!<br>");
+}
 
 		}
 
