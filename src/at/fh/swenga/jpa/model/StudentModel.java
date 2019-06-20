@@ -266,7 +266,6 @@ public class StudentModel implements Serializable {
 
 
 
-
 	public ProfilePictureModel getPicture() {
 		return picture;
 	}

@@ -18,27 +18,35 @@ public interface StudentRepository extends JpaRepository<StudentModel, Integer> 
 
 	public StudentModel findStudentByEmail(String email);
 
+
+	// StudentModel findStudentByUser(int id);
+
+	StudentModel findFirstById(int id);
+
 	public StudentModel findStudentByUser(int id);
 	
 	public StudentModel findFirstByFirstName(String firstName);
 	
 	public StudentModel findStudentById(int eventId);
 	
-	
 
 
-	/*
-	 * List<StudentModel> findByLastName(String lastName);
-	 *
+	@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
+	List<StudentModel> findAllWithoutAdmin();
 
-
-	List<StudentModel> findStudentByEmail(String email);
+	// SELECT * FROM IMA17_vollmer_SWENGA_project_2.Student WHERE firstName Not LIKE "admin";
 
 	/*
 	 * List<StudentModel> findByLastName(String lastName);
 	 *
-
-
+	 * 
+	 * 
+	 * List<StudentModel> findStudentByEmail(String email);
+	 * 
+	 * /* List<StudentModel> findByLastName(String lastName);
+	 *
+	 * 
+	 * 
 	 * List<StudentModel> findByFirstName(String firstName);
 	 *
 	 * @Query("select e from StudentModel e where LOWER(e.firstName) LIKE CONCAT('%',LOWER(:name), '%') or e.lastName = :name"

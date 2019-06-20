@@ -1,100 +1,167 @@
 package at.fh.swenga.jpa.controller;
 
-import java.util.List;
+import java.util.Properties;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.MailSender;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.StudentRepository;
-import at.fh.swenga.jpa.model.StudentModel;
+import at.fh.swenga.jpa.dao.UserRepository;
 
 @Controller
 public class ReportController {
 	@Autowired
 	StudentRepository studentRepository;
 
+
 	@Autowired
-	private MailSender mailSender;
-	
-	@Autowired
-	private SimpleMailMessage templateMessage;
+	UserRepository userRepository;
 
-	@RequestMapping(value = { "/report" })
-	public String report(Model model, /*@RequestParam(required = false) String excel,*/
-			@RequestParam(required = false) String pdf, @RequestParam(required = false) String mail,
-			@RequestParam(name = "studentId", required = false) List<Integer> studentIds) {
 
-		// User didn't select any student ? -> go back to list
-		if (CollectionUtils.isEmpty(studentIds)) {
-			model.addAttribute("errorMessage", "No students selected!");
-			return "forward:/list";
-		}
 
-		// Convert the list of ids to a list of students.
-		// The method findAll() can do this
-		List<StudentModel> students = studentRepository.findAllById(studentIds);
+	/*
+	 *
+	 * @RequestMapping(value = { "/report" }) public String report(Model
+	 * model, @RequestParam(required = false) String excel,
+	 *
+	 * @RequestParam(required = false) String pdf, @RequestParam(required = false)
+	 * String mail,
+	 *
+	 * @RequestParam(name = "studentId", required = false) List<Integer> studentIds)
+	 * {
+	 *
+	 * // User didn't select any student ? -> go back to list if
+	 * (CollectionUtils.isEmpty(studentIds)) { model.addAttribute("errorMessage",
+	 * "No students selected!"); return "forward:/list"; }
+	 *
+	 * // Convert the list of ids to a list of students. // The method findAll() can
+	 * do this List<StudentModel> students =
+	 * studentRepository.findAllById(studentIds);
+	 *
+	 * // Store the students in the model, so the reports can access them
+	 * model.addAttribute("students", students);
+	 *
+	 * // Which submit button was pressed? -> call the right report view if
+	 * (StringUtils.isNoneEmpty(excel)) { // if = means when you pressed the "excel"
+	 * button return "excelReport"; } else
+	 *
+	 * if (StringUtils.isNoneEmpty(pdf)) { return "pdfReport"; // return
+	 * "pdfReportV5"; } else if (StringUtils.isNoneEmpty(mail)) {
+	 * sendMail(students); model.addAttribute("errorMessage", "Mail sent"); return
+	 * "forward:/list"; } else if (StringUtils.isNoneEmpty(mail)) {
+	 * sendMail(students); model.addAttribute("errorMessage", "Mail sent"); return
+	 * "forward:/list"; }
+	 *
+	 * else { return "forward:/list"; }
+	 *
+	 * }
+	 *
+	 *
+	 * @RequestMapping(value = { "/supportMail" }, method = RequestMethod.GET)
+	 * private String supportMail() {
+	 *
+	 * return "supportMail"; }
+	 *
+	 * @Transactional
+	 *
+	 * @PostMapping("/sendMail") public String sendMail( Authentication
+	 * aut, @RequestParam(value = "content") String content @Valid MailModel mail )
+	 * {
+	 *
+	 * String content ="hi";
+	 *
+	 * // Create a thread safe "copy" of the template message and customize it
+	 * SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
+	 *
+	 * // You can override default settings from dispatcher-servlet.xml: // //
+	 * msg.setFrom(aut.getName()); // msg.setTo(to); // msg.setSubject(subject);
+	 * msg.setText(String.format(msg.getText(), "KochStuWo-Team", content)); try {
+	 * this.mailSender.send(msg);
+	 *
+	 * } catch (MailException ex) { ex.printStackTrace(); } return "index"; }
+	 */
 
-		// Store the students in the model, so the reports can access them
-		model.addAttribute("students", students);
+	@RequestMapping(value = { "/supportMail" }, method = RequestMethod.GET)
+	private String supportMail() {
 
-		// Which submit button was pressed? -> call the right report view
-		/*if (StringUtils.isNoneEmpty(excel)) { // if = means when you pressed the "excel" button
-			return "excelReport";
-		} else */
-		
-		if (StringUtils.isNoneEmpty(pdf)) {
-			return "pdfReport";
-			// return "pdfReportV5";
-		} else if (StringUtils.isNoneEmpty(mail)) {
-			sendMail(students);
-			model.addAttribute("errorMessage", "Mail sent");
-			return "forward:/list";
-		} else if (StringUtils.isNoneEmpty(mail)) {
-			sendMail(students);
-			model.addAttribute("errorMessage", "Mail sent");
-			return "forward:/list";
-		}
-
-		else {
-			return "forward:/list";
-		}
-
+		return "supportMail";
 	}
 
-	private void sendMail(List<StudentModel> students) {
 
-		String content = "";
-		for (StudentModel student : students) {
-			content += student.getFirstName() + " " + student.getLastName() + "\n";
-		}
 
-		// Create a thread safe "copy" of the template message and customize it
-		SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
 
-		// You can override default settings from dispatcher-servlet.xml:
-		// msg.setFrom(from);
-		// msg.setTo(to);
-		// msg.setSubject(subject);
-		msg.setText(String.format(msg.getText(), "Max Mustermann", content));
+	@PostMapping(value = { "/supportMail" })
+	public static void main(String[] args, @RequestParam(value="content") String content, Authentication aut) {
+		// Put recipient�s address
+		String to = "KochStuWo@office.com";
+
+		// Put sender�s address
+		String from = aut.getName();
+		final String username = "9b07b6064e8684";// username generated by Mailtrap
+		final String password = "f42b1653c9128b";// password generated by Mailtrap
+
+		// Paste host address from the SMTP settings tab in your Mailtrap Inbox
+		String host = "smtp.mailtrap.io";
+
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");// it�s optional in Mailtrap
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "2525");// use one of the options in the SMTP settings tab in your Mailtrap Inbox
+
+		// Get the Session object.
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+
 		try {
-			this.mailSender.send(msg);
-		} catch (MailException ex) {
-			ex.printStackTrace();
+			// Create a default MimeMessage object.
+			Message message = new MimeMessage(session);
+
+			// Set From: header field
+			message.setFrom(new InternetAddress(from));
+
+			// Set To: header field
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+			// Set Subject: header field
+			message.setSubject("KochStuWo");
+
+			// Put the content of your message
+			message.setText(content);
+
+			// Send message
+			Transport.send(message);
+
+			System.out.println("Sent message successfully....");
+
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
 		}
+
+
 	}
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
-		return "error";
+		return "404";
 	}
 
 }

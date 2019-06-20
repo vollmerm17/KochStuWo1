@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.m3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
 <head>
 
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>404</title>
+<title>KochStuWo</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
-
-
 
 </head>
 
@@ -36,9 +37,9 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link"
-				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
-			</li>
+			<li class="nav-item"><a class="nav-link" th:href="@{/index}">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span>
+			</a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -188,14 +189,24 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
+					<div class="col-sm-9">
+						<!-- Page Heading -->
+						<div
+							class="d-sm-flex align-items-center justify-content-between mb-4">
+							<h1 class="h3 mb-0 text-gray-800">Send us an email!</h1>
 
-					<!-- 404 Error Text -->
-					<div class="text-center">
-						<div class="error mx-auto" data-text="404">404</div>
-						<p class="lead text-gray-800 mb-5">Page Not Found</p>
-						<p class="text-gray-500 mb-0">It looks like you found a glitch
-							in the matrix...</p>
-						<a href="index.html">&larr; Back to Dashboard</a>
+						</div>
+
+						<p>If you have any concerns, requests or questions...</p>
+						<form th:action="@{/supportMail}" method="POST">
+
+							<input type="text" class="form-control form-control-user"
+								id="inputContent" name="content" placeholder="Write your message here" maxlength="300"
+								required="required"> <br>
+							<button th:href="@{/supportMail}"
+								class="btn btn-primary btn-user btn-block" type="submit">Send</button>
+
+						</form>
 					</div>
 
 				</div>
@@ -208,7 +219,7 @@
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2019</span>
+						<span>Copyright &copy; KochStuWo 2019</span>
 					</div>
 				</div>
 			</footer>
@@ -242,14 +253,11 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+					<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
 </body>
 
 </html>

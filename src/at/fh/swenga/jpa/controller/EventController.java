@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -74,7 +75,7 @@ public class EventController {
 	public void initDateBinder(final WebDataBinder binder) {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
-	
+
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
@@ -98,19 +99,19 @@ public class EventController {
 	@PostMapping("/addEvent")
 	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,  @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, Authentication aut) throws ParseException {
 
-	
-		
+
+
 		/*
 		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
 		 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
 		 * fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>"; }
-		 * 
+		 *
 		 * model.addAttribute("errorMessage", errorMessage); return "addEvent"; }
 		 */
-		
+
 
 		EventModel event1 = eventRepository.findFirstByEventName(event.getName());
-		
+
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		DormModel dorm1 = dormRepository.getOne(dormId);
 		DietModel diet1 = dietRepository.getOne(dietId);
@@ -119,8 +120,8 @@ public class EventController {
 			model.addAttribute("errorMessage", "A event with this name already exists!<br>");
 		} else {
 
-			
-			
+
+
 			event1 = new EventModel();
 			event1.setName(event.getName());
 			event1.setDescription(event.getDescription());
@@ -131,11 +132,11 @@ public class EventController {
 			event1.setDiet(diet1);
 			event1.setUser(user1);
 			eventRepository.save(event1);
-			
+
 			return "addEvent";
-			
+
 		}
-		
+
 		return"addEvent";
 
 	}
@@ -184,5 +185,12 @@ public class EventController {
 
 	
 	
+
+	@ExceptionHandler(Exception.class)
+	public String handleAllException(Exception ex) {
+
+		return "404";
+
+	}
 
 }
