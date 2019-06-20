@@ -128,12 +128,7 @@
 											<td th:text="${student.diet.dietName}"></td>
 											<td th:text="${student.dorm.dormName}"></td>
 											<td><a th:href="@{/delete(id=${student.id})}"
-												class="btn btn-danger">Delete</a> <a
-												th:href="@{/profile(id=${student.id})}"
-												class="btn btn-xs btn-success"> <span
-													class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-													Edit
-											</a></td>
+												class="btn btn-danger">Delete</a> </td>
 										</tr>
 									</tbody>
 								</table>
@@ -177,7 +172,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">�</span>
+						<span aria-hidden="true"></span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready

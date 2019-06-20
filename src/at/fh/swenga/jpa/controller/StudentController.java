@@ -2,7 +2,6 @@ package at.fh.swenga.jpa.controller;
 
 
 import java.io.OutputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,10 +34,8 @@ import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventPictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-
 import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
-
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.DietModel;
@@ -149,15 +145,14 @@ public class StudentController {
 	public String handleProfile(Model model, Authentication aut) {
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+		StudentModel studi = user.getStudent();
 
+		/*if (studi != null) {
 
-		if (student != null) {
+			model.addAttribute("student", studi);
+			if (studi.getPicture() != null) {
 
-			model.addAttribute("student", student);
-			if (student.getPicture() != null) {
-
-				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(studi.getPicture().getId());
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
@@ -169,7 +164,7 @@ public class StudentController {
 				model.addAttribute("image", image);
 
 
-			}
+			}*/
 
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
@@ -180,12 +175,11 @@ public class StudentController {
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
 
-		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel studi = user.getStudent();
+		
 
 		model.addAttribute("student", studi);
 
-	}
+
 		return "profile";
 	}
 
@@ -193,7 +187,7 @@ public class StudentController {
 	@PostMapping(value = { "/profile" })
 	@Transactional
 	public String changeProfile(StudentModel newStudent,
-		Authentication aut,Model model, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId){
+		Authentication aut, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId){
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = user.getStudent();
@@ -211,9 +205,6 @@ public class StudentController {
 		student.setStreetAndNumber(newStudent.getStreetAndNumber());
 		studentRepository.save(student);
 
-		System.out.println(student);
-
-		model.addAttribute("message", "Your profile was updated!<br>");
 
 		return "login";
 

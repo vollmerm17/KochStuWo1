@@ -292,14 +292,14 @@
 												<option disabled selected="selected">Dorm</option>
 												<div th:each="dorm: ${#request.getAttribute('dorms')}">
 													<option th:value="${dorm.dormId}"
-														th:text="${dorm.dormName}" th:selected="${dorm.dormId == student.dorm.dormId}" required="required"></option>
+														th:text="${dorm.dormName}" th:selected="${student.dorm}" required="required"></option>
 												</div>
 											</select><br> <br> <select name="dietId"
 												class="browser-default custom-select">
 												<option disabled selected="selected">Diet</option>
 												<div th:each="diet: ${#request.getAttribute('diets')}">
 													<option th:value="${diet.dietId}"
-														th:text="${diet.dietName}" th:selected="${diet.dietId == student.diet.dietId}" required="required"></option>
+														th:text="${diet.dietName}" th:selected="${student.diet}" required="required"></option>
 												</div>
 											</select><br> <br> <select name="instituteId"
 												class="browser-default custom-select">
@@ -307,7 +307,7 @@
 													Institute</option>
 												<div th:each="institute: ${#request.getAttribute('institutes')}">
 													<option th:value="${institute.instituteId}"
-														th:text="${institute.instituteName}" th:selected="${institute.instituteId == student.institute.instituteId}" required="required"></option>
+														th:text="${institute.instituteName}" th:selected="${student.institute}" required="required"></option>
 												</div>
 											</select> <br>
 											<br>
