@@ -1,9 +1,11 @@
 package at.fh.swenga.jpa.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +13,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,11 +26,11 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "Event")
-
-public class EventModel {
+public class EventModel implements Serializable {
+	
 	@Id
-	@Column(name = "eventId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "eventId")
 	private int eventId;
 
 	@Column(nullable = false, length = 50)
@@ -58,12 +62,17 @@ public class EventModel {
 
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
 	private Set<PositionModel> positions;
-
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private EventPictureModel picture;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private RecipeModel recipe;
+	
 	public EventModel() {
 
 	}
 
-	
 	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, UserModel user) {
 		super();
@@ -78,6 +87,28 @@ public class EventModel {
 	}
 
 
+
+
+
+
+	public RecipeModel getRecipe() {
+		return recipe;
+	}
+
+
+	public void setRecipe(RecipeModel recipe) {
+		this.recipe = recipe;
+	}
+
+
+	public EventPictureModel getPicture() {
+		return picture;
+	}
+
+
+	public void setPicture(EventPictureModel picture) {
+		this.picture = picture;
+	}
 
 
 	public int getId() {

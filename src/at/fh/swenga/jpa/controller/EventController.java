@@ -4,9 +4,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.core.Authentication;
@@ -22,18 +25,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
+import at.fh.swenga.jpa.dao.EventPictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
+import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.EventModel;
+import at.fh.swenga.jpa.model.EventPictureModel;
+import at.fh.swenga.jpa.model.ProfilePictureModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
+
 
 @Controller
 public class EventController {
@@ -55,6 +64,11 @@ public class EventController {
 
 	@Autowired
 	InstituteRepository instituteRepository;
+	
+	@Autowired
+	EventPictureRepository eventPictureRepository;
+	
+
 
 	@InitBinder
 	public void initDateBinder(final WebDataBinder binder) {
@@ -83,8 +97,6 @@ public class EventController {
 	@Transactional
 	@PostMapping("/addEvent")
 	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,  @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, Authentication aut) throws ParseException {
-
-
 		
 		/*
 		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
@@ -127,9 +139,35 @@ public class EventController {
 	}
 
 	@RequestMapping(value = { "/eventInfo" }, method = RequestMethod.GET)
-	public String handleEventInfo() {
+	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId ) {
+		model.addAttribute("eventId", eventId);
+
+		EventModel event = eventRepository.findEventByEventId(eventId);
+		if(event != null) {
+			
+		
+		if(event.getPicture() != null) {
+			Optional<EventPictureModel> ppOpt = eventPictureRepository.findById(event.getPicture().getId());
+			EventPictureModel pp = ppOpt.get();
+			byte[] eventPicture = pp.getContent();
+			
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("data:image/png;base64,");
+			sb.append(Base64.encodeBase64String(eventPicture));
+			String image = sb.toString();
+			model.addAttribute("image", image);
+			
+			}
+		}
+		else {
+			model.addAttribute("errorMessage", "Something went wrong!");
+			return "login";
+		}
+		
 		return "eventInfo";
 	}
+	
 
 	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
 	public String handleEventsAttending() {
@@ -140,5 +178,9 @@ public class EventController {
 	public String handleEventsOwn() {
 		return "eventsOwn";
 	}
+	
+
+	
+	
 
 }
