@@ -198,7 +198,7 @@ public class StudentController {
 
 
 
-	@Transactional
+	
 	@PostMapping(value = { "/profile" })
 	public String changeProfile(Model model, @Valid UserModel usernew, @Valid StudentModel studentnew,
 			Authentication aut, @RequestParam(value = "dormId") int dormId, @RequestParam(value = "dietId") int dietId,
@@ -323,8 +323,8 @@ public class StudentController {
 
 				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
 				return "eventInfo";
-			}*/
-			
+			}
+			/*
 			if(!"image/jpeg".equals(file.getContentType())) {
 				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
 				return "eventInfo";
@@ -373,7 +373,7 @@ public class StudentController {
 			if(!"image/png".equals(file.getContentType())) {
 				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
 				return "eventInfo";
-			}
+			}/*
 			if(!"image/jpeg".equals(file.getContentType())) {
 				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
 				return "eventInfo";
