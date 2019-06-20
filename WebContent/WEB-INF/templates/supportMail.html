@@ -198,24 +198,14 @@
 						</div>
 
 						<p>If you have any concerns, requests or questions...</p>
-						<form action="@{/profile}" method="post">
-							<div class="form-group">
-								<div class="col-xs-12">
+						<form th:action="@{/supportMail}" method="POST">
 
-									<textarea name="emailText" rows="10" cols="30">
-									
-									</textarea>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-xs-6">
-									<br>
-									<button th:href="@{/addEvent}"
-										class="btn btn-primary btn-user btn-block" type="submit">Submit</button>
+							<input type="text" class="form-control form-control-user"
+								id="inputContent" name="content" placeholder="Write your message here" maxlength="300"
+								required="required"> <br>
+							<button th:href="@{/supportMail}"
+								class="btn btn-primary btn-user btn-block" type="submit">Send</button>
 
-								</div>
-
-							</div>
 						</form>
 					</div>
 

@@ -160,8 +160,9 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie
-									Luna</span> <img class="img-profile rounded-circle"
+								class="mr-2 d-none d-lg-inline text-gray-600 small"
+								sec:authentication="name"></span><img
+								class="img-profile rounded-circle"
 								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a> <!-- Dropdown - User Information -->
 							<div
@@ -237,21 +238,9 @@
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
-										<form action="@{/profile}" method="post">
-											<div class="form-group">
+										<form th:action="@{/profile}"
+											method="post">
 
-												<!-- User Name -->
-												<div class="col-xs-6">
-													<label for="inputUserName"><h4>User Name</h4></label> <input
-														type="text" class="form-control form-control-user"
-														id="inputUserName" name="userName"
-														th:value="${user} ? ${user.userName}"
-														th:readonly="${user}" th:placeholder="maxi123"
-														title="enter your user name">
-												</div>
-												<!-- E-Mail -->
-
-											</div>
 											<div class="col-xs-6">
 												<label for="inputEmail"><h4>Email</h4></label> <input
 													type="email" class="form-control" name="email"
@@ -261,8 +250,6 @@
 											</div>
 											<br> <label for="inputPhoneNumber"><h4>Phone
 													Number</h4></label>
-
-
 											<div class="col-xs-6">
 												<input type="text" class="form-control form-control-user"
 													id="inputPhoneNumber" name="phoneNumber"
@@ -271,8 +258,6 @@
 													minlength="9" maxlength="15">
 											</div>
 											<br> <label for="inputStreetAndNumber"><h4>Adress</h4></label>
-
-
 											<div class="form-group row">
 												<div class="col-sm-6 mb-3 mb-sm-0">
 													<input type="text" class="form-control form-control-user"
@@ -289,9 +274,6 @@
 														placeholder="City and Postal Code">
 												</div>
 											</div>
-
-
-
 
 											<label for="dormId"><h4>Dorm</h4></label> <br> <select
 												class="browser-default custom-select" name="dormId">
@@ -317,76 +299,17 @@
 													<option th:value="${diet.dietId}"
 														th:text="${diet.dietName}"></option>
 												</div>
-											</select> <br> <br>
+											</select> <br>
 											<div class="form-group">
 												<div class="col-xs-12">
 													<br>
-													<button th:href="@{/profile}"
-														class="btn btn-primary btn-user btn-block" type="submit">Save</button>
-													<button th:href="@{/profile}"
+													<button class="btn btn-primary btn-user btn-block"
+														type="submit">Save</button>
+													<!-- <button th:href="@{/profile}"
 														class="btn btn-danger btn-user btn-block" type="reset">Cancel</button>
-
+ -->
+													<br>
 												</div>
 											</div>
-<<<<<<< Updated upstream
-=======
-
-										</form>
-
-
-
-									</div>
-									<!-- /.container-fluid -->
-
-								</div>
-								<!-- End of Main Content -->
-
-								<!-- Footer -->
-								<footer class="sticky-footer bg-white">
-									<div class="container my-auto">
-										<div class="copyright text-center my-auto">
-											<span>Copyright &copy; KochStuWo 2019</span>
-										</div>
-									</div>
-								</footer>
-								<!-- End of Footer -->
-
-							</div>
-							<!-- End of Content Wrapper -->
-
-						</div>
-						<!-- End of Page Wrapper -->
-
-						<!-- Scroll to Top Button-->
-						<a class="scroll-to-top rounded" href="#page-top"> <i
-							class="fas fa-angle-up"></i>
-						</a>
-
-						<!-- Logout Modal-->
-						<div class="modal fade" id="logoutModal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Ready to
-											Leave?</h5>
-										<button class="close" type="button" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">×</span>
-										</button>
-									</div>
-									<div class="modal-body">Select "Logout" below if you are
-										ready to end your current session.</div>
-									<div class="modal-footer">
-										<button class="btn btn-secondary" type="button"
-											data-dismiss="modal">Cancel</button>
-										<a class="btn btn-primary" href="login.html">Logout</a>
-									</div>
-								</div>
-							</div>
-						</div>
-</body>
->>>>>>> Stashed changes
 
 										</form>
