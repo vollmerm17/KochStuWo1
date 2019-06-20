@@ -1,6 +1,9 @@
 package at.fh.swenga.jpa.model;
- 
+
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.Basic;
@@ -14,87 +17,105 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Version;
- 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 @Entity
-@Table(name = "ProfilePicture")
-public class ProfilePictureModel implements java.io.Serializable {
- 
+@Table(name = "Recipe")
+public class RecipeModel implements Serializable {
+	
 	@Id
-	@Column(name = "pictureId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int pictureId;
- 
-	private String pictureName;
-	private String pictureDescription;
+	@Column(name = "id")
+	private int id;
+
+	private String contentType;
+	private Date created;
+	
+	private String recipeName;
 	private String filename;
- 
+
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] content;
-	
- 
-	private String contentType;
-	private Date created;
- 
-	@Version
-	long version;
- 
+
+
+
 	public int getId() {
-		return pictureId;
+		return id;
 	}
- 
+
+
+
 	public void setId(int id) {
-		this.pictureId = id;
+		this.id = id;
 	}
- 
-	public String getName() {
-		return pictureName;
-	}
- 
-	public void setName(String name) {
-		this.pictureName = name;
-	}
- 
-	public String getDescription() {
-		return pictureDescription;
-	}
- 
-	public void setDescription(String description) {
-		this.pictureDescription = description;
-	}
- 
-	public String getFilename() {
-		return filename;
-	}
- 
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
- 
+
+
+
 	public byte[] getContent() {
 		return content;
 	}
- 
+
+
+
 	public void setContent(byte[] content) {
 		this.content = content;
 	}
- 
+
+
+
 	public String getContentType() {
 		return contentType;
 	}
- 
+
+
+
 	public void setContentType(String contentType) {
 		this.contentType = contentType;
 	}
- 
+
+
+
 	public Date getCreated() {
 		return created;
 	}
- 
+
+
+
 	public void setCreated(Date created) {
 		this.created = created;
 	}
- 
+
+
+
+	public String getRecipeName() {
+		return recipeName;
+	}
+
+
+
+	public void setRecipeName(String recipeName) {
+		this.recipeName = recipeName;
+	}
+
+
+
+	public String getFilename() {
+		return filename;
+	}
+
+
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+
+	
+	
+	
+
 }

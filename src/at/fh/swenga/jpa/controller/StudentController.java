@@ -35,17 +35,22 @@ import org.apache.commons.codec.binary.Base64;
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
+import at.fh.swenga.jpa.dao.EventPictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
 import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
+import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.ProfilePictureModel;
 import at.fh.swenga.jpa.model.DormModel;
+import at.fh.swenga.jpa.model.EventModel;
+import at.fh.swenga.jpa.model.EventPictureModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
+import at.fh.swenga.jpa.model.RecipeModel;
 
 @Controller
 public class StudentController {
@@ -73,6 +78,12 @@ public class StudentController {
 
 	@Autowired
 	ProfilePictureRepository profilePictureRepository;
+	
+	@Autowired
+	EventPictureRepository eventPictureRepository;
+	
+	@Autowired
+	RecipeRepository recipeRepository;
 
 	/* eigener Controller fuer Request Mappings? */
 
@@ -158,9 +169,6 @@ public class StudentController {
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
-				System.out.println(image);
-				
-	
 				model.addAttribute("image", image);
 				
 			
@@ -234,15 +242,87 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.GET)
-	public String showUploadFormRecipe(Model model, @RequestParam("id") int studentId) {
-		model.addAttribute("studentId", studentId);
+	public String showUploadFormRecipe(Model model, @RequestParam("eventId") int eventId) {
+		model.addAttribute("eventId", eventId);
 		return "uploadRecipe";
 	}
+	
+	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.POST)
+	public String uploadRecipe1(Model model, @RequestParam("eventId") int eventId,
+			@RequestParam("myFile") MultipartFile file) {
+		try {
+			
+			EventModel event = eventRepository.findEventByEventId(eventId);
+			
+
+			if (event == null) throw new IllegalArgumentException("No event with id "+eventId);
+ 
+	
+	
+			if (event.getPicture() != null) {
+				recipeRepository.delete(event.getRecipe());
+				event.setPicture(null);
+			}
+			
+			RecipeModel recipe = new RecipeModel();
+			recipe.setContent(file.getBytes());
+			recipe.setContentType(file.getContentType());
+			recipe.setCreated(new Date());
+			recipe.setFilename(file.getOriginalFilename());
+			recipe.setRecipeName(file.getName());
+			event.setRecipe(recipe);
+			recipeRepository.save(recipe);
+			eventRepository.save(event);
+			
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+		}
+
+		return "eventInfo";
+	}
+	
+	
 	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.GET)
-	public String showUploadFormEventPicture(Model model, @RequestParam("id") int studentId) {
-		model.addAttribute("studentId", studentId);
+	public String showUploadFormEventPicture(Model model, @RequestParam("eventId") int eventId) {
+		model.addAttribute("eventId", eventId);
 		return "uploadEventPicture";
 	}
+	
+	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.POST)
+	public String uploadEventPicture(Model model, @RequestParam("eventId") int eventId,
+			@RequestParam("myFile") MultipartFile file) {
+		try {
+			
+			EventModel event = eventRepository.findEventByEventId(eventId);
+			
+
+			if (event == null) throw new IllegalArgumentException("No event with id "+eventId);
+ 
+			
+	
+			if (event.getPicture() != null) {
+				eventPictureRepository.delete(event.getPicture());
+				event.setPicture(null);
+			}
+			
+			EventPictureModel pic = new EventPictureModel();
+			pic.setContent(file.getBytes());
+			pic.setContentType(file.getContentType());
+			pic.setCreated(new Date());
+			pic.setFilename(file.getOriginalFilename());
+			pic.setName(file.getName());
+			event.setPicture(pic);
+			eventPictureRepository.save(pic);
+			eventRepository.save(event);
+			
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error:" + e.getMessage());
+		}
+
+		return "eventInfo";
+	}
+
+	
 	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.GET)
 	public String showUploadFormProfilePicture(Model model,@RequestParam("id") int studentId) {
 		model.addAttribute("studentId", studentId);
@@ -282,86 +362,20 @@ public class StudentController {
 	}
 
 
-	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.POST)
-	public String uploadRecipe(Model model, @RequestParam("id") int studentId,
-			@RequestParam("myFile") MultipartFile file) {
-		try {
-
-			
-			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
-			if (!studentOpt.isPresent())
-				throw new IllegalArgumentException("No student with id " + studentId);
-
-			StudentModel student = studentOpt.get();
-
-			// Already a document available -> delete it
-			if (student.getPicture() != null) {
-				profilePictureRepository.delete(student.getPicture());
-				// Don't forget to remove the relationship too
-				student.setPicture(null);
-			}
-
-			// Create a new document and set all available infos
-
-			ProfilePictureModel document = new ProfilePictureModel();
-			document.setContent(file.getBytes());
-			document.setContentType(file.getContentType());
-			document.setCreated(new Date());
-			document.setFilename(file.getOriginalFilename());
-			document.setName(file.getName());
-			student.setPicture(document);
-			studentRepository.save(student);
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Error:" + e.getMessage());
-		}
-
-		return "addEvent";
-	}
-
-	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.POST)
-	public String uploadEventPicture(Model model, @RequestParam("id") int studentId,
-			@RequestParam("myFile") MultipartFile file) {
-		try {
-
-			Optional<StudentModel> studentOpt = studentRepository.findById(studentId);
-			if (!studentOpt.isPresent()) throw new IllegalArgumentException("No student with id "+studentId);
-
-			StudentModel student = studentOpt.get();
-
-			// Already a document available -> delete it
-			if (student.getPicture() != null) {
-				profilePictureRepository.delete(student.getPicture());
-				// Don't forget to remove the relationship too
-				student.setPicture(null);
-			}
-
-			// Create a new document and set all available infos
-
-			ProfilePictureModel document = new ProfilePictureModel();
-			document.setContent(file.getBytes());
-			document.setContentType(file.getContentType());
-			document.setCreated(new Date());
-			document.setFilename(file.getOriginalFilename());
-			document.setName(file.getName());
-			student.setPicture(document);
-			studentRepository.save(student);
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Error:" + e.getMessage());
-		}
-
-		return "addEvent";
-	}
+	
+	
 
 	
 	@RequestMapping("/download")
-	public void download(@RequestParam("documentId") int documentId, HttpServletResponse response) {
+	public void download(@RequestParam("eventId") int eventId, HttpServletResponse response) {
 
-		Optional<ProfilePictureModel> docOpt = profilePictureRepository.findById(documentId);
-		if (!docOpt.isPresent())
+		
+		EventModel event = eventRepository.findEventByEventId(eventId);
+		/*if (!event.isPresent())
 			throw new IllegalArgumentException("No document with id " + documentId);
-
-		ProfilePictureModel doc = docOpt.get();
-
+*/
+		RecipeModel doc = event.getRecipe();
+		
 		try {
 			response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getFilename() + "\"");
 			OutputStream out = response.getOutputStream();
@@ -372,6 +386,7 @@ public class StudentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 
 	@ExceptionHandler(Exception.class)

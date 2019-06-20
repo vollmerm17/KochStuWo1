@@ -22,7 +22,7 @@ public interface StudentRepository extends JpaRepository<StudentModel, Integer> 
 	
 	public StudentModel findFirstByFirstName(String firstName);
 	
-	public StudentModel findStudentById(int id);
+	public StudentModel findStudentById(int eventId);
 	
 	
 
