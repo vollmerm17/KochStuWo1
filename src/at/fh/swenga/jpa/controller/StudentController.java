@@ -303,10 +303,10 @@ public class StudentController {
 				eventPictureRepository.delete(event.getPicture());
 				event.setPicture(null);
 			}
-			if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
+			/*if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
 				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
 				return "eventInfo";
-			}
+			}*/
 			
 			EventPictureModel pic = new EventPictureModel();
 			pic.setContent(file.getBytes());
@@ -347,10 +347,10 @@ public class StudentController {
 				student.setPicture(null);
 			}
 			
-			if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
+			/*if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
 				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
 				return "profile";
-			}
+			}*/
 			
 			ProfilePictureModel pic = new ProfilePictureModel();
 			pic.setContent(file.getBytes());
