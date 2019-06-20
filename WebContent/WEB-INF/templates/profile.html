@@ -8,7 +8,7 @@
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-
+<link rel="stylesheet" href="img/favicon.ico" crossorigin="anonymous">
 
 </head>
 
@@ -27,8 +27,8 @@
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="index.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
+				<div>
+					<i style='font-size:24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -37,9 +37,9 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item active"><a class="nav-link"
-				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
-			</li>
+			<li class="nav-item"><a class="nav-link" th:href="@{/index}">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span>
+			</a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -205,19 +205,6 @@
 
 						<div class="row">
 							<div class="col-sm-3">
-								<!--left col-->
-								<div class="text-center">
-									<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
-									<br> <a th:href="@{/uploadProfilePicture}"
-										class="btn btn-secondary btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload a profile picture!</span>
-									</a>
-								</div>
-								</hr>
-								<br>
 
 								<ul class="list-group">
 									<li class="list-group-item text-muted">Stats ...<i
@@ -238,8 +225,7 @@
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
-										<form th:action="@{/profile}"
-											method="post">
+										<form th:action="@{/profile}" method="post">
 
 											<div class="col-xs-6">
 												<label for="inputEmail"><h4>Email</h4></label> <input
