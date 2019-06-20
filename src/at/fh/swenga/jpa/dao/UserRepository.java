@@ -27,7 +27,7 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
 
 	
-	StudentModel findStudentByUser(UserModel user);
+	StudentModel findStudentById(UserModel user);
 
 	@Query("select u from UserModel u where u.userName = :name")
 	List<UserModel> findByUserName(@Param("name") String userName);
