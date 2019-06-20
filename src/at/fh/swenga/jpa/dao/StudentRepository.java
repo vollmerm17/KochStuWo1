@@ -30,7 +30,6 @@ public interface StudentRepository extends JpaRepository<StudentModel, Integer> 
 	public StudentModel findStudentById(int eventId);
 	
 
-	StudentModel findFirstByFirstName(String firstName);
 
 	@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
 	List<StudentModel> findAllWithoutAdmin();

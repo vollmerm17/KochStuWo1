@@ -199,27 +199,7 @@ public class StudentController {
 	}
 
 
-	@PostMapping("/profile")
-	public String changeProfile(Model model,@RequestParam String userName, @RequestParam String email, DormModel dorm, InstituteModel institute, DietModel diet) {
-		UserModel user = userRepository.findFirstByUserName(System.getProperty("user.name"));
-		StudentModel student = studentRepository.findStudentByUser(user.getId());
 
-		user.setUserName(userName);
-		student.setEmail(email);
-		student.setDiet(diet);
-		student.setDorm(dorm);
-		student.setInstitute(institute);
-
-
-
-		/*
-		 * int studentId =
-		 * userRepository.findFirstByUserName(aut.getName()).getStudent().getId();
-		 * model.addAttribute("studentId", studentId);
-		 */
-
-		return "profile";
-	}
 
 	@Transactional
 	@PostMapping(value = { "/profile" })
