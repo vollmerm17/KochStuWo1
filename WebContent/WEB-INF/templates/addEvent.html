@@ -218,7 +218,7 @@
 										class="btn btn-secondary btn-icon-split"> <span
 										class="icon text-white-50"> <i
 											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload a event picture!</span>
+									</span> <span class="text">Upload an event picture!</span>
 									</a>
 								</div>
 								</hr>
@@ -245,7 +245,7 @@
 													id="inputEventDescription"
 													th:value="${event} ? ${event.eventDescription}"
 													th:readonly="${event}"
-													placeholder="Spaghetti Bolognese mit Parmesan"
+													placeholder="Spaghetti Bolognese mit Parmesan" minlength="5" maxlength="250"
 													title="enter your description">
 											</div>
 											<br>

@@ -253,7 +253,7 @@
 						<div class="col-md-8 col-md-offset-2">
 							<form class="form-horizontal" enctype="multipart/form-data"
 								method="post" action="upload">
-								<fieldset>
+								<!-- evt muss der Header auch noch weg -->
 									<h1 th:text="'Upload an Event Picture for student ' + ${studentId}"></h1>
 									<input type="hidden" name="id" th:value="${studentId}">
 
@@ -272,7 +272,6 @@
 									</div>
 
 
-								</fieldset>
 							</form>
 						</div>
 					</div>

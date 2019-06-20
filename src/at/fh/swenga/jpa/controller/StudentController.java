@@ -1,6 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -344,6 +347,9 @@ public class StudentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	
+
+	
 	}
 
 	@ExceptionHandler(Exception.class)
@@ -352,5 +358,6 @@ public class StudentController {
 		return "404";
 
 	}
+	
 
 }

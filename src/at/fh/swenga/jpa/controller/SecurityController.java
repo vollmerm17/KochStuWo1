@@ -84,7 +84,7 @@ public class SecurityController {
 
 		List<EventModel> events = eventRepository.findAll();
 		model.addAttribute("events", events);
-		
+
 		return "index";
 	}
 
@@ -128,7 +128,7 @@ public class SecurityController {
 
 			model.addAttribute("errorMessage", errorMessage);
 		}
-		
+
 		UserModel user = userRepository.findUserByUserName(usernew.getUserName());
 		StudentModel student = studentRepository.findStudentByEmail(studentnew.getEmail());
 
@@ -184,4 +184,6 @@ public class SecurityController {
 		return "404";
 
 	}
+
+
 }

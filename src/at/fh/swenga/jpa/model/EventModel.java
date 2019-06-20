@@ -30,7 +30,7 @@ public class EventModel {
 	@Column(nullable = false, length = 50)
 	private String eventName;
 
-	@Column(nullable = false, length = 150)
+	@Column(nullable = false, length = 250)
 	private String eventDescription;
 
 	// Date Only, no time part:
