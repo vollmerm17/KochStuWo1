@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DietRepository;
-import at.fh.swenga.jpa.dao.DocumentRepository;
+import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
@@ -58,7 +58,7 @@ public class SecurityController {
 	PositionRepository positionRepository;
 
 	@Autowired
-	DocumentRepository documentRepository;
+	ProfilePictureRepository profilePictureRepository;
 
 	@Autowired
 	StudentRepository studentRepo;

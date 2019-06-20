@@ -2,6 +2,7 @@ package at.fh.swenga.jpa.dao;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,11 +16,19 @@ import at.fh.swenga.jpa.model.StudentModel;
 @Transactional
 public interface StudentRepository extends JpaRepository<StudentModel, Integer> {
 
-	StudentModel findStudentByEmail(String email);
+	public StudentModel findStudentByEmail(String email);
+
 
 	// StudentModel findStudentByUser(int id);
 
 	StudentModel findFirstById(int id);
+
+	public StudentModel findStudentByUser(int id);
+	
+	public StudentModel findFirstByFirstName(String firstName);
+	
+	public StudentModel findStudentById(int eventId);
+	
 
 	StudentModel findFirstByFirstName(String firstName);
 

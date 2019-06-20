@@ -100,6 +100,7 @@
 
 					<div class="card shadow mb-4">
 
+
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-3">
@@ -111,27 +112,30 @@
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
 										</span> <span class="text">Upload a recipe!</span>
+										
+										</a>
+										<a th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
+										class="btn btn-secondary btn-icon-split"> <span
+										class="icon text-white-50"> <i
+											class="fas fa-arrow-right"></i>
+										</span> <span class="text">Download the receipe</span>
+										</a>
 
-
-										</a> <br> <br> <a
+										 <br> <br> <a
 											th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
 											class="btn btn-secondary btn-icon-split"> <span
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
-										</span> <span class="text">Upload a event picture!</span>
-										</a> <br> <br> <a href="#"
-											class="btn btn-success btn-icon-split"> <span
+										</span> <span class="text">Upload an event picture!</span>
+										</a> <br>
+										<br>
+										<a href="#" class="btn btn-success btn-icon-split"> <span
 											class="icon text-white-50"> <i class="fas fa-check"></i>
 										</span> <span class="text">Attend</span>
 										</a>
 									</div>
 
 								</div>
-
-							</div>
-
-							<div class="row">
-
 								<div class="col-sm-9">
 
 									<h6 class="m-0 font-weight-bold text-primary"
@@ -139,6 +143,7 @@
 
 									<p th:text="${event.description}"></p>
 								</div>
+
 							</div>
 						</div>
 					</div>

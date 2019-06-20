@@ -1,8 +1,10 @@
 package at.fh.swenga.jpa.model;
  
 import java.util.Date;
- 
+import java.util.Set;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,25 +12,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
  
 @Entity
-@Table(name = "Document")
-public class DocumentModel implements java.io.Serializable {
+@Table(name = "ProfilePicture")
+public class ProfilePictureModel implements java.io.Serializable {
  
 	@Id
-	@Column(name = "documentId")
+	@Column(name = "pictureId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int documentId;
+	private int pictureId;
  
-	private String documentName;
-	private String documentDescription;
+	private String pictureName;
+	private String pictureDescription;
 	private String filename;
  
 	@Lob
 	@Basic(fetch = FetchType.LAZY)
 	private byte[] content;
+	
  
 	private String contentType;
 	private Date created;
@@ -37,27 +42,27 @@ public class DocumentModel implements java.io.Serializable {
 	long version;
  
 	public int getId() {
-		return documentId;
+		return pictureId;
 	}
  
 	public void setId(int id) {
-		this.documentId = id;
+		this.pictureId = id;
 	}
  
 	public String getName() {
-		return documentName;
+		return pictureName;
 	}
  
 	public void setName(String name) {
-		this.documentName = name;
+		this.pictureName = name;
 	}
  
 	public String getDescription() {
-		return documentDescription;
+		return pictureDescription;
 	}
  
 	public void setDescription(String description) {
-		this.documentDescription = description;
+		this.pictureDescription = description;
 	}
  
 	public String getFilename() {
