@@ -28,7 +28,7 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
+					<i style='font-size:24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -206,7 +206,8 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<!--left col-->
-						
+
+
 								</hr>
 								<br>
 							</div>
@@ -231,7 +232,7 @@
 													id="inputEventDescription"
 													th:value="${event} ? ${event.eventDescription}"
 													th:readonly="${event}"
-													placeholder="Spaghetti Bolognese mit Parmesan"
+													placeholder="Spaghetti Bolognese mit Parmesan" minlength="5" maxlength="250"
 													title="enter your description">
 											</div>
 											<br>

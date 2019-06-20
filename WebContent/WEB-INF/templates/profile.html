@@ -8,7 +8,7 @@
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-
+<link rel="stylesheet" href="img/favicon.ico" crossorigin="anonymous">
 
 </head>
 
@@ -27,8 +27,8 @@
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				href="index.html">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
+				<div>
+					<i style='font-size:24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -37,9 +37,9 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item active"><a class="nav-link"
-				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
-			</li>
+			<li class="nav-item"><a class="nav-link" th:href="@{/index}">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span>
+			</a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -162,6 +162,7 @@
 							aria-expanded="false"> <span
 
 
+
 								class="mr-2 d-none d-lg-inline text-gray-600 small"
 								sec:authentication="name"></span> <img
 								class="img-profile rounded-circle"
@@ -200,26 +201,15 @@
 								<h1>Your Profile!</h1>
 							</div>
 							<div class="col-sm-2">
-								<a href="#" class="pull-right"><img title="profile image"
-									class="img-circle img-responsive"
-									src="https://image.flaticon.com/icons/svg/113/113339.svg"></a>
+								
+								
 							</div>
 						</div>
+						<img th:unless="${image} == null" th:src="${image}">
 
 						<div class="row">
 							<div class="col-sm-3">
-								<!--left col-->
-								<div class="text-center">
-									<img th:unless="${image} == null" th:src="${image}" height="250"> <br>
-									<br> <a th:href="@{/uploadProfilePicture}"
-										class="btn btn-secondary btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload a profile picture!</span>
-									</a>
-								</div>
-								</hr>
-								<br>
+
 
 								<ul class="list-group">
 									<li class="list-group-item text-muted">Stats ...<i
@@ -240,21 +230,8 @@
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
-										<form action="@{/profile}" method="post">
-											<div class="form-group">
+										<form th:action="@{/profile}" method="post">
 
-												<!-- User Name -->
-												<div class="col-xs-6">
-													<label for="inputUserName"><h4>User Name</h4></label> <input
-														type="text" class="form-control form-control-user"
-														id="inputUserName" name="userName"
-														th:value="${user} ? ${user.userName}"
-														th:readonly="${user}" th:placeholder="maxi123"
-														title="enter your user name">
-												</div>
-												<!-- E-Mail -->
-
-											</div>
 											<div class="col-xs-6">
 												<label for="inputEmail"><h4>Email</h4></label> <input
 													type="email" class="form-control" name="email"
@@ -265,8 +242,6 @@
 
 											<br> <label for="inputPhoneNumber"><h4>Phone
 													Number</h4></label>
-
-
 											<div class="col-xs-6">
 												<input type="text" class="form-control form-control-user"
 													id="inputPhoneNumber" name="phoneNumber"
@@ -275,8 +250,6 @@
 													minlength="9" maxlength="15">
 											</div>
 											<br> <label for="inputStreetAndNumber"><h4>Adress</h4></label>
-
-
 											<div class="form-group row">
 												<div class="col-sm-6 mb-3 mb-sm-0">
 													<input type="text" class="form-control form-control-user"
@@ -293,9 +266,6 @@
 														placeholder="City and Postal Code">
 												</div>
 											</div>
-
-
-
 
 											<label for="dormId"><h4>Dorm</h4></label> <br> <select
 												class="browser-default custom-select" name="dormId">
@@ -322,22 +292,23 @@
 														th:text="${diet.dietName}"></option>
 
 												</div>
-											</select> <br> <br>
+											</select> <br>
 											<div class="form-group">
 												<div class="col-xs-12">
 													<br>
 
-
-													<button th:href="@{/profile}"
-														class="btn btn-primary btn-user btn-block" type="submit">Save</button>
-													<button th:href="@{/profile}"
+													<button class="btn btn-primary btn-user btn-block"
+														type="submit">Save</button>
+													<!-- <button th:href="@{/profile}"
 														class="btn btn-danger btn-user btn-block" type="reset">Cancel</button>
-
+ -->
+													<br>
 
 												</div>
 											</div>
 
 										</form>
+
 
 
 
@@ -395,4 +366,4 @@
 </body>
 
 
-										
+

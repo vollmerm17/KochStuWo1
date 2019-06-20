@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DietRepository;
+import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
@@ -52,6 +53,10 @@ public class SecurityController {
 	@Autowired
 	EventRepository eventRepository;
 
+
+	@Autowired
+	ProfilePictureRepository profilePictureRepository;
+
 	@Autowired
 	StudentRepository studentRepo;
 
@@ -76,7 +81,7 @@ public class SecurityController {
 
 		List<EventModel> events = eventRepository.findAll();
 		model.addAttribute("events", events);
-		
+
 		return "index";
 	}
 
@@ -119,9 +124,8 @@ public class SecurityController {
 			}
 
 			model.addAttribute("errorMessage", errorMessage);
-
 		}
-		
+
 		UserModel user = userRepository.findUserByUserName(usernew.getUserName());
 		StudentModel student = studentRepository.findStudentByEmail(studentnew.getEmail());
 
@@ -149,7 +153,7 @@ public class SecurityController {
 			DietModel dieti = dietRepository.getOne(dietId);
 
 			student = new StudentModel();
-			student.setId(user.getUserId());
+			student.setId(user.getId());
 			student.setFirstName(studentnew.getFirstName());
 			student.setLastName(studentnew.getLastName());
 			student.setStreetAndNumber(studentnew.getStreetAndNumber());
@@ -177,4 +181,6 @@ public class SecurityController {
 		return "404";
 
 	}
+
+
 }

@@ -44,34 +44,33 @@ public class EventModel {
 	@Temporal(TemporalType.TIME)
 	@DateTimeFormat(iso = ISO.TIME)
 	private Date timeOfEvent;
-	
+
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private DormModel dorm;
-	
+
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private DietModel diet;
 
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserModel user;
 
-	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<StudentModel> students;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private EventPictureModel picture;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private RecipeModel recipe;
-	
+
 	public EventModel() {
 
 	}
 
-	
+
 	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, UserModel user) {
 		super();
@@ -85,8 +84,8 @@ public class EventModel {
 		this.user = user;
 	}
 
-	
-	
+
+
 
 	public EventPictureModel getPicture() {
 		return picture;
@@ -115,8 +114,8 @@ public class EventModel {
 	public void setName(String name) {
 		this.eventName = name;
 	}
-	
-	
+
+
 
 	public String getDescription() {
 		return eventDescription;
@@ -221,7 +220,7 @@ public class EventModel {
 		this.attendeesMax = attendeesMax;
 	}
 
-	
+
 	public UserModel getUser() {
 		return user;
 	}
@@ -240,10 +239,10 @@ public class EventModel {
 	public void setStudents(Set<StudentModel> students) {
 		this.students = students;
 	}
-	
+
 
 	public void addStudi(StudentModel studi) {
-		
+
 		if (students == null) {
 			students = new HashSet<StudentModel>();
 		}
@@ -285,4 +284,3 @@ public class EventModel {
 	}
 
 }
-

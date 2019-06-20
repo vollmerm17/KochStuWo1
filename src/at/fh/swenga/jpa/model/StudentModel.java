@@ -62,7 +62,7 @@ public class StudentModel implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private DormModel dorm;
-	
+
 	@ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
 	private Set<EventModel> events;
 
@@ -72,7 +72,7 @@ public class StudentModel implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private ProfilePictureModel picture;
-    
+
     public UserModel getUser() {
     	return this.user;
     }
