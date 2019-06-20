@@ -91,8 +91,6 @@ public class StudentModel implements Serializable {
 
 	public StudentModel() {
 	}
-	
-	
 
 	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,

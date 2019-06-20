@@ -19,7 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -88,6 +87,7 @@ public class StudentController {
 
 	/* eigener Controller fuer Request Mappings? */
 
+
 	@RequestMapping(value = { "/getPage" })
 	public String getPage(Pageable page, Model model) {
 		Page<StudentModel> studentsPage = studentRepository.findAll(page);
@@ -148,7 +148,6 @@ public class StudentController {
 		return "forgotPassword";
 	}
 
-
 	@GetMapping("/profile")
 	public String handleProfile(Model model, Authentication aut) {
 		
@@ -176,7 +175,6 @@ public class StudentController {
 			}
 			
 		
-
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
 
@@ -203,48 +201,9 @@ public class StudentController {
 		student.setDorm(dorm);
 		student.setInstitute(institute);
 
-
-
-		return "profile";
+		return "forward:/profile";
 	}
 
-	/*
-	 * @Transactional
-	 * 
-	 * @PostMapping(value = { "/profile" }) public String changeProfile(Model
-	 * model,@Valid StudentModel studentnew, @RequestParam String
-	 * userName,Authentication aut, @RequestParam(value="dormId") int
-	 * dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value
-	 * ="instituteId") int instituteId) { UserModel user =
-	 * userRepository.findFirstByUserName(aut.getName()); StudentModel student1 =
-	 * studentRepository.findStudentByEmail(user.getStudent().getEmail());
-	 * 
-	 * InstituteModel insti = instituteRepository.getOne(instituteId); DormModel
-	 * dormi = dormRepository.getOne(dormId); DietModel dieti =
-	 * dietRepository.getOne(dietId);
-	 * 
-	 * 
-	 * if (user != null) { model.addAttribute("errorMessage",
-	 * "A profile with this username already exists!<br>");
-	 * 
-	 * } if (student1 != null) { model.addAttribute("errorMessage",
-	 * "A profile with this E-Mail already exists!<br>"); }
-	 * 
-	 * else {
-	 * 
-	 * 
-	 * student1 = new StudentModel(); user=new UserModel();
-	 * user.setUserName(userName); student1.setEmail(studentnew.getEmail());
-	 * student1.setDiet(dieti); student1.setDorm(dormi);
-	 * student1.setInstitute(insti);
-	 * student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
-	 * student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
-	 * student1.setLastName(studentnew.getLastName());
-	 * 
-	 * studentRepository.merge(student1):
-	 * 
-	 * return "profile"; } return "profile"; }
-	 */
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model) {
@@ -271,7 +230,7 @@ public class StudentController {
 	 *
 	 * return "index"; }
 	 */
-	@RequestMapping(value = { "/edit" })
+	@RequestMapping(value= {"/edit"})
 	public String editData(Model model, @RequestParam int id) {
 		return "profile";
 	}
@@ -288,8 +247,7 @@ public class StudentController {
 		model.addAttribute("eventId", eventId);
 		return "uploadRecipe";
 	}
-
-
+	
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.POST)
 	public String uploadRecipe1(Model model, @RequestParam("eventId") int eventId,
 			@RequestParam("myFile") MultipartFile file) {
@@ -333,7 +291,6 @@ public class StudentController {
 	public String uploadEventPicture(Model model, @RequestParam("eventId") int eventId,
 			@RequestParam("myFile") MultipartFile file) {
 		try {
-
 			
 			EventModel event = eventRepository.findEventByEventId(eventId);
 			
@@ -345,7 +302,6 @@ public class StudentController {
 			if (event.getPicture() != null) {
 				eventPictureRepository.delete(event.getPicture());
 				event.setPicture(null);
-
 			}
 			if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
 				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
@@ -380,7 +336,6 @@ public class StudentController {
 	public String uploadProfilePicture(Model model, @RequestParam("id") int studentId,
 			@RequestParam("myFile") MultipartFile file) {
 		try {
-
 			
 			StudentModel student = studentRepository.findStudentById(studentId);
 			if (student == null) throw new IllegalArgumentException("No student with id "+studentId);
@@ -390,7 +345,6 @@ public class StudentController {
 			if (student.getPicture() != null) {
 				profilePictureRepository.delete(student.getPicture());
 				student.setPicture(null);
-
 			}
 			
 			if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
