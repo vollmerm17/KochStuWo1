@@ -43,7 +43,7 @@
 					WHERE username=?;"
 				authorities-by-username-query=" SELECT 
 					u.username, ur.role FROM Users u 
-					INNER JOIN Users_UserRoles u2r ON u.id = u2r.users_id 
+					INNER JOIN Users_UserRoles u2r ON u.userId = u2r.users_userId 
 					INNER JOIN UserRoles ur ON u2r.userRoles_id = ur.id WHERE 
 					u.username=?;" />
 		</authentication-provider>

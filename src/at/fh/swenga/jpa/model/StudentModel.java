@@ -2,7 +2,6 @@ package at.fh.swenga.jpa.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,8 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -26,7 +25,7 @@ public class StudentModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
 
 
@@ -63,21 +62,16 @@ public class StudentModel implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private DormModel dorm;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	private ProfilePictureModel picture;
 	
-
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-	// @OrderBy("lastName, firstName")
-	private Set<PositionModel> positions;
-	
-
+	@ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
 
 	@OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private UserModel user;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	private ProfilePictureModel picture;
     
     public UserModel getUser() {
     	return this.user;
@@ -91,8 +85,6 @@ public class StudentModel implements Serializable {
 
 	public StudentModel() {
 	}
-	
-	
 
 	public StudentModel(String firstName, String lastName, String streetAndNumber, String cityAndPostalCode,
 			String phoneNumber, Date dayOfBirth, String email, String gender, InstituteModel institute, DietModel diet,
@@ -156,7 +148,6 @@ public class StudentModel implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
 	public String getFirstName() {
 		return firstName;
@@ -246,26 +237,14 @@ public class StudentModel implements Serializable {
 		this.dorm = dorm;
 	}
 
-	public Set<PositionModel> getPositions() {
-		return positions;
+
+	public Set<EventModel> getEvents() {
+		return events;
 	}
 
-	public void setPositions(Set<PositionModel> positions) {
-		this.positions = positions;
+	public void setEvents(Set<EventModel> events) {
+		this.events = events;
 	}
-
-	public void addPosition(PositionModel position) {
-		if (positions == null) {
-			positions = new HashSet<PositionModel>();
-		}
-		positions.add(position);
-	}
-
-
-
-
-
-
 
 
 
@@ -304,8 +283,7 @@ public class StudentModel implements Serializable {
 		return "StudentModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAndNumber="
 				+ streetAndNumber + ", cityAndPostalCode=" + cityAndPostalCode + ", phoneNumber=" + phoneNumber
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
-				+ ", diet=" + diet + ", dorm=" + dorm +  ", positions=" + positions + "]";
+				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", user=" + user + ", picture=" + picture
+				+ "]";
 	}
-
-
 }

@@ -39,7 +39,6 @@ import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventPictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
@@ -73,9 +72,6 @@ public class StudentController {
 
 	@Autowired
 	EventRepository eventRepository;
-
-	@Autowired
-	PositionRepository positionRepository;
 
 	@Autowired
 	ProfilePictureRepository profilePictureRepository;
@@ -134,7 +130,7 @@ public class StudentController {
 	public String handleSettings(Model model, Authentication aut) {
 		
 		UserModel temp = userRepository.findFirstByUserName(aut.getName());
-		model.addAttribute("student", temp.getId()) ;
+		model.addAttribute("student", temp.getUserId()) ;
 		return "settings";
 	}
 
@@ -153,7 +149,7 @@ public class StudentController {
 	public String handleProfile(Model model, Authentication aut) {
 		
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student = studentRepository.findStudentById(user.getId());
+		StudentModel student = studentRepository.findStudentById(user.getUserId());
 		
 	
 		if (student != null) {
@@ -195,7 +191,7 @@ public class StudentController {
 	@PostMapping("/profile")
 	public String changeProfile(Model model,@RequestParam String userName, @RequestParam String email, DormModel dorm, InstituteModel institute, DietModel diet) {
 		UserModel user = userRepository.findFirstByUserName(System.getProperty("user.name"));
-		StudentModel student = studentRepository.findStudentByUser(user.getId());
+		StudentModel student = studentRepository.findStudentByUser(user.getUserId());
 
 		user.setUserName(userName);
 		student.setEmail(email);
@@ -286,7 +282,7 @@ public class StudentController {
 	@RequestMapping(value = { "/deleteOwn"})
 	public String deleteOwnData(Model model, Authentication aut) {
 	UserModel user = userRepository.findFirstByUserName(aut.getName());
-		int currentId =user.getId();
+		int currentId =user.getUserId();
 		studentRepository.deleteById(currentId);
 		userRepository.deleteById(currentId);
 		return "login";
@@ -423,11 +419,6 @@ public class StudentController {
 
 		return "redirect:/profile";
 	}
-
-
-	
-	
-
 	
 	@RequestMapping("/download")
 	public void download(@RequestParam("eventId") int eventId, HttpServletResponse response) {

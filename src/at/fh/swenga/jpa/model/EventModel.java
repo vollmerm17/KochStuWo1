@@ -1,11 +1,9 @@
 package at.fh.swenga.jpa.model;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,11 +23,11 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "Event")
-public class EventModel implements Serializable {
-	
+
+public class EventModel {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "eventId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int eventId;
 
 	@Column(nullable = false, length = 50)
@@ -60,9 +57,10 @@ public class EventModel implements Serializable {
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserModel user;
 
-	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
-	private Set<PositionModel> positions;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<StudentModel> students;
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private EventPictureModel picture;
 	
@@ -73,6 +71,7 @@ public class EventModel implements Serializable {
 
 	}
 
+	
 	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, UserModel user) {
 		super();
@@ -86,20 +85,8 @@ public class EventModel implements Serializable {
 		this.user = user;
 	}
 
-
-
-
-
-
-	public RecipeModel getRecipe() {
-		return recipe;
-	}
-
-
-	public void setRecipe(RecipeModel recipe) {
-		this.recipe = recipe;
-	}
-
+	
+	
 
 	public EventPictureModel getPicture() {
 		return picture;
@@ -111,13 +98,15 @@ public class EventModel implements Serializable {
 	}
 
 
-	public int getId() {
-		return eventId;
+	public RecipeModel getRecipe() {
+		return recipe;
 	}
 
-	public void setId(int id) {
-		this.eventId = id;
+
+	public void setRecipe(RecipeModel recipe) {
+		this.recipe = recipe;
 	}
+
 
 	public String getName() {
 		return eventName;
@@ -164,10 +153,6 @@ public class EventModel implements Serializable {
 	}
 
 
-
-	
-	
-
 	public int getEventId() {
 		return eventId;
 	}
@@ -200,18 +185,6 @@ public class EventModel implements Serializable {
 
 	public void setEventDescription(String eventDescription) {
 		this.eventDescription = eventDescription;
-	}
-
-
-
-	public Set<PositionModel> getPositions() {
-		return positions;
-	}
-
-
-
-	public void setPositions(Set<PositionModel> positions) {
-		this.positions = positions;
 	}
 
 
@@ -254,35 +227,37 @@ public class EventModel implements Serializable {
 	}
 
 
-
 	public void setUser(UserModel user) {
 		this.user = user;
 	}
 
 
-
-	public Set<PositionModel> getPosition() {
-		return positions;
+	public Set<StudentModel> getStudents() {
+		return students;
 	}
 
-	public void setPosition(Set<PositionModel> positions) {
-		this.positions = positions;
-	}
 
-	public void addPosition(PositionModel position) {
-		if (positions == null) {
-			positions = new HashSet<PositionModel>();
+	public void setStudents(Set<StudentModel> students) {
+		this.students = students;
+	}
+	
+
+	public void addStudi(StudentModel studi) {
+		
+		if (students == null) {
+			students = new HashSet<StudentModel>();
 		}
-		positions.add(position);
+		if (!students.contains(studi)) {
+			students.add(studi);
+		}
 	}
-
 
 
 	@Override
 	public String toString() {
 		return "EventModel [id=" + eventId + ", name=" + eventName + ", description=" + eventDescription + ", dayOfEvent=" + dayOfEvent
 				+ ", timeOfEvent=" + timeOfEvent + ", dorm=" + dorm + ", attendeesMax=" + attendeesMax
-				+ ", user=" + user + ", positions=" + positions + "]";
+				+ ", user=" + user + "]";
 	}
 
 
@@ -310,3 +285,4 @@ public class EventModel implements Serializable {
 	}
 
 }
+
