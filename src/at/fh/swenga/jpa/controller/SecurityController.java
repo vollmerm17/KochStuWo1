@@ -153,7 +153,7 @@ public class SecurityController {
 			DietModel dieti = dietRepository.getOne(dietId);
 
 			student = new StudentModel();
-			student.setId(user.getId());
+			student.setId(user.getUserId());
 			student.setFirstName(studentnew.getFirstName());
 			student.setLastName(studentnew.getLastName());
 			student.setStreetAndNumber(studentnew.getStreetAndNumber());
