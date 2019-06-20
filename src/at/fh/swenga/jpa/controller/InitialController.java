@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.controller;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +17,6 @@ import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
-import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -47,6 +45,7 @@ public class InitialController {
 
 	@Autowired
 	EventRepository eventRepository;
+
 
 
 	@RequestMapping(value = {"/initPage"})

@@ -1,3 +1,4 @@
+
 package at.fh.swenga.jpa.model;
 
 import java.io.Serializable;
@@ -286,4 +287,6 @@ public class StudentModel implements Serializable {
 				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", user=" + user + ", picture=" + picture
 				+ "]";
 	}
+
+
 }

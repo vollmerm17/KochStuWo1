@@ -66,6 +66,7 @@ public class EventModel {
 	@OneToOne(cascade = CascadeType.ALL)
 	private RecipeModel recipe;
 
+
 	public EventModel() {
 
 	}
@@ -284,3 +285,5 @@ public class EventModel {
 	}
 
 }
+
+	
