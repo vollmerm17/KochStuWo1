@@ -73,7 +73,7 @@ public class SecurityController {
 
 	@GetMapping("/")
 	public String root() {
-		return "index";
+		return "login";
 	}
 
 	@GetMapping("/index")

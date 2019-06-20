@@ -169,11 +169,20 @@ public class EventController {
 
 	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
 	public String handleEventsAttending() {
+		
 		return "eventsAttending";
 	}
 
 	@RequestMapping(value = { "/eventsOwn" }, method = RequestMethod.GET)
-	public String handleEventsOwn() {
+	public String handleEventsOwn(Authentication aut, Model model) {
+		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+		List<EventModel> events = eventRepository.findEventByUserUserId(user1.getUserId());
+		if(events.isEmpty()) {
+
+			model.addAttribute("warningMessage", "You don't have any own events yet!<br>");
+
+		}
+		model.addAttribute("events",events);
 		return "eventsOwn";
 	}
 
@@ -187,6 +196,7 @@ public class EventController {
 		return "404";
 
 	}
+	
 	@GetMapping("/attend")
 	public String attenToEvent(Authentication aut, Model model, @RequestParam int eventId) {
 
