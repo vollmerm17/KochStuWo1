@@ -201,11 +201,11 @@
 								<h1>Your Profile!</h1>
 							</div>
 							<div class="col-sm-2">
-								<a href="#" class="pull-right"><img title="profile image"
-									class="img-circle img-responsive"
-									src="https://image.flaticon.com/icons/svg/113/113339.svg"></a>
+								
+								
 							</div>
 						</div>
+						<img th:unless="${image} == null" th:src="${image}">
 
 						<div class="row">
 							<div class="col-sm-3">
