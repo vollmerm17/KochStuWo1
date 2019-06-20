@@ -32,16 +32,7 @@
 			login-processing-url="/perform_login" />
 		<logout logout-url="/logout" />
 	</http>
-<!-- 	<authentication-manager> -->
-<!-- 		<authentication-provider> -->
-<!-- 			<user-service> -->
-<!-- 				<user name="user" password="{noop}password" -->
-<!-- 					authorities="ROLE_USER" /> -->
-<!-- 				<user name="admin" password="{noop}password" -->
-<!-- 					authorities="ROLE_USER,ROLE_ADMIN" /> -->
-<!-- 			</user-service> -->
-<!-- 		</authentication-provider> -->
-<!-- 	</authentication-manager> -->
+
 	<authentication-manager>
 		<authentication-provider>
 			<password-encoder hash="bcrypt" />
@@ -52,7 +43,7 @@
 					WHERE username=?;"
 				authorities-by-username-query=" SELECT 
 					u.username, ur.role FROM Users u 
-					INNER JOIN Users_UserRoles u2r ON u.id = u2r.users_id 
+					INNER JOIN Users_UserRoles u2r ON u.userId = u2r.users_userId 
 					INNER JOIN UserRoles ur ON u2r.userRoles_id = ur.id WHERE 
 					u.username=?;" />
 		</authentication-provider>

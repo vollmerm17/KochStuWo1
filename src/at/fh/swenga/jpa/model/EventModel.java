@@ -2,7 +2,6 @@ package at.fh.swenga.jpa.model;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,11 +11,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "Event")
@@ -39,25 +42,35 @@ public class EventModel {
 
 	// Time Only, no date part:
 	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(iso = ISO.TIME)
 	private Date timeOfEvent;
-	
+
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private DormModel dorm;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserModel user;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<StudentModel> students;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private EventPictureModel picture;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private RecipeModel recipe;
+
 
 	public EventModel() {
 
 	}
 
-	
 
 	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, UserModel user) {
@@ -75,13 +88,25 @@ public class EventModel {
 
 
 
-	public int getId() {
-		return eventId;
+	public EventPictureModel getPicture() {
+		return picture;
 	}
 
-	public void setId(int id) {
-		this.eventId = id;
+
+	public void setPicture(EventPictureModel picture) {
+		this.picture = picture;
 	}
+
+
+	public RecipeModel getRecipe() {
+		return recipe;
+	}
+
+
+	public void setRecipe(RecipeModel recipe) {
+		this.recipe = recipe;
+	}
+
 
 	public String getName() {
 		return eventName;
@@ -90,8 +115,8 @@ public class EventModel {
 	public void setName(String name) {
 		this.eventName = name;
 	}
-	
-	
+
+
 
 	public String getDescription() {
 		return eventDescription;
@@ -127,10 +152,6 @@ public class EventModel {
 		this.timeOfEvent = timeOfEvent;
 	}
 
-
-
-	
-	
 
 	public int getEventId() {
 		return eventId;
@@ -168,8 +189,6 @@ public class EventModel {
 
 
 
-
-
 	public DormModel getDorm() {
 		return dorm;
 	}
@@ -202,11 +221,10 @@ public class EventModel {
 		this.attendeesMax = attendeesMax;
 	}
 
-	
+
 	public UserModel getUser() {
 		return user;
 	}
-
 
 
 	public void setUser(UserModel user) {
@@ -214,12 +232,32 @@ public class EventModel {
 	}
 
 
+	public Set<StudentModel> getStudents() {
+		return students;
+	}
+
+
+	public void setStudents(Set<StudentModel> students) {
+		this.students = students;
+	}
+
+
+	public void addStudi(StudentModel studi) {
+
+		if (students == null) {
+			students = new HashSet<StudentModel>();
+		}
+		if (!students.contains(studi)) {
+			students.add(studi);
+		}
+	}
+
 
 	@Override
 	public String toString() {
 		return "EventModel [id=" + eventId + ", name=" + eventName + ", description=" + eventDescription + ", dayOfEvent=" + dayOfEvent
 				+ ", timeOfEvent=" + timeOfEvent + ", dorm=" + dorm + ", attendeesMax=" + attendeesMax
-				+ ", user=" + user +  "]";
+				+ ", user=" + user + "]";
 	}
 
 

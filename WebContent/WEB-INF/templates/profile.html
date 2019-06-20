@@ -42,7 +42,7 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-				href="index.html">
+				th:href="@{/index}">
 				<div>
 					<i style='font-size: 24px' class='fas'>&#xf818;</i>
 				</div>
@@ -53,9 +53,11 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
+
 			<li class="nav-item"><a class="nav-link" th:href="@{/index}">
 					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span>
 			</a></li>
+
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -176,10 +178,12 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
+
+
 								class="mr-2 d-none d-lg-inline text-gray-600 small"
-								sec:authentication="name"></span><img
+								sec:authentication="name"></span> <img
 								class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+								th:unless="${image} == null" th:src="${image}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -213,14 +217,15 @@
 								<h1>Your Profile!</h1>
 							</div>
 							<div class="col-sm-2">
-								<a href="#" class="pull-right"><img title="profile image"
-									class="img-circle img-responsive"
-									src="https://image.flaticon.com/icons/svg/113/113339.svg"></a>
+
+
 							</div>
 						</div>
+						<img th:unless="${image} == null" th:src="${image}">
 
 						<div class="row">
 							<div class="col-sm-3">
+
 
 								<ul class="list-group">
 									<li class="list-group-item text-muted">Stats ...<i
@@ -243,8 +248,8 @@
 										<br>
 										<form th:action="@{/profile}" method="POST">
 
-									
-											
+
+
 											<div class="form-group row">
 												<div class="col-sm-12">
 													<input type="text" class="form-control form-control-user"
@@ -254,10 +259,10 @@
 												</div>
 
 											</div>
-											
-									
+
+
 											<div class="form-group row">
-												
+
 												<div class="col-sm-12">
 													<input type="text" class="form-control form-control-user"
 														id="inputPhoneNumber" name="phoneNumber"
@@ -271,14 +276,14 @@
 													<input type="text" class="form-control form-control-user"
 														id="inputStreetAndNumber" name="streetAndNumber"
 														th:value="${student} ? ${student.streetAndNumber}"
-														
+
 														placeholder="Street and House Number">
 												</div>
 												<div class="col-sm-6">
 													<input type="text" class="form-control form-control-user"
 														id="inputCityAndPostalCode" name="cityAndPostalCode"
 														th:value="${student} ? ${student.cityAndPostalCode}"
-														
+
 														placeholder="City and Postal Code">
 												</div>
 											</div>
@@ -310,6 +315,62 @@
 											<button
 												class="btn btn-primary btn-user btn-block" type="submit">Save</button>
 										</form>
+
+
+
+
+									</div>
+									<!-- /.container-fluid -->
+
+								</div>
+								<!-- End of Main Content -->
+
+								<!-- Footer -->
+								<footer class="sticky-footer bg-white">
+									<div class="container my-auto">
+										<div class="copyright text-center my-auto">
+											<span>Copyright &copy; KochStuWo 2019</span>
+										</div>
+									</div>
+								</footer>
+								<!-- End of Footer -->
+
+							</div>
+							<!-- End of Content Wrapper -->
+
+						</div>
+						<!-- End of Page Wrapper -->
+
+						<!-- Scroll to Top Button-->
+						<a class="scroll-to-top rounded" href="#page-top"> <i
+							class="fas fa-angle-up"></i>
+						</a>
+
+						<!-- Logout Modal-->
+						<div class="modal fade" id="logoutModal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Ready to
+											Leave?</h5>
+										<button class="close" type="button" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">×</span>
+										</button>
+									</div>
+									<div class="modal-body">Select "Logout" below if you are
+										ready to end your current session.</div>
+									<div class="modal-footer">
+										<button class="btn btn-secondary" type="button"
+											data-dismiss="modal">Cancel</button>
+										<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 									</div>
 								</div>
 							</div>
+						</div>
+</body>
+
+
+</html>

@@ -26,8 +26,8 @@ public class UserModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", insertable = true, updatable = false)
-	private int id;
+	@Column(name = "userId", insertable = true, updatable = false)
+	private int userId;
 
 	// Need 3 for Spring security
 	@Column(name = "username", unique = true, nullable = false, length = 45)
@@ -56,9 +56,9 @@ public class UserModel implements Serializable {
 		this.password = password;
 	}
 
-	public UserModel(int id, String userName, String password, boolean enabled) {
+	public UserModel(int userId, String userName, String password, boolean enabled) {
 		super();
-		this.id = id;
+		this.userId = userId;
 		this.userName = userName;
 		this.password = password;
 		this.enabled = enabled;
@@ -74,12 +74,12 @@ public class UserModel implements Serializable {
 		this.userRoles = userRoles;
 	}
 
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getUserName() {
