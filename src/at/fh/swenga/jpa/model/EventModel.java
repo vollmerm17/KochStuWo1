@@ -2,11 +2,8 @@ package at.fh.swenga.jpa.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +11,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -57,8 +53,6 @@ public class EventModel implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private UserModel user;
 
-	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
-	private Set<PositionModel> positions;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private EventPictureModel picture;
@@ -202,15 +196,9 @@ public class EventModel implements Serializable {
 
 
 
-	public Set<PositionModel> getPositions() {
-		return positions;
-	}
 
 
 
-	public void setPositions(Set<PositionModel> positions) {
-		this.positions = positions;
-	}
 
 
 
@@ -259,28 +247,13 @@ public class EventModel implements Serializable {
 
 
 
-	public Set<PositionModel> getPosition() {
-		return positions;
-	}
-
-	public void setPosition(Set<PositionModel> positions) {
-		this.positions = positions;
-	}
-
-	public void addPosition(PositionModel position) {
-		if (positions == null) {
-			positions = new HashSet<PositionModel>();
-		}
-		positions.add(position);
-	}
-
 
 
 	@Override
 	public String toString() {
 		return "EventModel [id=" + eventId + ", name=" + eventName + ", description=" + eventDescription + ", dayOfEvent=" + dayOfEvent
 				+ ", timeOfEvent=" + timeOfEvent + ", dorm=" + dorm + ", attendeesMax=" + attendeesMax
-				+ ", user=" + user + ", positions=" + positions + "]";
+				+ ", user=" + user + "]";
 	}
 
 

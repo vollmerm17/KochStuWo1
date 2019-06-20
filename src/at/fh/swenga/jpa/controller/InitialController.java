@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.controller;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -13,13 +12,11 @@ import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-import at.fh.swenga.jpa.dao.PositionRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
-import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.InstituteModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
@@ -49,8 +46,7 @@ public class InitialController {
 	@Autowired
 	EventRepository eventRepository;
 
-	@Autowired
-	PositionRepository positionRepository;
+
 
 	@RequestMapping(value = {"/initPage"})
 	public String fillData(Model model) {
@@ -87,7 +83,7 @@ public class InitialController {
 	public void createDorms() {
 		DormModel dorm1 = new DormModel("Greenbox", "Eggenberger Allee 31", "8020 Graz");
 		dormRepository.save(dorm1);
-		DormModel dorm2 = new DormModel("ÖJAB-Haus", "Glacisstraße 39", "8010 Graz");
+		DormModel dorm2 = new DormModel("ï¿½JAB-Haus", "Glacisstraï¿½e 39", "8010 Graz");
 		dormRepository.save(dorm2);
 		DormModel dorm3 = new DormModel("home4students", "Leechgasse 1", "8010 Graz");
 		dormRepository.save(dorm3);
@@ -121,7 +117,7 @@ public class InitialController {
 		InstituteModel institute2 = new InstituteModel("Universitaet Graz", "Sporgasse 5", "8010 Graz");
 		instituteRepository.save(institute2);
 		
-		InstituteModel institute3 = new InstituteModel("Technische Univertität Graz", "Rechbauerstrasse 12", "8010 Graz");
+		InstituteModel institute3 = new InstituteModel("Technische Univertitï¿½t Graz", "Rechbauerstrasse 12", "8010 Graz");
 		instituteRepository.save(institute2);
 
 	}

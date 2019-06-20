@@ -2,8 +2,6 @@ package at.fh.swenga.jpa.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -67,12 +64,6 @@ public class StudentModel implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private ProfilePictureModel picture;
 	
-
-	@OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
-	// @OrderBy("lastName, firstName")
-	private Set<PositionModel> positions;
-	
-
 
 	@OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
@@ -244,22 +235,6 @@ public class StudentModel implements Serializable {
 		this.dorm = dorm;
 	}
 
-	public Set<PositionModel> getPositions() {
-		return positions;
-	}
-
-	public void setPositions(Set<PositionModel> positions) {
-		this.positions = positions;
-	}
-
-	public void addPosition(PositionModel position) {
-		if (positions == null) {
-			positions = new HashSet<PositionModel>();
-		}
-		positions.add(position);
-	}
-
-
 
 
 
@@ -301,7 +276,7 @@ public class StudentModel implements Serializable {
 		return "StudentModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAndNumber="
 				+ streetAndNumber + ", cityAndPostalCode=" + cityAndPostalCode + ", phoneNumber=" + phoneNumber
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
-				+ ", diet=" + diet + ", dorm=" + dorm +  ", positions=" + positions + "]";
+				+ ", diet=" + diet + ", dorm=" + dorm +  "]";
 	}
 
 

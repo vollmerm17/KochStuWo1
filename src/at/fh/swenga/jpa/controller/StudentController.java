@@ -1,13 +1,7 @@
 package at.fh.swenga.jpa.controller;
 
 
-import java.io.ByteArrayInputStream;
 import java.io.OutputStream;
-
-import java.text.ParseException;
-
-import java.security.Principal;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +10,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
@@ -25,8 +19,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,27 +29,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import org.apache.commons.codec.binary.Base64;
-
 import at.fh.swenga.jpa.dao.DietRepository;
-import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventPictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-import at.fh.swenga.jpa.dao.PositionRepository;
+import at.fh.swenga.jpa.dao.ProfilePictureRepository;
+import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
-import at.fh.swenga.jpa.dao.RecipeRepository;
 import at.fh.swenga.jpa.model.DietModel;
-import at.fh.swenga.jpa.model.ProfilePictureModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.EventPictureModel;
 import at.fh.swenga.jpa.model.InstituteModel;
+import at.fh.swenga.jpa.model.ProfilePictureModel;
+import at.fh.swenga.jpa.model.RecipeModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
-import at.fh.swenga.jpa.model.RecipeModel;
 
 @Controller
 public class StudentController {
@@ -80,8 +69,7 @@ public class StudentController {
 	@Autowired
 	EventRepository eventRepository;
 
-	@Autowired
-	PositionRepository positionRepository;
+
 
 	@Autowired
 	ProfilePictureRepository profilePictureRepository;
