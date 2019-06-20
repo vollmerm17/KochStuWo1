@@ -58,7 +58,7 @@ public class EventController {
 
 	@Autowired
 	InstituteRepository instituteRepository;
-	
+
 	@Autowired
 	EventPictureRepository eventPictureRepository;
 
@@ -66,13 +66,13 @@ public class EventController {
 	public void initDateBinder(final WebDataBinder binder) {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
-	
+
 	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		sdf.setLenient(true);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	}
 
 	@GetMapping("/addEvent")
 	public String handleAddEvent(Model model) {
@@ -88,10 +88,10 @@ public class EventController {
 
 	@Transactional
 	@PostMapping("/addEvent")
-	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,  @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, Authentication aut) throws ParseException {
+	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,
+			@RequestParam(value = "dormId") int dormId, @RequestParam(value = "dietId") int dietId, Authentication aut)
+			throws ParseException {
 
-
-		
 		/*
 		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
 		 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
@@ -99,10 +99,9 @@ public class EventController {
 		 * 
 		 * model.addAttribute("errorMessage", errorMessage); return "addEvent"; }
 		 */
-		
 
 		EventModel event1 = eventRepository.findFirstByEventName(event.getName());
-		
+
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		DormModel dorm1 = dormRepository.getOne(dormId);
 		DietModel diet1 = dietRepository.getOne(dietId);
@@ -111,8 +110,6 @@ public class EventController {
 			model.addAttribute("errorMessage", "A event with this name already exists!<br>");
 		} else {
 
-			
-			
 			event1 = new EventModel();
 			event1.setName(event.getName());
 			event1.setDescription(event.getDescription());
@@ -123,42 +120,39 @@ public class EventController {
 			event1.setDiet(diet1);
 			event1.setUser(user1);
 			eventRepository.save(event1);
-			
+
 			return "addEvent";
-			
+
 		}
-		
-		return"addEvent";
+
+		return "addEvent";
 
 	}
 
 	@RequestMapping(value = { "/eventInfo" }, method = RequestMethod.GET)
-	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId ) {
+	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId) {
 		model.addAttribute("eventId", eventId);
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
-		if(event != null) {
-			
-		
-		if(event.getPicture() != null) {
-			Optional<EventPictureModel> ppOpt = eventPictureRepository.findById(event.getPicture().getId());
-			EventPictureModel pp = ppOpt.get();
-			byte[] eventPicture = pp.getContent();
-			
-			
-			StringBuilder sb = new StringBuilder();
-			sb.append("data:image/png;base64,");
-			sb.append(Base64.encodeBase64String(eventPicture));
-			String image = sb.toString();
-			model.addAttribute("image", image);
-			
+		if (event != null) {
+
+			if (event.getPicture() != null) {
+				Optional<EventPictureModel> ppOpt = eventPictureRepository.findById(event.getPicture().getId());
+				EventPictureModel pp = ppOpt.get();
+				byte[] eventPicture = pp.getContent();
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(eventPicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
 			}
-		}
-		else {
+		} else {
 			model.addAttribute("errorMessage", "Something went wrong!");
 			return "login";
 		}
-		
+
 		return "eventInfo";
 	}
 
@@ -173,22 +167,29 @@ public class EventController {
 	}
 
 	@GetMapping("/attend")
-	public String attenToEvent(Authentication aut,Model model, @RequestParam int eventId){
+	public String attenToEvent(Authentication aut, Model model, @RequestParam int eventId) {
+
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student1 = user1.getStudent();
-		
 		Optional<EventModel> eventO = eventRepository.findById(eventId);
+
 		if (eventO.isPresent()) {
 			EventModel event1 = eventO.get();
-			event1.addStudi(student1);
-			event1.setAttendeesMax(event1.getAttendeesMax()-1);
-			eventRepository.save(event1);
-			
-			//model.addAttribute("dorm", event1.getDorm());
-			
-			return "eventInfo";
-	}
-		 return "index";
+
+			System.out.println();
+			if (event1.getAttendeesMax() > 0) {
+
+				event1.addStudi(student1);
+				event1.setAttendeesMax(event1.getAttendeesMax() - 1);
+				eventRepository.save(event1);
+				model.addAttribute("message", "Have fun on the event!<br>");
+				return "forward:index";}
+			else {
+				
 		
-	}
-}
+			model.addAttribute("errorMessage", "Sorry this event is already full, maybe next time!<br>");
+			
+		}
+			
+	}return "forward:index";
+} }
