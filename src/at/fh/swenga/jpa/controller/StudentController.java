@@ -115,9 +115,9 @@ public class StudentController {
 		return "settings";
 	}
 
-	@RequestMapping(value = { "/supportMail" }, method = RequestMethod.GET)
-	public String handleSupportMail() {
-		return "supportMail";
+	@RequestMapping(value = { "/404" }, method = RequestMethod.GET)
+	public String handle404() {
+		return "404";
 	}
 
 	@RequestMapping(value = { "/forgotPassword" }, method = RequestMethod.GET)
@@ -126,7 +126,7 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = { "/profile" }, method = RequestMethod.GET)
-	public String handleProfile(Model model) {
+	public String handleProfile(Model model, Authentication aut) {
 
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
@@ -137,45 +137,49 @@ public class StudentController {
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
 
+		/*
+		 * int studentId =
+		 * userRepository.findFirstByUserName(aut.getName()).getStudent().getId();
+		 * model.addAttribute("studentId", studentId);
+		 */
+
 		return "profile";
 	}
 
-	/*
-	 * @Transactional
-	 * 
-	 * @PostMapping(value = { "/profile" }) public String changeProfile(Model
-	 * model, @Valid StudentModel studentnew, @RequestParam(value = "userName")
-	 * String userName, Authentication aut, @RequestParam(value = "dormId") int
-	 * dormId, @RequestParam(value = "dietId") int dietId,
-	 * 
-	 * @RequestParam(value = "instituteId") int instituteId) { UserModel user =
-	 * userRepository.findFirstByUserName(aut.getName()); StudentModel student1 =
-	 * studentRepository.findStudentByEmail(user.getStudent().getEmail());
-	 * 
-	 * InstituteModel insti = instituteRepository.getOne(instituteId); DormModel
-	 * dormi = dormRepository.getOne(dormId); DietModel dieti =
-	 * dietRepository.getOne(dietId);
-	 * 
-	 * if (user != null) { model.addAttribute("errorMessage",
-	 * "A profile with this username already exists!<br>");
-	 * 
-	 * } if (student1 != null) { model.addAttribute("errorMessage",
-	 * "A profile with this E-Mail already exists!<br>"); }
-	 * 
-	 * else {
-	 * 
-	 * student1 = new StudentModel(); user = new UserModel();
-	 * user.setUserName(userName); student1.setEmail(studentnew.getEmail());
-	 * student1.setDiet(dieti); student1.setDorm(dormi);
-	 * student1.setInstitute(insti);
-	 * student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
-	 * student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
-	 * student1.setLastName(studentnew.getLastName());
-	 * 
-	 * studentRepository.merge(student1);
-	 * 
-	 * return "profile"; } return "profile"; }
-	 */
+	@Transactional
+	@PostMapping(value = { "/profile" })
+	public String changeProfile(Model model, @Valid UserModel usernew, @Valid StudentModel studentnew,
+			Authentication aut, @RequestParam(value = "dormId") int dormId, @RequestParam(value = "dietId") int dietId,
+			@RequestParam(value = "instituteId") int instituteId) {
+
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student1 = studentRepository.findStudentByEmail(user.getStudent().getEmail());
+
+		InstituteModel insti = instituteRepository.getOne(instituteId);
+		DormModel dormi = dormRepository.getOne(dormId);
+		DietModel dieti = dietRepository.getOne(dietId);
+
+		if (student1 != null) {
+			model.addAttribute("errorMessage", "A profile with this E-Mail already exists!<br>");
+		}
+
+		else {
+
+			student1 = new StudentModel();
+			student1.setEmail(studentnew.getEmail());
+			student1.setPhoneNumber(studentnew.getPhoneNumber());
+			student1.setDiet(dieti);
+			student1.setDorm(dormi);
+			student1.setInstitute(insti);
+			student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
+			student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
+			studentRepository.save(student1);
+
+			return "profile";
+		}
+
+		return "profile";
+	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model) {
@@ -186,22 +190,6 @@ public class StudentController {
 		return "search";
 	}
 
-	/*
-	 * @PostMapping(value = { "/profile" }) public String addEvent(Model
-	 * model, @RequestParam String name, @RequestParam String destination,
-	 *
-	 * @RequestParam Date date, @RequestParam Date time, @RequestParam String
-	 * description,
-	 *
-	 * @RequestParam int attendeesMax, StudentModel student) {
-	 *
-	 * EventModel event1 = new EventModel(name, destination, date, time,
-	 * description, attendeesMax, student); eventRepository.save(event1);
-	 *
-	 *
-	 *
-	 * return "index"; }
-	 */
 	@RequestMapping(value = { "/edit" })
 	public String editData(Model model, @RequestParam int id) {
 		return "profile";
@@ -361,7 +349,7 @@ public class StudentController {
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
-		return "error";
+		return "404";
 
 	}
 
