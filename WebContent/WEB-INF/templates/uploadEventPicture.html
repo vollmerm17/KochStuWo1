@@ -244,7 +244,7 @@
 			<div class="col-md-8 col-md-offset-2">
 				<form class="form-group" enctype="multipart/form-data" method="post" th:action="@{/uploadEventPicture}">
 					<fieldset>
-					<legend th:text="'Upload Eventpicture for Event ' + ${eventId}"></legend>
+					<legend th:text="'Upload Eventpicture for Event ' + ${eventName}"></legend>
 
 						<input type="hidden" name="eventId" th:value="${eventId}">
 

@@ -173,6 +173,7 @@ public class StudentController {
 				
 			
 			}
+			
 		
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
@@ -183,7 +184,7 @@ public class StudentController {
 		List<InstituteModel> institutes = instituteRepository.findAll();
 		model.addAttribute("institutes", institutes);
 		
-		return "profile";
+		
 	}
 		return "profile";
 	}
@@ -200,7 +201,7 @@ public class StudentController {
 		student.setDorm(dorm);
 		student.setInstitute(institute);
 
-		return "profile";
+		return "forward:/profile";
 	}
 
 
@@ -257,8 +258,6 @@ public class StudentController {
 
 			if (event == null) throw new IllegalArgumentException("No event with id "+eventId);
  
-	
-	
 			if (event.getPicture() != null) {
 				recipeRepository.delete(event.getRecipe());
 				event.setPicture(null);
@@ -278,7 +277,7 @@ public class StudentController {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 		}
 
-		return "eventInfo";
+		return "redirect:/index";
 	}
 	
 	
@@ -304,6 +303,10 @@ public class StudentController {
 				eventPictureRepository.delete(event.getPicture());
 				event.setPicture(null);
 			}
+			if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
+				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
+				return "eventInfo";
+			}
 			
 			EventPictureModel pic = new EventPictureModel();
 			pic.setContent(file.getBytes());
@@ -319,7 +322,7 @@ public class StudentController {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 		}
 
-		return "eventInfo";
+		return "redirect:/index";
 	}
 
 	
@@ -344,6 +347,11 @@ public class StudentController {
 				student.setPicture(null);
 			}
 			
+			if((!"image/png".equals(file.getContentType())) || (!"image/jpeg".equals(file.getContentType()))) {
+				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
+				return "profile";
+			}
+			
 			ProfilePictureModel pic = new ProfilePictureModel();
 			pic.setContent(file.getBytes());
 			pic.setContentType(file.getContentType());
@@ -358,7 +366,7 @@ public class StudentController {
 			model.addAttribute("errorMessage", "Error:" + e.getMessage());
 		}
 
-		return "profile";
+		return "redirect:/profile";
 	}
 
 

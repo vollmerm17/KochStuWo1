@@ -145,7 +145,9 @@ public class EventController {
 		model.addAttribute("eventId", eventId);
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
-
+		if(event != null) {
+			
+		
 		if(event.getPicture() != null) {
 			Optional<EventPictureModel> ppOpt = eventPictureRepository.findById(event.getPicture().getId());
 			EventPictureModel pp = ppOpt.get();
@@ -157,7 +159,12 @@ public class EventController {
 			sb.append(Base64.encodeBase64String(eventPicture));
 			String image = sb.toString();
 			model.addAttribute("image", image);
-			return "eventInfo";
+			
+			}
+		}
+		else {
+			model.addAttribute("errorMessage", "Something went wrong!");
+			return "login";
 		}
 		
 		return "eventInfo";
