@@ -32,7 +32,6 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	
 	public UserModel findUserByUserId(int id);
 
-	StudentModel findStudentById(UserModel user);
 
 
 	

@@ -149,7 +149,7 @@ public class StudentController {
 	public String handleProfile(Model model, Authentication aut) {
 		
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student = studentRepository.findStudentById(user.getUserId());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 		
 	
 		if (student != null) {
@@ -387,7 +387,7 @@ public class StudentController {
 		try {
 
 			
-			StudentModel student = studentRepository.findStudentById(studentId);
+			StudentModel student = studentRepository.findStudentByUserUserId(studentId);
 			if (student == null) throw new IllegalArgumentException("No student with id "+studentId);
  
 			
