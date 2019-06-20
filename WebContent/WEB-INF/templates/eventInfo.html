@@ -4,14 +4,11 @@
 
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>KochStuWo - Kochen für Studenten im Wohnheim</title>
+<title>Search</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
 </head>
-
-
-
 
 <body id="page-top">
 
@@ -19,7 +16,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-				<ul
+		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
@@ -38,8 +35,8 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
-			</li>
+				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Timeline</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -93,183 +90,56 @@
 			<!-- Main Content -->
 			<div id="content">
 
-				<!-- Topbar -->
-				<nav
-					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-					<!-- Sidebar Toggle (Topbar) -->
-					<button id="sidebarToggleTop"
-						class="btn btn-link d-md-none rounded-circle mr-3">
-						<i class="fa fa-bars"></i>
-					</button>
-
-					<!-- Topbar Search -->
-					<form
-						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-0 small"
-								placeholder="Search for..." aria-label="Search"
-								aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
-
-					<!-- Topbar Navbar -->
-					<ul class="navbar-nav ml-auto">
-
-						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
-						<li class="nav-item dropdown no-arrow d-sm-none"><a
-							class="nav-link dropdown-toggle" href="#" id="searchDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-search fa-fw"></i>
-						</a> <!-- Dropdown - Messages -->
-							<div
-								class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-								aria-labelledby="searchDropdown">
-								<form class="form-inline mr-auto w-100 navbar-search">
-									<div class="input-group">
-										<input type="text"
-											class="form-control bg-light border-0 small"
-											placeholder="Search for..." aria-label="Search"
-											aria-describedby="basic-addon2">
-										<div class="input-group-append">
-											<button class="btn btn-primary" type="button">
-												<i class="fas fa-search fa-sm"></i>
-											</button>
-										</div>
-									</div>
-								</form>
-							</div></li>
-
-
-						<!-- Nav Item - Messages -->
-					<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" th:href="@{/supportMail}"
-							id="messagesDropdown" role="button" aria-expanded="false"> <i
-								class="fas fa-envelope fa-fw" th:href="@{/supportMail}"></i>
-
-						</a></li>
-
-						<div class="topbar-divider d-none d-sm-block"></div>
-
-						<!-- Nav Item - User Information -->
-						<li class="nav-item dropdown no-arrow"><a
-							class="nav-link dropdown-toggle" href="#" id="userDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"
-								sec:authentication="name"></span> <img
-								class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-						</a> <!-- Dropdown - User Information -->
-							<div
-								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="userDropdown">
-								<a class="dropdown-item" th:href="@{/profile}"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
-								</a> <a class="dropdown-item" th:href="@{/settings}"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-									Settings
-								</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#" data-toggle="modal"
-									data-target="#logoutModal"> <i
-									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-									Logout
-								</a>
-							</div></li>
-
-					</ul>
-
-				</nav>
-				<!-- End of Topbar -->
-
-
+				<br>
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Event overview:</h1>
-						<div class="dropdown mb-4">
-							<button class="btn btn-primary dropdown-toggle" type="button"
-								id="dropdownMenuButton" data-toggle="dropdown"
-								aria-haspopup="true" aria-expanded="false">Choose the
-								events you want to view!</button>
-							<div class="dropdown-menu animated--fade-in"
-								aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" th:href="@{/eventsOwn}">Own Events</a> <a
-									class="dropdown-item" th:href="@{/eventsAttending}">Attended
-									Events</a>
-							</div>
-						</div>
-					</div>
+					<h1 class="h3 mb-2 text-gray-800">Event Info</h1>
 
-					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Event Info</h1>
+					<div class="card shadow mb-4">
 
-					</div>
-
-					<!-- Content Row -->
-					<div class="row"></div>
-
-					<!-- Content Row -->
-
-					<div class="row">
-
-						<div class="col-sm-12">
-
-							<div class="card shadow mb-12">
-								<div class="card-header py-3">
-									<h6 class="m-0 font-weight-bold text-primary"
-										th:text="${event.name}"></h6>
-									<!-- Name nicht vergessen! -->
-								</div>
-								<div class="card-body">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-3">
 									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
+										<img th:unless="${image} == null" th:src="${image}"
+											height="250"> <a
+											th:href="@{/uploadRecipe(eventId=${#request.getAttribute('eventId')})}"
+											class="btn btn-secondary btn-icon-split"> <span
+											class="icon text-white-50"> <i
+												class="fas fa-arrow-right"></i>
+										</span> <span class="text">Upload a recipe!</span>
+
+
+										</a> <br> <br> <a
+											th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
+											class="btn btn-secondary btn-icon-split"> <span
+											class="icon text-white-50"> <i
+												class="fas fa-arrow-right"></i>
+										</span> <span class="text">Upload a event picture!</span>
+										</a> <br>
+										<br>
+										<a href="#" class="btn btn-success btn-icon-split"> <span
+											class="icon text-white-50"> <i class="fas fa-check"></i>
+										</span> <span class="text">Attend</span>
+										</a>
 									</div>
+
+								</div>
+								<div class="col-sm-9">
+
 									<h6 class="m-0 font-weight-bold text-primary"
 										th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
 
 									<p th:text="${event.description}"></p>
-
-									</a> <a th:href="@{download(id?${student.id})}"
-										class="btn btn-secondary btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Download the receipe</span>
-									</a> <a href="#" class="btn btn-success btn-circle btn-lg"
-										title="Participate"> <i class="fas fa-check"></i>
-
-									</a> </a> <a href="#" class="btn btn-danger btn-circle btn-lg"
-										title="Cancel"> <i class="fas fa-trash"></i>
-
-									</a>
 								</div>
-
 							</div>
 						</div>
-
-
 					</div>
 
-
-
-
-
 				</div>
-
-
 				<!-- /.container-fluid -->
 
 			</div>
@@ -279,7 +149,7 @@
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; KochStuWo 2019</span>
+						<span>Copyright &copy; KochStuWo 2019 </span>
 					</div>
 				</div>
 			</footer>
@@ -305,7 +175,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">ï¿½</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
@@ -318,6 +188,7 @@
 			</div>
 		</div>
 	</div>
+
 
 
 </body>
