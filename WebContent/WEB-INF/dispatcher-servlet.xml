@@ -157,7 +157,7 @@
 
 
 
-	<bean id="mailSender"
+<!-- 	<bean id="mailSender"
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.mailtrap.io" />
 		<property name="port" value="2525" />
@@ -170,9 +170,9 @@
 				<prop key="mail.smtp.starttls.enable">true</prop>
 			</props>
 		</property>
-	</bean>
+	</bean> -->
 
-
+<!-- 
 	<bean id="customMailMessage"
 		class="org.springframework.mail.SimpleMailMessage">
 
@@ -192,7 +192,7 @@ Jane Doe
 			</value>
 		</property>
 	</bean>
-
+ -->
 
 
 

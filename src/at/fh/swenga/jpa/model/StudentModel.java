@@ -258,7 +258,6 @@ public class StudentModel implements Serializable {
 	}
 
 
-
 	public DocumentModel getDocument() {
 		return document;
 	}
