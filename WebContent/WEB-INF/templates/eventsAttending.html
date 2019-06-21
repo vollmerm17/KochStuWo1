@@ -160,7 +160,7 @@
 								class="mr-2 d-none d-lg-inline text-gray-600 small"
 								sec:authentication="name"></span> <img
 								class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+								th:unless="${image} == null" th:src="${image}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -218,8 +218,8 @@
 					<!-- Content Row -->
 
 					<div class="row">
-					<div th:each="event: ${#request.getAttribute('events')}">
-						<div class="col-sm-12">
+					<div th:each="event: ${#request.getAttribute('events')}" class="col-sm-4">
+					
 
 							<div class="card shadow mb-12">
 								<div class="card-header py-3">
@@ -229,8 +229,7 @@
 								</div>
 								<div class="card-body">
 									<div class="text-center">
-										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
+										<img th:src="${event.getEventPicture()}" style="width:350px;height:300px">
 									</div>
 									<h6 class="m-0 font-weight-bold text-primary"
 										th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
@@ -247,7 +246,7 @@
 								</div>
 
 							</div>
-						</div>
+						
 ^						</div>
 
 					</div>
@@ -294,7 +293,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">ï¿½</span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready

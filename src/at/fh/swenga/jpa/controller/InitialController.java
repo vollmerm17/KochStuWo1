@@ -86,7 +86,9 @@ public class InitialController {
 	public void createDorms() {
 		DormModel dorm1 = new DormModel("Greenbox", "Eggenberger Allee 31", "8020 Graz");
 		dormRepository.save(dorm1);
+
 		DormModel dorm2 = new DormModel("JAB-Haus", "Glacisstrasse 39", "8010 Graz");
+
 		dormRepository.save(dorm2);
 		DormModel dorm3 = new DormModel("home4students", "Leechgasse 1", "8010 Graz");
 		dormRepository.save(dorm3);
@@ -120,7 +122,9 @@ public class InitialController {
 		InstituteModel institute2 = new InstituteModel("Universitaet Graz", "Sporgasse 5", "8010 Graz");
 		instituteRepository.save(institute2);
 
+
 		InstituteModel institute3 = new InstituteModel("Technische Universitaet Graz", "Rechbauerstrasse 12", "8010 Graz");
+
 		instituteRepository.save(institute2);
 
 	}

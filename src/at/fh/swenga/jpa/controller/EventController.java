@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventPictureRepository;
+import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
@@ -37,6 +38,7 @@ import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.EventPictureModel;
+import at.fh.swenga.jpa.model.ProfilePictureModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -64,6 +66,9 @@ public class EventController {
 
 	@Autowired
 	EventPictureRepository eventPictureRepository;
+	
+	@Autowired
+	ProfilePictureRepository profilePictureRepository;
 
 
 	@InitBinder
@@ -79,13 +84,37 @@ public class EventController {
     }
 
 	@GetMapping("/addEvent")
-	public String handleAddEvent(Model model) {
+	public String handleAddEvent(Model model, Authentication aut) {
 
 		List<DormModel> dorms = dormRepository.findAll();
 		model.addAttribute("dorms", dorms);
 
 		List<DietModel> diets = dietRepository.findAll();
 		model.addAttribute("diets", diets);
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 
 		return "addEvent";
 	}
@@ -141,6 +170,8 @@ public class EventController {
 		model.addAttribute("eventId", eventId);
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
+		model.addAttribute("event", event);
+		
 		if(event != null) {
 
 
@@ -169,22 +200,68 @@ public class EventController {
 
 	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
 	public String handleEventsAttending(Authentication aut, Model model) {
-		
-			UserModel user1 = userRepository.findFirstByUserName(aut.getName());
-			List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
-			System.out.println(events);
-			if(events.isEmpty()) {
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 
-				model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
-				return "forward:index";
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
 			}
-			model.addAttribute("events",events);
+		}
 		
+		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+		List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
+		if(events.isEmpty()) {
+
+			model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
+			return "forward:index";
+		}
+		model.addAttribute("events",events);
 		return "eventsAttending";
 	}
 
 	@RequestMapping(value = { "/eventsOwn" }, method = RequestMethod.GET)
 	public String handleEventsOwn(Authentication aut, Model model) {
+
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
+		
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		List<EventModel> events = eventRepository.findEventByUserUserId(user1.getUserId());
 		if(events.isEmpty()) {
@@ -193,6 +270,8 @@ public class EventController {
 
 		}
 		model.addAttribute("events",events);
+		
+		
 		return "eventsOwn";
 	}
 
