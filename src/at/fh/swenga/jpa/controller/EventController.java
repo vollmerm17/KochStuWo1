@@ -169,17 +169,14 @@ public class EventController {
 
 	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
 	public String handleEventsAttending(Authentication aut, Model model) {
-		
-			UserModel user1 = userRepository.findFirstByUserName(aut.getName());
-			List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
-			System.out.println(events);
-			if(events.isEmpty()) {
+		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+		List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
+		if(events.isEmpty()) {
 
-				model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
-				return "forward:index";
-			}
-			model.addAttribute("events",events);
-		
+			model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
+			return "forward:index";
+		}
+		model.addAttribute("events",events);
 		return "eventsAttending";
 	}
 

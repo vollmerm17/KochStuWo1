@@ -164,7 +164,7 @@ public class InitialController {
 			StudentModel student2 = new StudentModel(userin.getUserId(),"Maxine", "Mustermann", "sd", "sd", "12345", now,
 					"jhds@fhg", "f", instituteRepository.findFirstByInstituteName("FH JOANNEUM"),
 					dietRepository.findFirstByDietName("vegetarisch"), dormRepository.findFirstByDormName("Greenbox"));
-
+			student2.setPicture(null);
 			userin.setStudent(student2);
 
 			userRepository.save(userin);

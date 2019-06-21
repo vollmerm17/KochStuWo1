@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -242,7 +243,8 @@ public class StudentController {
 	public String editData(Model model, @RequestParam int id) {
 		return "profile";
 	}
-
+	
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = { "/delete" })
 	public String deleteData(Model model, @RequestParam int id) {
 		studentRepository.deleteById(id);

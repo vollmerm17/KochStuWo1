@@ -4,11 +4,19 @@
 <head>
 
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>Attended Events</title>
+<title>Own Events</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
+<!--  Warning message ----------------------------------------------------------- -->
+<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+	class="alert alert-warning" role="warning"></div>
+<!--  Warning message ----------------------------------------------------------- -->
+
 </head>
+
+
+
 
 <body id="page-top">
 
@@ -16,15 +24,16 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-				<ul
+		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i style='font-size:24px' class='fas'>&#xf818;</i>
+				<i style='font-size:24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -34,8 +43,8 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item"><a class="nav-link"
-				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
-			</li>
+				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Timeline</span></a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -58,6 +67,7 @@
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
+
 			<div sec:authorize="hasRole('ROLE_ADMIN')">
 				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
@@ -75,6 +85,9 @@
 				<!-- Divider -->
 				<hr class="sidebar-divider d-none d-md-block">
 			</div>
+
+		
+
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -144,11 +157,18 @@
 
 						<!-- Nav Item - Messages -->
 						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" th:href="@{/supportMail}"
-							id="messagesDropdown" role="button" aria-expanded="false"> <i
-								class="fas fa-envelope fa-fw" th:href="@{/supportMail}"></i>
+							class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
+							role="button" data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false"> <i class="fas fa-envelope fa-fw"></i>
+								<!-- Counter - Messages --> <span
+								class="badge badge-danger badge-counter">7</span>
+						</a> <!-- Dropdown - Messages -->
+							<div
+								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+								aria-labelledby="messagesDropdown">
+								<h6 class="dropdown-header">Message Center</h6>
 
-						</a></li>
+							</div></li>
 
 						<div class="topbar-divider d-none d-sm-block"></div>
 
@@ -184,13 +204,15 @@
 				</nav>
 				<!-- End of Topbar -->
 
+
+
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">The events you're attending:</h1>
+						<h1 class="h3 mb-0 text-gray-800">Your own events:</h1>
 						<div class="dropdown mb-4">
 							<button class="btn btn-primary dropdown-toggle" type="button"
 								id="dropdownMenuButton" data-toggle="dropdown"
@@ -198,8 +220,8 @@
 								events you want to view!</button>
 							<div class="dropdown-menu animated--fade-in"
 								aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" th:href="@{/eventsOwn}">Own Events</a> <a
-									class="dropdown-item" th:href="@{/index}">All
+								<a class="dropdown-item" th:href="@{/index}">All Events</a>
+								<a class="dropdown-item" th:href="@{/eventsAttending}">Attended
 									Events</a>
 							</div>
 						</div>
@@ -248,7 +270,8 @@
 
 							</div>
 						</div>
-^						</div>
+						</div>
+
 
 					</div>
 
