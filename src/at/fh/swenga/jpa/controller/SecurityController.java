@@ -179,7 +179,6 @@ public class SecurityController {
 			user.setUserName(usernew.getUserName());
 			user.setPassword(usernew.getPassword());
 			user.setEnabled(true);
-			System.out.println(user.getPassword());
 			user.encryptPassword();
 			user.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(user);
@@ -203,6 +202,8 @@ public class SecurityController {
 			user.setStudent(student);
 			userRepository.save(user);
 
+			model.addAttribute("message", "You are successfully registered!");
+			
 			return "login";
 
 		}

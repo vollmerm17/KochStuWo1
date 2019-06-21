@@ -29,22 +29,12 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	@Query("select u from UserModel u where u.userName = :name")
 	List<UserModel> findByUserName(@Param("name") String userName);
 	
-	@Query("SELECT s FROM UserModel s WHERE username != 'administrator'")
+	@Query("SELECT s FROM UserModel s WHERE s.userName != 'administrator' AND s.enabled = 1")
 	List<UserModel> findAllWithoutAdmin();
 	
 	public UserModel findUserByUserId(int id);
 
-
-
-	
 	UserModel findFirstByUserId(int id);
 	
-	
-	/*
-	 * @Query("Select u from UserModel u where u.userName = :name") public public
-	 * List<UserModel> findByUsername();
-	 */
-
-
 
 }

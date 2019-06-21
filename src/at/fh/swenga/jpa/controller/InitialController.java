@@ -192,17 +192,17 @@ public class InitialController {
 
 
 
-			EventModel event1 = new EventModel("BBQ","I will host a little BBQ because I want to test out our new grill. I will offer a lot of grilled vergetables, selfmade sauces and of course some meat ;)",now,now,dorm1,diet2,5,maxi);
+			EventModel event1 = new EventModel("BBQ","I will host a little BBQ because I want to test out our new grill. I will offer a lot of grilled vergetables, selfmade sauces and of course some meat ;)",now,"12:00",dorm1,diet2,5,maxi);
 			eventRepository.save(event1);
-			EventModel event2 = new EventModel("Late Night Dinner","Im preparing a nice romantic dinner for one guest tonight. Feel free to join me for an intimate evening!",now,now,dorm2,diet1,1,maxine);
+			EventModel event2 = new EventModel("Late Night Dinner","Im preparing a nice romantic dinner for one guest tonight. Feel free to join me for an intimate evening!",now,"23:00",dorm2,diet1,1,maxine);
 			eventRepository.save(event2);
-			EventModel event3 = new EventModel("Italian Night","My roommate and I are going to prepare some pizza and a few anti-pasti. Join us for a relaxed evening! ",now,now,dorm1,diet2,3,maxi);
+			EventModel event3 = new EventModel("Italian Night","My roommate and I are going to prepare some pizza and a few anti-pasti. Join us for a relaxed evening! ",now,"22:00",dorm1,diet2,3,maxi);
 			eventRepository.save(event3);
-			EventModel event4 = new EventModel("Breakfast at Tiffany's","Me and my roommates are going to have a brunch this saturday. And guess what? We're watching \"Breakfast at Tiffany's\" on repeat! <3  ",now,now,dorm2,diet1,4,maxine);
+			EventModel event4 = new EventModel("Breakfast at Tiffany's","Me and my roommates are going to have a brunch this saturday. And guess what? We're watching \"Breakfast at Tiffany's\" on repeat! <3  ",now,"09:00",dorm2,diet1,4,maxine);
 			eventRepository.save(event4);
-			EventModel event5 = new EventModel("Burger and Super Bowl","If there are enough attendees a few friends and myself are preparing some burger and sides to watch the GAME!",now,now,dorm1,diet2,8,maxi);
+			EventModel event5 = new EventModel("Burger and Super Bowl","If there are enough attendees a few friends and myself are preparing some burger and sides to watch the GAME!",now,"14:00",dorm1,diet2,8,maxi);
 			eventRepository.save(event5);
-			EventModel event6 = new EventModel("GNTM <3", "Me and the girls want to make some sushi and watch the first episode of the new season. There will be some vegan maki too!",now,now,dorm2,diet2,4,maxine);
+			EventModel event6 = new EventModel("GNTM <3", "Me and the girls want to make some sushi and watch the first episode of the new season. There will be some vegan maki too!",now,"20:00",dorm2,diet2,4,maxine);
 			eventRepository.save(event6);
 	}
 		else{

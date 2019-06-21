@@ -308,12 +308,17 @@ public class StudentController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = { "/deleteUser" })
 	public String deleteData(Model model, @RequestParam int id, Authentication aut) {
-		studentRepository.deleteById(id);
-		userRepository.deleteById(id);
+//		studentRepository.deleteById(id);
+//		userRepository.deleteById(id);
 
+	
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+		UserModel user1 = userRepository.findFirstByUserId(id);
 
+		user1.setEnabled(false);
+		userRepository.save(user1);
+		
 		if (student != null) {
 
 			model.addAttribute("student", student);
@@ -339,10 +344,13 @@ public class StudentController {
 	public String deleteOwnData(Model model, Authentication aut) {
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		int currentId = user.getUserId();
-		studentRepository.deleteById(currentId);
-		userRepository.deleteById(currentId);
-
-		return "forward:login";
+		user.setEnabled(false);
+//		eventRepository.deleteAllByUserUserId(currentId);
+//		studentRepository.deleteById(currentId);
+//		userRepository.deleteById(currentId);
+//		
+		userRepository.save(user);
+		return "redirect:/logout";
 	}
 
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.GET)
@@ -481,7 +489,7 @@ public class StudentController {
 				throw new IllegalArgumentException("No student with id " + studentId);
 
 			if (student.getPicture() != null) {
-				profilePictureRepository.delete(student.getPicture());
+				//profilePictureRepository.delete(student.getPicture());
 				student.setPicture(null);
 			}
 

@@ -65,10 +65,6 @@
 				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
 
-				<!-- Nav Item - Charts -->
-				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
-						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-				</a></li>
 
 				<!-- Nav Item - Tables -->
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
@@ -111,6 +107,7 @@
 											<th>First Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
+											<th>Enabled</th>
 											<th>ACTION</th>
 										</tr>
 									</thead>
@@ -119,6 +116,7 @@
 											<th>First Name</th>
 											<th>Diet</th>
 											<th>Dorm</th>
+											<th>Enabled</th>
 											<th>ACTION</th>
 										</tr>
 									</tfoot>
@@ -127,13 +125,9 @@
 											<td th:text="${student.firstName}"></td>
 											<td th:text="${student.diet.dietName}"></td>
 											<td th:text="${student.dorm.dormName}"></td>
-											<td><a th:href="@{/delete(id=${student.id})}"
-												class="btn btn-danger">Delete</a> <a
-												th:href="@{/profile(id=${student.id})}"
-												class="btn btn-xs btn-success"> <span
-													class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-													Edit
-											</a></td>
+											<td th:text="${student.user.enabled}"></td>
+											<td><a th:if="${student.user.enabled}" th:href="@{/deleteUser(id=${student.id})}"
+												class="btn btn-danger">Delete</a> </td>
 										</tr>
 									</tbody>
 								</table>

@@ -39,9 +39,8 @@ public class EventModel {
 	@Temporal(TemporalType.DATE)
 	private Date dayOfEvent;
 
-	// Time Only, no date part:
-	@Temporal(TemporalType.TIME)
-	private Date timeOfEvent;
+
+	private String timeOfEvent;
 
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
@@ -70,7 +69,7 @@ public class EventModel {
 	}
 
 
-	public EventModel(String name, String description, Date dayOfEvent, Date timeOfEvent, DormModel dorm,DietModel diet,
+	public EventModel(String name, String description, Date dayOfEvent, String timeOfEvent, DormModel dorm,DietModel diet,
 			int attendeesMax, UserModel user) {
 		super();
 		this.eventName = name;
@@ -140,13 +139,13 @@ public class EventModel {
 
 
 
-	public Date getTimeOfEvent() {
+	public String getTimeOfEvent() {
 		return timeOfEvent;
 	}
 
 
 
-	public void setTimeOfEvent(Date timeOfEvent) {
+	public void setTimeOfEvent(String timeOfEvent) {
 		this.timeOfEvent = timeOfEvent;
 	}
 

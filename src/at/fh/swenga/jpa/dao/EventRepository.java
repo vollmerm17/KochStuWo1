@@ -19,10 +19,10 @@ public interface EventRepository extends JpaRepository<EventModel, Integer> {
 
 	EventModel findEventByEventId(int id);
 
+	List<EventModel> deleteAllByUserUserId(int userId);
 
 	List<EventModel> findEventByUserUserId(int userId);
 
 	List<EventModel> findEventByStudentsId(int id);
-
 
 }

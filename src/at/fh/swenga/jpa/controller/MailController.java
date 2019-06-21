@@ -10,35 +10,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import at.fh.swenga.jpa.dao.StudentRepository;
-import at.fh.swenga.jpa.dao.UserRepository;
-
 @Controller
-public class ReportController {
+public class MailController {
 
-	@Autowired
-	StudentRepository studentRepository;
-
-	@Autowired
-	UserRepository userRepository;
-
-	@RequestMapping(value = { "/supportMail" }, method = RequestMethod.GET)
-	private String supportMail() {
-
-		return "supportMail";
-	}
-
-	@PostMapping(value = { "/supportMail" })
+	@PostMapping(value = { "/forgotPassword" })
 	public static void main(String[] args,Model model, @RequestParam(value="content") String content, Authentication aut) {
 		String to = "KochStuWo@office.com";
 		String from = aut.getName();
@@ -78,6 +60,8 @@ public class ReportController {
 			// Send message
 			Transport.send(message);
 
+			System.out.println("Sent message successfully....");
+
 			model.addAttribute("message", "Your message was sent!");
 
 
@@ -93,4 +77,5 @@ public class ReportController {
 		return "404";
 	}
 
+	
 }

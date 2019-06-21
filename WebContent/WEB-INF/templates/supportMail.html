@@ -11,21 +11,6 @@
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-<!--  Error message ----------------------------------------------------------- -->
-<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
-	class="alert alert-danger" role="alert"></div>
-<!--  Error message ----------------------------------------------------------- -->
-
-<!--  Warning message ----------------------------------------------------------- -->
-<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
-	class="alert alert-warning" role="warning"></div>
-<!--  Warning message ----------------------------------------------------------- -->
-
-<!--   message ----------------------------------------------------------- -->
-<div th:unless="${message} == null" th:utext="${message}"
-	class="alert alert-success" role="warning"></div>
-<!--   message ----------------------------------------------------------- -->
-
 
 
 </head>
@@ -45,7 +30,7 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i style='font-size:24px' class='fas'>&#xf818;</i>
+					<i style='font-size: 24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -164,8 +149,8 @@
 							aria-expanded="false"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small"
 								sec:authentication="name"></span> <img
-								class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+								class="img-profile rounded-circle" th:unless="${image} == null"
+								th:src="${image}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -191,6 +176,25 @@
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
+
+					<!--  Error message ----------------------------------------------------------- -->
+					<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+						class="alert alert-danger" role="alert"></div>
+					<!--  Error message ----------------------------------------------------------- -->
+
+					<!--  Warning message ----------------------------------------------------------- -->
+					<div th:unless="${warningMessage} == null"
+						th:utext="${warningMessage}" class="alert alert-warning"
+						role="warning"></div>
+					<!--  Warning message ----------------------------------------------------------- -->
+
+					<!--   message ----------------------------------------------------------- -->
+					<div th:unless="${message} == null" th:utext="${message}"
+						class="alert alert-success" role="warning"></div>
+					<!--   message ----------------------------------------------------------- -->
+
+
+
 					<div class="col-sm-9">
 						<!-- Page Heading -->
 						<div
@@ -203,7 +207,8 @@
 						<form th:action="@{/supportMail}" method="POST">
 
 							<input type="text" class="form-control form-control-user"
-								id="inputContent" name="content" placeholder="Write your message here" maxlength="300"
+								id="inputContent" name="content"
+								placeholder="Write your message here" maxlength="300"
 								required="required"> <br>
 							<button th:href="@{/supportMail}"
 								class="btn btn-primary btn-user btn-block" type="submit">Send</button>

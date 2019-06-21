@@ -199,31 +199,32 @@
 										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
 											style="width: 25rem;" th:src="${event.getEventPicture()}" alt="">
 										<div class="text-left">
-											<br> <br> <a
+											<br> <br><form th:if="${event.user.userId != userId.userId}" > <a
 												th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}"
 												class="btn btn-success btn-icon-split"> <span
 												class="icon text-white-50"> <i class="fas fa-check"></i>
 											</span> <span class="text">Attend</span>
-											</a> <br> <br> <a
+											</a></form> <br> <br><form th:if="${event.user.userId == userId.userId}" > <a
 												th:href="@{/uploadRecipe(eventId=${#request.getAttribute('eventId')})}"
 												class="btn btn-secondary btn-icon-split"> <span
 												class="icon text-white-50"> <i
 													class="fas fa-arrow-right"></i>
 											</span> <span class="text">Upload a recipe!</span>
 
-											</a> <br> <br> <a
+											</a></form> <br> <br> <a
 												th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
 												class="btn btn-secondary btn-icon-split"> <span
 												class="icon text-white-50"> <i
 													class="fas fa-arrow-right"></i>
 											</span> <span class="text">Download the recipe!</span>
-											</a> <br> <br> <a
+											
+											</a> <br> <br><form th:if="${event.user.userId == userId.userId}" > <a
 												th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
 												class="btn btn-secondary btn-icon-split"> <span
 												class="icon text-white-50"> <i
 													class="fas fa-arrow-right"></i>
 											</span> <span class="text">Upload an event picture!</span>
-											</a>
+											</a></form>
 										</div>
 									</div>
 

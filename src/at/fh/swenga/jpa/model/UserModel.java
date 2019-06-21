@@ -110,7 +110,6 @@ public class UserModel implements Serializable {
 		this.userRoles = userRoles;
 	}
 
-
 	public void addUserRole(UserRoleModel userRole) {
 		if (userRoles == null) {
 			userRoles = new HashSet<UserRoleModel>();

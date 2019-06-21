@@ -116,13 +116,6 @@ public class EventController {
 			@RequestParam(value = "dormId") int dormId, @RequestParam(value = "dietId") int dietId, Authentication aut)
 			throws ParseException {
 
-		/*
-		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
-		 * fieldError : bindingResult.getFieldErrors()) { errorMessage +=
-		 * fieldError.getField() + " is invalid: " + fieldError.getCode() + "<br>"; }
-		 *
-		 * model.addAttribute("errorMessage", errorMessage); return "addEvent"; }
-		 */
 
 		EventModel event1 = eventRepository.findFirstByEventName(event.getName());
 
@@ -138,7 +131,7 @@ public class EventController {
 			event1.setName(event.getName());
 			event1.setDescription(event.getDescription());
 			event1.setDayOfEvent(event.getDayOfEvent());
-			event1.setTimeOfEvent(event.getTimeOfEvent());
+			event1.setTimeOfEvent(event.getTimeOfEvent().toString());
 			event1.setAttendeesMax(event.getAttendeesMax());
 			event1.setDorm(dorm1);
 			event1.setDiet(diet1);
@@ -160,9 +153,12 @@ public class EventController {
 	@RequestMapping(value = { "/eventInfo" }, method = RequestMethod.GET)
 	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
-
-
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		EventModel event = eventRepository.findEventByEventId(eventId);
+		
+		model.addAttribute("event", event);
+		model.addAttribute("userId", user);
+
 		model.addAttribute("event", event);
 		
 		if (event != null) {
@@ -274,7 +270,6 @@ public class EventController {
 		if (eventO.isPresent()) {
 			EventModel event1 = eventO.get();
 
-			System.out.println();
 			if (event1.getAttendeesMax() > 0 && !event1.getStudents().contains(student1)) {
 
 				event1.addStudi(student1);
