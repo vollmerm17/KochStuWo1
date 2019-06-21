@@ -2,7 +2,6 @@ package at.fh.swenga.jpa.dao;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,37 +15,32 @@ import at.fh.swenga.jpa.model.StudentModel;
 @Transactional
 public interface StudentRepository extends JpaRepository<StudentModel, Integer> {
 
-	public StudentModel findStudentByEmail(String email);
+	StudentModel findStudentByEmail(String email);
 
-
-	// StudentModel findStudentByUser(int id);
+	StudentModel findStudentByUser(int id);
 
 	StudentModel findFirstById(int id);
 
-	public StudentModel findStudentByUser(int id);
-	
-	public StudentModel findFirstByFirstName(String firstName);
-	
-	public StudentModel findStudentById(int eventId);
-	
+	StudentModel findFirstByFirstName(String firstName);
 
+	StudentModel findStudentByUserUserId(int userId);
 
-	@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
-	List<StudentModel> findAllWithoutAdmin();
-
-	// SELECT * FROM IMA17_vollmer_SWENGA_project_2.Student WHERE firstName Not LIKE "admin";
+		@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
+		List<StudentModel> findAllWithoutAdmin();
 
 	/*
 	 * List<StudentModel> findByLastName(String lastName);
 	 *
-	 * 
-	 * 
-	 * List<StudentModel> findStudentByEmail(String email);
-	 * 
-	 * /* List<StudentModel> findByLastName(String lastName);
+
+
+
+	List<StudentModel> findStudentByEmail(String email);
+
+	/*
+	 * List<StudentModel> findByLastName(String lastName);
 	 *
-	 * 
-	 * 
+
+
 	 * List<StudentModel> findByFirstName(String firstName);
 	 *
 	 * @Query("select e from StudentModel e where LOWER(e.firstName) LIKE CONCAT('%',LOWER(:name), '%') or e.lastName = :name"

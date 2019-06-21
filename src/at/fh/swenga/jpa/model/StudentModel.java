@@ -1,7 +1,9 @@
+
 package at.fh.swenga.jpa.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -23,7 +26,7 @@ public class StudentModel implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name="id", insertable = true, updatable = false)
 	private int id ;
 
 
@@ -52,24 +55,25 @@ public class StudentModel implements Serializable {
 	@Column(nullable = false, length = 1)
 	private String gender;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private InstituteModel institute;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private DormModel dorm;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	private ProfilePictureModel picture;
-	
+	@ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
+	private Set<EventModel> events;
 
 	@OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private UserModel user;
 
-    
+	@OneToOne(cascade = CascadeType.ALL)
+	private ProfilePictureModel picture;
+
     public UserModel getUser() {
     	return this.user;
     }
@@ -145,7 +149,6 @@ public class StudentModel implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
 	public String getFirstName() {
 		return firstName;
@@ -236,8 +239,13 @@ public class StudentModel implements Serializable {
 	}
 
 
+	public Set<EventModel> getEvents() {
+		return events;
+	}
 
-
+	public void setEvents(Set<EventModel> events) {
+		this.events = events;
+	}
 
 
 
@@ -276,8 +284,8 @@ public class StudentModel implements Serializable {
 		return "StudentModel [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", streetAndNumber="
 				+ streetAndNumber + ", cityAndPostalCode=" + cityAndPostalCode + ", phoneNumber=" + phoneNumber
 				+ ", dayOfBirth=" + dayOfBirth + ", email=" + email + ", gender=" + gender + ", institute=" + institute
-				+ ", diet=" + diet + ", dorm=" + dorm +  "]";
+				+ ", diet=" + diet + ", dorm=" + dorm + ", events=" + events + ", user=" + user + ", picture=" + picture
+				+ "]";
 	}
-
 
 }

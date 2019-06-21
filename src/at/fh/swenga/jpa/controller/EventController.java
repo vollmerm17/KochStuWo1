@@ -1,3 +1,4 @@
+
 package at.fh.swenga.jpa.controller;
 
 import java.text.ParseException;
@@ -7,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,21 +25,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventPictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.EventPictureModel;
-import at.fh.swenga.jpa.model.ProfilePictureModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -65,10 +61,9 @@ public class EventController {
 
 	@Autowired
 	InstituteRepository instituteRepository;
-	
+
 	@Autowired
 	EventPictureRepository eventPictureRepository;
-	
 
 
 	@InitBinder
@@ -147,44 +142,60 @@ public class EventController {
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
 		if(event != null) {
-			
-		
+
+
 		if(event.getPicture() != null) {
 			Optional<EventPictureModel> ppOpt = eventPictureRepository.findById(event.getPicture().getId());
 			EventPictureModel pp = ppOpt.get();
 			byte[] eventPicture = pp.getContent();
-			
-			
+
+
 			StringBuilder sb = new StringBuilder();
 			sb.append("data:image/png;base64,");
 			sb.append(Base64.encodeBase64String(eventPicture));
 			String image = sb.toString();
 			model.addAttribute("image", image);
-			
+
 			}
 		}
 		else {
 			model.addAttribute("errorMessage", "Something went wrong!");
 			return "login";
 		}
-		
+
 		return "eventInfo";
 	}
-	
+
 
 	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
-	public String handleEventsAttending() {
+	public String handleEventsAttending(Authentication aut, Model model) {
+		
+			UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+			List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
+			System.out.println(events);
+			if(events.isEmpty()) {
+
+				model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
+				return "forward:index";
+			}
+			model.addAttribute("events",events);
+		
 		return "eventsAttending";
 	}
 
 	@RequestMapping(value = { "/eventsOwn" }, method = RequestMethod.GET)
-	public String handleEventsOwn() {
+	public String handleEventsOwn(Authentication aut, Model model) {
+		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+		List<EventModel> events = eventRepository.findEventByUserUserId(user1.getUserId());
+		if(events.isEmpty()) {
+
+			model.addAttribute("warningMessage", "You don't have any own events yet!<br>");
+
+		}
+		model.addAttribute("events",events);
 		return "eventsOwn";
 	}
-	
 
-	
-	
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
@@ -192,5 +203,37 @@ public class EventController {
 		return "404";
 
 	}
+	
+	@GetMapping("/attend")
+	public String attenToEvent(Authentication aut, Model model, @RequestParam int eventId) {
 
+		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student1 = user1.getStudent();
+		Optional<EventModel> eventO = eventRepository.findById(eventId);
+
+		if (eventO.isPresent()) {
+			EventModel event1 = eventO.get();
+
+			System.out.println();
+			if (event1.getAttendeesMax() > 0 && !event1.getStudents().contains(student1)) {
+
+				event1.addStudi(student1);
+				event1.setAttendeesMax(event1.getAttendeesMax() - 1);
+				eventRepository.save(event1);
+				model.addAttribute("message", "Have fun on the event!<br>");
+				return "forward:index";}
+			else {
+
+if (event1.getAttendeesMax() > 0) {
+	model.addAttribute("errorMessage", "Sorry this event is already full, maybe next time!<br>");
 }
+else {
+	model.addAttribute("warningMessage", "Sorry you are already attending this event. See you soon!<br>");
+}
+
+		}
+
+	}return "forward:index";
+} }
+
+

@@ -1,7 +1,7 @@
 package at.fh.swenga.jpa.model;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,26 +11,29 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 @Entity
 @Table(name = "Event")
-public class EventModel implements Serializable {
-	
+
+public class EventModel {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "eventId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int eventId;
 
 	@Column(nullable = false, length = 50)
 	private String eventName;
 
-	@Column(nullable = false, length = 250)
+	@Column(nullable = false, length = 150)
 	private String eventDescription;
 
 	// Date Only, no time part:
@@ -39,27 +42,32 @@ public class EventModel implements Serializable {
 
 	// Time Only, no date part:
 	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(iso = ISO.TIME)
 	private Date timeOfEvent;
-	
+
 	@Column(nullable = false, length = 20)
 	private int attendeesMax;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private DormModel dorm;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private DietModel diet;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private UserModel user;
 
-	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<StudentModel> students;
+
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private EventPictureModel picture;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private RecipeModel recipe;
-	
+
+
 	public EventModel() {
 
 	}
@@ -81,6 +89,14 @@ public class EventModel implements Serializable {
 
 
 
+	public EventPictureModel getPicture() {
+		return picture;
+	}
+
+
+	public void setPicture(EventPictureModel picture) {
+		this.picture = picture;
+	}
 
 
 	public RecipeModel getRecipe() {
@@ -93,24 +109,6 @@ public class EventModel implements Serializable {
 	}
 
 
-	public EventPictureModel getPicture() {
-		return picture;
-	}
-
-
-	public void setPicture(EventPictureModel picture) {
-		this.picture = picture;
-	}
-
-
-	public int getId() {
-		return eventId;
-	}
-
-	public void setId(int id) {
-		this.eventId = id;
-	}
-
 	public String getName() {
 		return eventName;
 	}
@@ -118,8 +116,8 @@ public class EventModel implements Serializable {
 	public void setName(String name) {
 		this.eventName = name;
 	}
-	
-	
+
+
 
 	public String getDescription() {
 		return eventDescription;
@@ -155,10 +153,6 @@ public class EventModel implements Serializable {
 		this.timeOfEvent = timeOfEvent;
 	}
 
-
-
-	
-	
 
 	public int getEventId() {
 		return eventId;
@@ -196,12 +190,6 @@ public class EventModel implements Serializable {
 
 
 
-
-
-
-
-
-
 	public DormModel getDorm() {
 		return dorm;
 	}
@@ -234,11 +222,10 @@ public class EventModel implements Serializable {
 		this.attendeesMax = attendeesMax;
 	}
 
-	
+
 	public UserModel getUser() {
 		return user;
 	}
-
 
 
 	public void setUser(UserModel user) {
@@ -246,7 +233,25 @@ public class EventModel implements Serializable {
 	}
 
 
+	public Set<StudentModel> getStudents() {
+		return students;
+	}
 
+
+	public void setStudents(Set<StudentModel> students) {
+		this.students = students;
+	}
+
+
+	public void addStudi(StudentModel studi) {
+
+		if (students == null) {
+			students = new HashSet<StudentModel>();
+		}
+		if (!students.contains(studi)) {
+			students.add(studi);
+		}
+	}
 
 
 	@Override
@@ -281,3 +286,4 @@ public class EventModel implements Serializable {
 	}
 
 }
+
