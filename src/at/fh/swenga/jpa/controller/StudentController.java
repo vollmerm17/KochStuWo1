@@ -464,9 +464,9 @@ public class StudentController {
 
 			if (event == null) throw new IllegalArgumentException("No event with id "+eventId);
 
-			if (event.getPicture() != null) {
+			if (event.getRecipe() != null) {
 				recipeRepository.delete(event.getRecipe());
-				event.setPicture(null);
+				event.setRecipe(null);
 			}
 
 			RecipeModel recipe = new RecipeModel();
