@@ -243,21 +243,6 @@ public class EventModel {
 	}
 
 
-
-	public void setStudents(Set<StudentModel> students) {
-		this.students = students;
-	}
-
-
-	public void addStudi(StudentModel studi) {
-
-		if (students == null) {
-			students = new HashSet<StudentModel>();
-		}
-		if (!students.contains(studi)) {
-			students.add(studi);
-		}
-	}
 	
 	public String getEventPicture() {
 		
