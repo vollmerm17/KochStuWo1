@@ -297,31 +297,35 @@ public class StudentController {
 		return "search";
 	}
 
-	@RequestMapping(value = { "/edit" })
-	public String editData(Model model, @RequestParam int id, Authentication aut) {
-
-		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
-		if (student != null) {
-
-			model.addAttribute("student", student);
-			if (student.getPicture() != null) {
-
-				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
-				ProfilePictureModel pp = ppOpt.get();
-				byte[] profilePicture = pp.getContent();
-
-				StringBuilder sb = new StringBuilder();
-				sb.append("data:image/png;base64,");
-				sb.append(Base64.encodeBase64String(profilePicture));
-				String image = sb.toString();
-				model.addAttribute("image", image);
-
-			}
-		}
-		return "profile";
+	/*
+	 * @RequestMapping(value = { "/edit" }) public String editData(Model
+	 * model, @RequestParam int id, Authentication aut) {
+	 * 
+	 * UserModel user = userRepository.findFirstByUserName(aut.getName());
+	 * StudentModel student =
+	 * studentRepository.findStudentByUserUserId(user.getUserId());
+	 * 
+	 * if (student != null) {
+	 * 
+	 * model.addAttribute("student", student); if (student.getPicture() != null) {
+	 * 
+	 * Optional<ProfilePictureModel> ppOpt =
+	 * profilePictureRepository.findById(student.getPicture().getId());
+	 * ProfilePictureModel pp = ppOpt.get(); byte[] profilePicture =
+	 * pp.getContent();
+	 * 
+	 * StringBuilder sb = new StringBuilder(); sb.append("data:image/png;base64,");
+	 * sb.append(Base64.encodeBase64String(profilePicture)); String image =
+	 * sb.toString(); model.addAttribute("image", image);
+	 * 
+	 * } } return "profile"; }
+	 */
+	
+	@GetMapping("/test")
+	public String iwjfsdi(){
+		return"test";
 	}
+	
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = { "/deleteUser" })

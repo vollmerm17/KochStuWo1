@@ -2,9 +2,6 @@ package at.fh.swenga.jpa.model;
 
 import java.util.Date;
 import java.util.HashSet;
-
-import java.util.Optional;
-
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -21,11 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import org.apache.commons.codec.binary.Base64;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Table(name = "Event")
@@ -48,7 +41,6 @@ public class EventModel {
 
 	// Time Only, no date part:
 	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(iso = ISO.TIME)
 	private Date timeOfEvent;
 
 	@Column(nullable = false, length = 20)

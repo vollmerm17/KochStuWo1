@@ -75,12 +75,7 @@ public class EventController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));
 	}
 
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		sdf.setLenient(true);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-	}
+
 
 	@GetMapping("/addEvent")
 	public String handleAddEvent(Model model, Authentication aut) {
@@ -150,11 +145,15 @@ public class EventController {
 			event1.setUser(user1);
 			eventRepository.save(event1);
 
+			model.addAttribute("message", "Your event was created successfully, have fun!<br>");
+			
 			return "addEvent";
 
 		}
 
 		return "addEvent";
+		
+		
 
 	}
 

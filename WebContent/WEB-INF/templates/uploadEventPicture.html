@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.m3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 
 <head>
+
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
+<title>KochStuWo</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
-<title>KochStuWo - Kochen für Studenten im Wohnheim</title>
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
+<!--  Error message ----------------------------------------------------------- -->
+<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+	class="alert alert-danger" role="alert"></div>
+<!--  Error message ----------------------------------------------------------- -->
+
+<!--  Warning message ----------------------------------------------------------- -->
+<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+	class="alert alert-warning" role="warning"></div>
+<!--  Warning message ----------------------------------------------------------- -->
+
+<!--   message ----------------------------------------------------------- -->
+<div th:unless="${message} == null" th:utext="${message}"
+	class="alert alert-success" role="warning"></div>
+<!--   message ----------------------------------------------------------- -->
+
+
 
 </head>
 
@@ -17,7 +36,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-				<ul
+		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
@@ -26,7 +45,7 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i style='font-size:24px' class='fas'>&#xf818;</i>
+					<i style='font-size: 24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -35,9 +54,9 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link"
-				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
-			</li>
+			<li class="nav-item"><a class="nav-link" th:href="@{/index}">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span>
+			</a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -101,7 +120,8 @@
 						<i class="fa fa-bars"></i>
 					</button>
 
-	<ul class="navbar-nav ml-auto">
+					<!-- Topbar Navbar -->
+					<ul class="navbar-nav ml-auto">
 
 						<!-- Nav Item - Search Dropdown (Visible Only XS) -->
 						<li class="nav-item dropdown no-arrow d-sm-none"><a
@@ -169,13 +189,18 @@
 				</nav>
 				<!-- End of Topbar -->
 
+				<!-- Begin Page Content -->
+				<div class="container-fluid">
+					<div class="col-sm-9">
+						<!-- Page Heading -->
+						<div
+							class="d-sm-flex align-items-center justify-content-between mb-4">
+							<h1 class="h3 mb-0 text-gray-800">Upload a event picture!</h1>
 
+						</div>
 
-				<div class="row">
-			<div class="col-md-8 col-md-offset-2">
-				<form class="form-group" enctype="multipart/form-data" method="post" th:action="@{/uploadEventPicture}">
+						<form class="form-group" enctype="multipart/form-data" method="post" th:action="@{/uploadEventPicture}">
 					<fieldset>
-					<legend th:text="'Upload Eventpicture for Event ' + ${eventId}"></legend>
 
 						<input type="hidden" name="eventId" th:value="${eventId}">
 
@@ -197,58 +222,57 @@
 
 					</fieldset>
 				</form>
-	
+					</div>
+
+				</div>
+				<!-- /.container-fluid -->
+
 			</div>
+			<!-- End of Main Content -->
+
+			<!-- Footer -->
+			<footer class="sticky-footer bg-white">
+				<div class="container my-auto">
+					<div class="copyright text-center my-auto">
+						<span>Copyright &copy; KochStuWo 2019</span>
+					</div>
+				</div>
+			</footer>
+			<!-- End of Footer -->
+
 		</div>
+		<!-- End of Content Wrapper -->
 
 	</div>
+	<!-- End of Page Wrapper -->
 
-				<!-- End of Main Content -->
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-				<!-- Footer -->
-				<footer class="sticky-footer bg-white">
-					<div class="container my-auto">
-						<div class="copyright text-center my-auto">
-							<span>Copyright &copy; KochStuWo 2019</span>
-						</div>
-					</div>
-				</footer>
-				<!-- End of Footer -->
-
-			</div>
-			<!-- End of Content Wrapper -->
-
-		</div>
-		<!-- End of Page Wrapper -->
-
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
-
-		<!-- Logout Modal-->
-		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Ready to
-							Leave?</h5>
-						<button class="close" type="button" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true"></span>
-						</button>
-					</div>
-					<div class="modal-body">Select "Logout" below if you are
-						ready to end your current session.</div>
-					<div class="modal-footer">
-						<button class="btn btn-secondary" type="button"
-							data-dismiss="modal">Cancel</button>
-						<a class="btn btn-primary" th:href="@{/login}">Logout</a>
-					</div>
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 
 </html>

@@ -1,12 +1,32 @@
 <!DOCTYPE html>
 <html xmlns="http://www.m3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
 <head>
 
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>Attending Events</title>
+<title>KochStuWo</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
+<!--  Error message ----------------------------------------------------------- -->
+<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+	class="alert alert-danger" role="alert"></div>
+<!--  Error message ----------------------------------------------------------- -->
+
+<!--  Warning message ----------------------------------------------------------- -->
+<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+	class="alert alert-warning" role="warning"></div>
+<!--  Warning message ----------------------------------------------------------- -->
+
+<!--   message ----------------------------------------------------------- -->
+<div th:unless="${message} == null" th:utext="${message}"
+	class="alert alert-success" role="warning"></div>
+<!--   message ----------------------------------------------------------- -->
+
+
 
 </head>
 
@@ -16,15 +36,16 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-				<ul
+		<ul
 			class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
 			id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
-			<a class="sidebar-brand d-flex align-items-center justify-content-center"
+			<a
+				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i style='font-size:24px' class='fas'>&#xf818;</i>
+					<i style='font-size: 24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -33,9 +54,9 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item"><a class="nav-link"
-				th:href="@{/index}"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span></a>
-			</li>
+			<li class="nav-item"><a class="nav-link" th:href="@{/index}">
+					<i class="fas fa-fw fa-tachometer-alt"></i> <span>Timeline</span>
+			</a></li>
 
 			<!-- Divider -->
 			<hr class="sidebar-divider">
@@ -62,10 +83,6 @@
 				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
 
-				<!-- Nav Item - Charts -->
-				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
-						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-				</a></li>
 
 				<!-- Nav Item - Tables -->
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
@@ -98,21 +115,6 @@
 						class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>
-
-					<!-- Topbar Search -->
-					<form
-						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-0 small"
-								placeholder="Search for..." aria-label="Search"
-								aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -149,7 +151,6 @@
 								class="fas fa-envelope fa-fw" th:href="@{/supportMail}"></i>
 
 						</a></li>
-
 						<div class="topbar-divider d-none d-sm-block"></div>
 
 						<!-- Nav Item - User Information -->
@@ -159,8 +160,8 @@
 							aria-expanded="false"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small"
 								sec:authentication="name"></span> <img
-								class="img-profile rounded-circle"
-								th:unless="${image} == null" th:src="${image}">
+								class="img-profile rounded-circle" th:unless="${image} == null"
+								th:src="${image}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -190,7 +191,7 @@
 					<!-- Page Heading -->
 					<div
 						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">The events you're attending:</h1>
+						<h1 class="h3 mb-0 text-gray-800">The events you are attending:</h1>
 						<div class="dropdown mb-4">
 							<button class="btn btn-primary dropdown-toggle" type="button"
 								id="dropdownMenuButton" data-toggle="dropdown"
@@ -198,83 +199,71 @@
 								events you want to view!</button>
 							<div class="dropdown-menu animated--fade-in"
 								aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" th:href="@{/eventsOwn}">Own Events</a> <a
-									class="dropdown-item" th:href="@{/index}">All
-									Events</a>
+								<a class="dropdown-item" th:href="@{/index}">All Events</a> <a
+									class="dropdown-item" th:href="@{/eventsOwn}">Own Events</a>
 							</div>
 						</div>
 					</div>
 
-					<!-- Page Heading -->
-					<div
-						class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Event Info</h1>
-
-					</div>
-
 					<!-- Content Row -->
-					<div class="row"></div>
 
 					<!-- Content Row -->
 
 					<div class="row">
-					<div th:each="event: ${#request.getAttribute('events')}" class="col-sm-4">
-					
+						<div th:each="event: ${#request.getAttribute('events')}"
+							class="col-sm-4">
 
-							<div class="card shadow mb-12">
+
+							<div class="card shadow mb-4">
 								<div class="card-header py-3">
 									<h6 class="m-0 font-weight-bold text-primary"
-										th:text="${event.name}"></h6>
-									<!-- Name nicht vergessen! -->
+										th:text="${event.eventName}">Dinner</h6>
 								</div>
 								<div class="card-body">
 									<div class="text-center">
-										<img th:src="${event.getEventPicture()}" style="width:350px;height:300px">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" src="img/dinner.jpg" alt="">
 									</div>
-									<h6 class="m-0 font-weight-bold text-primary"
-										th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
-
-									<p th:text="${event.description}"></p>
-
-									</a> <a href="#" class="btn btn-success btn-circle btn-lg"
-										title="Participate"> <i class="fas fa-check"></i>
-
-									</a> </a> <a href="#" class="btn btn-danger btn-circle btn-lg"
-										title="Cancel"> <i class="fas fa-trash"></i>
-
+									<p th:text="${event.eventDescription}">Add a nice
+										description of your event so other students can get an Idea of
+										what they can expect.</p>
+									<a th:href="@{/eventInfo(eventId=${event.eventId})}"
+										class="btn btn-info btn-icon-split"> <span
+										class="icon text-white-50"> <i
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Event Info</span>
 									</a>
 								</div>
 
 							</div>
-						
-^						</div>
+						</div>
+
+
 
 					</div>
 
-
-
-
-
 				</div>
-
-
-				<!-- /.container-fluid -->
-
 			</div>
-			<!-- End of Main Content -->
 
-			<!-- Footer -->
-			<footer class="sticky-footer bg-white">
-				<div class="container my-auto">
-					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; KochStuWo 2019</span>
-					</div>
-				</div>
-			</footer>
-			<!-- End of Footer -->
+
+			<!-- /.container-fluid -->
 
 		</div>
-		<!-- End of Content Wrapper -->
+		<!-- End of Main Content -->
+
+
+	</div>
+	<!-- End of Content Wrapper -->
+
+	<!-- Footer -->
+	<footer class="sticky-footer bg-white">
+		<div class="container my-auto">
+			<div class="copyright text-center my-auto">
+				<span>Copyright &copy; KochStuWo 2019</span>
+			</div>
+		</div>
+	</footer>
+	<!-- End of Footer -->
 
 	</div>
 	<!-- End of Page Wrapper -->
@@ -306,8 +295,6 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 
 </html>
-
