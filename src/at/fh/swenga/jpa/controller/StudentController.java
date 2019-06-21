@@ -102,7 +102,31 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = { "/aboutUs" }, method = RequestMethod.GET)
-	public String handleAboutUs() {
+	public String handleAboutUs(Model model, Authentication aut) {
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 		return "aboutUs";
 	}
 
@@ -118,18 +142,69 @@ public class StudentController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = { "/allUsers" }, method = RequestMethod.GET)
-	public String handleAllUsers(Model model) {
+	public String handleAllUsers(Model model, Authentication aut) {
 
 		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
 		model.addAttribute("students", students);
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 		return "allUsers";
 	}
 
 	@RequestMapping(value = { "/settings" }, method = RequestMethod.GET)
 	public String handleSettings(Model model, Authentication aut) {
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 
 		UserModel temp = userRepository.findFirstByUserName(aut.getName());
 		model.addAttribute("student", temp.getUserId()) ;
+		
+	
+
 		return "settings";
 	}
 
@@ -139,7 +214,31 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = { "/forgotPassword" }, method = RequestMethod.GET)
-	public String handleForgotPassword() {
+	public String handleForgotPassword(Model model, Authentication aut) {
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 		return "forgotPassword";
 	}
 
@@ -221,23 +320,95 @@ public class StudentController {
 
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String handleSearch(Model model) {
+	public String handleSearch(Model model, Authentication aut) {
 
 		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
 		model.addAttribute("students", students);
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 
 		return "search";
 	}
 
 
 	@RequestMapping(value = { "/edit" })
-	public String editData(Model model, @RequestParam int id) {
+	public String editData(Model model, @RequestParam int id, Authentication aut) {
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 		return "profile";
 	}
 
 	@RequestMapping(value = { "/delete" })
-	public String deleteData(Model model, @RequestParam int id) {
+	public String deleteData(Model model, @RequestParam int id, Authentication aut) {
 		studentRepository.deleteById(id);
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 
 		return "forward:list";
 	}
@@ -248,12 +419,38 @@ public class StudentController {
 		int currentId =user.getUserId();
 		studentRepository.deleteById(currentId);
 		userRepository.deleteById(currentId);
+		
+		
 		return "login";
 	}
 
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.GET)
-	public String showUploadFormRecipe(Model model, @RequestParam("eventId") int eventId) {
+	public String showUploadFormRecipe(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 		return "uploadRecipe";
 	}
 	
@@ -291,8 +488,10 @@ public class StudentController {
 
 
 	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.GET)
-	public String showUploadFormEventPicture(Model model, @RequestParam("eventId") int eventId) {
+	public String showUploadFormEventPicture(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
+		
+		
 		return "uploadEventPicture";
 	}
 
@@ -344,8 +543,32 @@ public class StudentController {
 
 
 	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.GET)
-	public String showUploadFormProfilePicture(Model model,@RequestParam("id") int studentId) {
+	public String showUploadFormProfilePicture(Model model,@RequestParam("id") int studentId, Authentication aut) {
 		model.addAttribute("studentId", studentId);
+		
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+
+
+		if (student != null) {
+
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+
+
+			}
+		}
 		return "uploadProfilePicture";
 	}
 
@@ -353,8 +576,6 @@ public class StudentController {
 	public String uploadProfilePicture(Model model, @RequestParam("id") int studentId,
 			@RequestParam("myFile") MultipartFile file) {
 		try {
-
-
 
 			StudentModel student = studentRepository.findStudentByUserUserId(studentId);
 

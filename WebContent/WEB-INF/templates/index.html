@@ -230,8 +230,8 @@
 					<!-- Content Row -->
 
 					<div class="row">
-						<div th:each="event: ${#request.getAttribute('events')}">
-							<div class="col-sm-12">
+						<div th:each="event: ${#request.getAttribute('events')} " class="col-sm-4">
+							 
 
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
@@ -240,8 +240,8 @@
 									</div>
 									<div class="card-body">
 										<div class="text-center">
-											<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-												style="width: 25rem;" src="img/dinner.jpg" alt="">
+					
+										<img th:src="${event.getEventPicture()}" style="width:350px;height:300px">
 										</div>
 										<p th:text="${event.eventDescription}">
 											Add a nice description of your event so other students can get an Idea
@@ -252,7 +252,6 @@
 												class="fas fa-info-circle"></i>
 										</span> <span class="text">Event Info</span>
 										</a>
-									</div>
 
 								</div>
 							</div>

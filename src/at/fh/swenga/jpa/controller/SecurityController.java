@@ -84,12 +84,13 @@ public class SecurityController {
 
 	@GetMapping("/index")
 	public String handleIndex(Model model,Authentication aut) {
+		
 
 		List<EventModel> events = eventRepository.findAll();
 		model.addAttribute("events", events);
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student = studentRepository.findStudentById(user.getId());
+		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 		
 	
 		if (student != null) {
@@ -108,7 +109,6 @@ public class SecurityController {
 				String image = sb.toString();
 				model.addAttribute("image", image);
 				
-			
 			}
 		}
 		

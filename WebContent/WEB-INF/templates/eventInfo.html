@@ -121,7 +121,7 @@
 							<div class="row">
 								<div class="col-sm-3">
 									<div class="text-center">
-										<img th:unless="${image} == null" th:src="${image}"
+										<img th:src="${event.getEventPicture()}"
 											height="250"> <a
 											th:href="@{/uploadRecipe(eventId=${#request.getAttribute('eventId')})}"
 											class="btn btn-secondary btn-icon-split"> <span
