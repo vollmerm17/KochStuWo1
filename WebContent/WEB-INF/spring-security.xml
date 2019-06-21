@@ -12,6 +12,7 @@
 		<csrf disabled="true" /> <!-- enable in the end of the project -->
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/initPage" access="permitAll" />
+		<intercept-url pattern="/forgotPassword" access="permitAll" />
 		<intercept-url pattern="/register" access="permitAll" />
 		<intercept-url pattern="/img/**" access="permitAll" />
 		<intercept-url pattern="/css/**" access="permitAll" />

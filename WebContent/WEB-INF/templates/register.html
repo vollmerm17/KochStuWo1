@@ -105,19 +105,19 @@
 									</div>
 								</div>
 								<hr>
-								<select name="dormId">
+								<select name="dormId" class="browser-default custom-select">
 									<option disabled selected="selected">Dorm</option>
 									<div th:each="dorm: ${#request.getAttribute('dorms')}">
 										<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"
 											required="required"></option>
 									</div>
-								</select> <select name="dietId">
+								</select> <br><br><select name="dietId" class="browser-default custom-select">
 									<option disabled selected="selected">Diet</option>
 									<div th:each="diet: ${#request.getAttribute('diets')}">
 										<option th:value="${diet.dietId}" th:text="${diet.dietName}"
 											required="required"></option>
 									</div>
-								</select> <select name="instituteId">
+								</select> <br><br><select name="instituteId" class="browser-default custom-select"s>
 									<option disabled selected="selected">Educational
 										Institute</option>
 									<div

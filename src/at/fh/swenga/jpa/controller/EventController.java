@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import javax.validation.Valid;
 
@@ -29,9 +30,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import at.fh.swenga.jpa.dao.DietRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventPictureRepository;
-import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
+import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.DietModel;
@@ -166,30 +167,47 @@ public class EventController {
 	}
 
 	@RequestMapping(value = { "/eventInfo" }, method = RequestMethod.GET)
-	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId ) {
+	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
 
-		EventModel event = eventRepository.findEventByEventId(eventId);
-		model.addAttribute("event", event);
+	
+		String userEvent = eventRepository.findEventByEventId(eventId).getUser().getUserName();
+		String userAut = aut.getName();
+		model.addAttribute(userEvent);
+		model.addAttribute(userAut);
 		
-		if(event != null) {
+		//	boolean own;
+//		
+//		
+//		if(aut.getName() != userEvent.getUserName()) {
+//			 own = false;
+//			 model.addAttribute("own", own);
+//			 
+//	
+//		} else {
+//			 own = true;
+//			 model.addAttribute("own", own);
+//			 
+//			
+//		}
+//		
+		
+		EventModel event = eventRepository.findEventByEventId(eventId);
+		if (event != null) {
 
+			if (event.getPicture() != null) {
+				Optional<EventPictureModel> ppOpt = eventPictureRepository.findById(event.getPicture().getId());
+				EventPictureModel pp = ppOpt.get();
+				byte[] eventPicture = pp.getContent();
 
-		if(event.getPicture() != null) {
-			Optional<EventPictureModel> ppOpt = eventPictureRepository.findById(event.getPicture().getId());
-			EventPictureModel pp = ppOpt.get();
-			byte[] eventPicture = pp.getContent();
-
-
-			StringBuilder sb = new StringBuilder();
-			sb.append("data:image/png;base64,");
-			sb.append(Base64.encodeBase64String(eventPicture));
-			String image = sb.toString();
-			model.addAttribute("image", image);
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(eventPicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
 
 			}
-		}
-		else {
+		} else {
 			model.addAttribute("errorMessage", "Something went wrong!");
 			return "login";
 		}

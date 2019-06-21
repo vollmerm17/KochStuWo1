@@ -1,6 +1,5 @@
 package at.fh.swenga.jpa.controller;
 
-
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -71,7 +70,6 @@ public class StudentController {
 	@Autowired
 	EventRepository eventRepository;
 
-
 	@Autowired
 	ProfilePictureRepository profilePictureRepository;
 
@@ -80,7 +78,6 @@ public class StudentController {
 
 	@Autowired
 	RecipeRepository recipeRepository;
-
 
 	@RequestMapping(value = { "/getPage" })
 	public String getPage(Pageable page, Model model) {
@@ -103,10 +100,9 @@ public class StudentController {
 
 	@RequestMapping(value = { "/aboutUs" }, method = RequestMethod.GET)
 	public String handleAboutUs(Model model, Authentication aut) {
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -117,13 +113,11 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-
 
 			}
 		}
@@ -140,16 +134,20 @@ public class StudentController {
 		return "charts";
 	}
 
+	@RequestMapping(value = { "/forgotPassword" }, method = RequestMethod.GET)
+	public String handleForgotPassword() {
+		return "forgotPassword";
+	}
+
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = { "/allUsers" }, method = RequestMethod.GET)
 	public String handleAllUsers(Model model, Authentication aut) {
 
 		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
 		model.addAttribute("students", students);
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -160,13 +158,11 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-
 
 			}
 		}
@@ -175,10 +171,9 @@ public class StudentController {
 
 	@RequestMapping(value = { "/settings" }, method = RequestMethod.GET)
 	public String handleSettings(Model model, Authentication aut) {
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -189,21 +184,17 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
 
-
 			}
 		}
 
 		UserModel temp = userRepository.findFirstByUserName(aut.getName());
-		model.addAttribute("student", temp.getUserId()) ;
-		
-	
+		model.addAttribute("student", temp.getUserId());
 
 		return "settings";
 	}
@@ -213,34 +204,6 @@ public class StudentController {
 		return "404";
 	}
 
-	@RequestMapping(value = { "/forgotPassword" }, method = RequestMethod.GET)
-	public String handleForgotPassword(Model model, Authentication aut) {
-		
-		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
-
-		if (student != null) {
-
-			model.addAttribute("student", student);
-			if (student.getPicture() != null) {
-
-				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
-				ProfilePictureModel pp = ppOpt.get();
-				byte[] profilePicture = pp.getContent();
-
-
-				StringBuilder sb = new StringBuilder();
-				sb.append("data:image/png;base64,");
-				sb.append(Base64.encodeBase64String(profilePicture));
-				String image = sb.toString();
-				model.addAttribute("image", image);
-
-
-			}
-		}
-		return "forgotPassword";
-	}
 
 
 	@GetMapping("/profile")
@@ -249,7 +212,6 @@ public class StudentController {
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 
-
 		if (student != null) {
 
 			model.addAttribute("student", student);
@@ -259,30 +221,26 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
 
-
 			}
 
-		List<DormModel> dorms = dormRepository.findAll();
-		model.addAttribute("dorms", dorms);
+			List<DormModel> dorms = dormRepository.findAll();
+			model.addAttribute("dorms", dorms);
 
-		List<DietModel> diets = dietRepository.findAll();
-		model.addAttribute("diets", diets);
+			List<DietModel> diets = dietRepository.findAll();
+			model.addAttribute("diets", diets);
 
-		List<InstituteModel> institutes = instituteRepository.findAll();
-		model.addAttribute("institutes", institutes);
+			List<InstituteModel> institutes = instituteRepository.findAll();
+			model.addAttribute("institutes", institutes);
 
-
-	}
+		}
 		return "profile";
 	}
-
 
 	@PostMapping(value = { "/profile" })
 	public String changeProfile(Model model, @Valid UserModel usernew, @Valid StudentModel studentnew,
@@ -318,16 +276,14 @@ public class StudentController {
 		return "profile";
 	}
 
-
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model, Authentication aut) {
 
 		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
 		model.addAttribute("students", students);
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -338,13 +294,11 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-
 
 			}
 		}
@@ -352,13 +306,11 @@ public class StudentController {
 		return "search";
 	}
 
-
 	@RequestMapping(value = { "/edit" })
 	public String editData(Model model, @RequestParam int id, Authentication aut) {
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -369,13 +321,11 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-
 
 			}
 		}
@@ -385,10 +335,9 @@ public class StudentController {
 	@RequestMapping(value = { "/delete" })
 	public String deleteData(Model model, @RequestParam int id, Authentication aut) {
 		studentRepository.deleteById(id);
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -399,13 +348,11 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-
 
 			}
 		}
@@ -413,24 +360,22 @@ public class StudentController {
 		return "forward:list";
 	}
 
-	@RequestMapping(value = { "/deleteOwn"})
+	@RequestMapping(value = { "/deleteOwn" })
 	public String deleteOwnData(Model model, Authentication aut) {
-	UserModel user = userRepository.findFirstByUserName(aut.getName());
-		int currentId =user.getUserId();
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		int currentId = user.getUserId();
 		studentRepository.deleteById(currentId);
 		userRepository.deleteById(currentId);
-		
-		
+
 		return "login";
 	}
 
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.GET)
 	public String showUploadFormRecipe(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -441,19 +386,17 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
 
-
 			}
 		}
 		return "uploadRecipe";
 	}
-	
+
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.POST)
 	public String uploadRecipe1(Model model, @RequestParam("eventId") int eventId,
 			@RequestParam("myFile") MultipartFile file) {
@@ -461,7 +404,8 @@ public class StudentController {
 
 			EventModel event = eventRepository.findEventByEventId(eventId);
 
-			if (event == null) throw new IllegalArgumentException("No event with id "+eventId);
+			if (event == null)
+				throw new IllegalArgumentException("No event with id " + eventId);
 
 			if (event.getRecipe() != null) {
 				recipeRepository.delete(event.getRecipe());
@@ -485,12 +429,10 @@ public class StudentController {
 		return "redirect:/index";
 	}
 
-
 	@RequestMapping(value = "/uploadEventPicture", method = RequestMethod.GET)
 	public String showUploadFormEventPicture(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
-		
-		
+
 		return "uploadEventPicture";
 	}
 
@@ -501,10 +443,8 @@ public class StudentController {
 
 			EventModel event = eventRepository.findEventByEventId(eventId);
 
-
-			if (event == null) throw new IllegalArgumentException("No event with id "+eventId);
-
-
+			if (event == null)
+				throw new IllegalArgumentException("No event with id " + eventId);
 
 			if (event.getPicture() != null) {
 				eventPictureRepository.delete(event.getPicture());
@@ -512,17 +452,16 @@ public class StudentController {
 			}
 
 			/*
-			if(!"image/png".equals(file.getContentType())) {
+			 * if(!"image/png".equals(file.getContentType())) {
+			 * 
+			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
+			 * "eventInfo"; }
+			 * 
+			 * if(!"image/jpeg".equals(file.getContentType())) {
+			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
+			 * "eventInfo"; }
+			 */
 
-				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
-				return "eventInfo";
-			}
-
-			if(!"image/jpeg".equals(file.getContentType())) {
-				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
-				return "eventInfo";
-			}*/
-			
 			EventPictureModel pic = new EventPictureModel();
 			pic.setContent(file.getBytes());
 			pic.setContentType(file.getContentType());
@@ -540,14 +479,12 @@ public class StudentController {
 		return "redirect:/index";
 	}
 
-
 	@RequestMapping(value = "/uploadProfilePicture", method = RequestMethod.GET)
-	public String showUploadFormProfilePicture(Model model,@RequestParam("id") int studentId, Authentication aut) {
+	public String showUploadFormProfilePicture(Model model, @RequestParam("id") int studentId, Authentication aut) {
 		model.addAttribute("studentId", studentId);
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-
 
 		if (student != null) {
 
@@ -558,13 +495,11 @@ public class StudentController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-
 
 			}
 		}
@@ -576,12 +511,10 @@ public class StudentController {
 			@RequestParam("myFile") MultipartFile file) {
 		try {
 
-
 			StudentModel student = studentRepository.findStudentByUserUserId(studentId);
 
-			if (student == null) throw new IllegalArgumentException("No student with id "+studentId);
-
-
+			if (student == null)
+				throw new IllegalArgumentException("No student with id " + studentId);
 
 			if (student.getPicture() != null) {
 				profilePictureRepository.delete(student.getPicture());
@@ -589,14 +522,12 @@ public class StudentController {
 			}
 
 			/*
-			if(!"image/png".equals(file.getContentType())) {
-				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
-				return "eventInfo";
-			}/*
-			if(!"image/jpeg".equals(file.getContentType())) {
-				model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!");
-				return "eventInfo";
-			}*/
+			 * if(!"image/png".equals(file.getContentType())) {
+			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
+			 * "eventInfo"; }/* if(!"image/jpeg".equals(file.getContentType())) {
+			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
+			 * "eventInfo"; }
+			 */
 
 			ProfilePictureModel pic = new ProfilePictureModel();
 			pic.setContent(file.getBytes());
@@ -618,11 +549,11 @@ public class StudentController {
 	@RequestMapping("/download")
 	public void download(@RequestParam("eventId") int eventId, HttpServletResponse response) {
 
-
 		EventModel event = eventRepository.findEventByEventId(eventId);
-		/*if (!event.isPresent())
-			throw new IllegalArgumentException("No document with id " + documentId);
-*/
+		/*
+		 * if (!event.isPresent()) throw new
+		 * IllegalArgumentException("No document with id " + documentId);
+		 */
 		RecipeModel doc = event.getRecipe();
 
 		try {
@@ -644,6 +575,5 @@ public class StudentController {
 		return "404";
 
 	}
-
 
 }
