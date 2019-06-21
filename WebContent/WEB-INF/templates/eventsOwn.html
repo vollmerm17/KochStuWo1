@@ -223,7 +223,7 @@
 								<div class="card-body">
 									<div class="text-center">
 										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
-											style="width: 25rem;" src="img/dinner.jpg" alt="">
+											style="width: 25rem;" th:src="${event.getEventPicture()}" alt="">
 									</div>
 									<p th:text="${event.eventDescription}">Add a nice
 										description of your event so other students can get an Idea of

@@ -212,6 +212,9 @@ public class StudentController {
 
 		if (studi != null) {
 
+			model.addAttribute("student", studi);
+			if (studi.getPicture() != null) {
+
 				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(studi.getPicture().getId());
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
@@ -223,6 +226,8 @@ public class StudentController {
 				model.addAttribute("image", image);
 
 			}
+		}
+
 
 			List<DormModel> dorms = dormRepository.findAll();
 			model.addAttribute("dorms", dorms);
@@ -297,35 +302,8 @@ public class StudentController {
 		return "search";
 	}
 
-	/*
-	 * @RequestMapping(value = { "/edit" }) public String editData(Model
-	 * model, @RequestParam int id, Authentication aut) {
-	 * 
-	 * UserModel user = userRepository.findFirstByUserName(aut.getName());
-	 * StudentModel student =
-	 * studentRepository.findStudentByUserUserId(user.getUserId());
-	 * 
-	 * if (student != null) {
-	 * 
-	 * model.addAttribute("student", student); if (student.getPicture() != null) {
-	 * 
-	 * Optional<ProfilePictureModel> ppOpt =
-	 * profilePictureRepository.findById(student.getPicture().getId());
-	 * ProfilePictureModel pp = ppOpt.get(); byte[] profilePicture =
-	 * pp.getContent();
-	 * 
-	 * StringBuilder sb = new StringBuilder(); sb.append("data:image/png;base64,");
-	 * sb.append(Base64.encodeBase64String(profilePicture)); String image =
-	 * sb.toString(); model.addAttribute("image", image);
-	 * 
-	 * } } return "profile"; }
-	 */
-	
-	@GetMapping("/test")
-	public String iwjfsdi(){
-		return"test";
-	}
-	
+
+
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = { "/deleteUser" })
@@ -364,7 +342,7 @@ public class StudentController {
 		studentRepository.deleteById(currentId);
 		userRepository.deleteById(currentId);
 
-		return "login";
+		return "forward:login";
 	}
 
 	@RequestMapping(value = "/uploadRecipe", method = RequestMethod.GET)
@@ -448,17 +426,6 @@ public class StudentController {
 				event.setPicture(null);
 			}
 
-			/*
-			 * if(!"image/png".equals(file.getContentType())) {
-			 *
-			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
-			 * "eventInfo"; }
-			 *
-			 * if(!"image/jpeg".equals(file.getContentType())) {
-			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
-			 * "eventInfo"; }
-			 */
-
 			EventPictureModel pic = new EventPictureModel();
 			pic.setContent(file.getBytes());
 			pic.setContentType(file.getContentType());
@@ -518,14 +485,6 @@ public class StudentController {
 				student.setPicture(null);
 			}
 
-			/*
-			 * if(!"image/png".equals(file.getContentType())) {
-			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
-			 * "eventInfo"; }/* if(!"image/jpeg".equals(file.getContentType())) {
-			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
-			 * "eventInfo"; }
-			 */
-
 			ProfilePictureModel pic = new ProfilePictureModel();
 			pic.setContent(file.getBytes());
 			pic.setContentType(file.getContentType());
@@ -547,16 +506,12 @@ public class StudentController {
 	public void download(@RequestParam("eventId") int eventId, HttpServletResponse response) {
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
-		/*
-		 * if (!event.isPresent()) throw new
-		 * IllegalArgumentException("No document with id " + documentId);
-		 */
+
 		RecipeModel doc = event.getRecipe();
 
 		try {
 			response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getFilename() + "\"");
 			OutputStream out = response.getOutputStream();
-			// application/octet-stream
 			response.setContentType(doc.getContentType());
 			out.write(doc.getContent());
 			out.flush();

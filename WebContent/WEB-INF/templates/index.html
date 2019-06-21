@@ -211,28 +211,30 @@
 					<!-- Content Row -->
 
 					<div class="row">
-						<div th:each="event: ${#request.getAttribute('events')}" class="col-sm-4">
+						<div th:each="event: ${#request.getAttribute('events')}"
+							class="col-sm-4">
 
 
-								<div class="card shadow mb-4">
-									<div class="card-header py-3">
-										<h6 class="m-0 font-weight-bold text-primary"
-											th:text="${event.eventName}">Dinner</h6>
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text="${event.eventName}">Dinner</h6>
+								</div>
+								<div class="card-body">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" th:src="${event.getEventPicture()}"
+											alt="">
 									</div>
-									<div class="card-body">
-										<div class="text-center">
-
-										<img th:src="${event.getEventPicture()}" style="width:350px;height:300px">
-										</div>
-										<p th:text="${event.eventDescription}">Add a nice
-											description of your event so other students can get an Idea
-											of what they can expect.</p>
-										<a th:href="@{/eventInfo(eventId=${event.eventId})}"
-											class="btn btn-info btn-icon-split"> <span
-											class="icon text-white-50"> <i
-												class="fas fa-info-circle"></i>
-										</span> <span class="text">Event Info</span>
-										</a>
+									<p th:text="${event.eventDescription}">Add a nice
+										description of your event so other students can get an Idea of
+										what they can expect.</p>
+									<a th:href="@{/eventInfo(eventId=${event.eventId})}"
+										class="btn btn-info btn-icon-split"> <span
+										class="icon text-white-50"> <i
+											class="fas fa-info-circle"></i>
+									</span> <span class="text">Event Info</span>
+									</a>
 
 								</div>
 							</div>

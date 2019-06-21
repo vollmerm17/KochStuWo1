@@ -11,6 +11,7 @@
 	<http>
 		<csrf disabled="true" /> <!-- enable in the end of the project -->
 		<intercept-url pattern="/aboutUs" access="permitAll" />
+		<intercept-url pattern="/allUsers" access="hasRole('ADMIN')" />
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/initPage" access="permitAll" />
 		<intercept-url pattern="/forgotPassword" access="permitAll" />

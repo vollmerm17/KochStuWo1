@@ -79,6 +79,11 @@
 				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
 
+				<!-- Nav Item - Charts -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
+						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+				</a></li>
+
 				<!-- Nav Item - Tables -->
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 						<i class="fas fa-fw fa-table"></i> <span>Users</span>
@@ -101,7 +106,6 @@
 			<!-- Main Content -->
 			<div id="content">
 
-				<!-- Topbar -->
 				<nav
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -110,8 +114,6 @@
 						class="btn btn-link d-md-none rounded-circle mr-3">
 						<i class="fa fa-bars"></i>
 					</button>
-
-
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -157,8 +159,8 @@
 							aria-expanded="false"> <span
 								class="mr-2 d-none d-lg-inline text-gray-600 small"
 								sec:authentication="name"></span> <img
-								class="img-profile rounded-circle"
-								src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+								class="img-profile rounded-circle" th:unless="${image} == null"
+								th:src="${image}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -186,54 +188,59 @@
 
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">Event Info</h1>
-					<br>
+
 					<div class="card shadow mb-4">
 
 
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-3">
-									<div class="text-left">
-									<a
-											th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}"
-											class="btn btn-success btn-icon-split"> <span
-											class="icon text-white-50"> <i class="fas fa-check"></i>
-										</span> <span class="text">Attend</span>
-										</a>
-										<br> <br>
-										<img th:unless="${image} == null" th:src="${image}"
-											height="250">
+									<div class="text-center">
+										<img class="img-fluid px-3 px-sm-4 mt-3 mb-4"
+											style="width: 25rem;" th:src="${event.getEventPicture()}" alt="">
+										<div class="text-left">
+											<br> <br> <a
+												th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}"
+												class="btn btn-success btn-icon-split"> <span
+												class="icon text-white-50"> <i class="fas fa-check"></i>
+											</span> <span class="text">Attend</span>
+											</a> <br> <br> <a
+												th:href="@{/uploadRecipe(eventId=${#request.getAttribute('eventId')})}"
+												class="btn btn-secondary btn-icon-split"> <span
+												class="icon text-white-50"> <i
+													class="fas fa-arrow-right"></i>
+											</span> <span class="text">Upload a recipe!</span>
 
-											<th:block th:if="${#request.getAttribute('own')} == false">
-												<a
-													th:href="@{/uploadRecipe(eventId=${#request.getAttribute('eventId')})}"
-													class="btn btn-secondary btn-icon-split"> <span
-													class="icon text-white-50"> <i
-														class="fas fa-arrow-right"></i>
-												</span> <span class="text">Upload a recipe!</span>
-
-												</a><br> <br> <a
-													th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
-													class="btn btn-secondary btn-icon-split"> <span
-													class="icon text-white-50"> <i
-														class="fas fa-arrow-right"></i>
-												</span> <span class="text">Download the receipe</span>
-												</a> <br> <br> <a
-													th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
-													class="btn btn-secondary btn-icon-split"> <span
-													class="icon text-white-50"> <i
-														class="fas fa-arrow-right"></i>
-												</span> <span class="text">Upload an event picture!</span>
-												</a>
-											</th:block>
+											</a> <br> <br> <a
+												th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
+												class="btn btn-secondary btn-icon-split"> <span
+												class="icon text-white-50"> <i
+													class="fas fa-arrow-right"></i>
+											</span> <span class="text">Download the recipe!</span>
+											</a> <br> <br> <a
+												th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
+												class="btn btn-secondary btn-icon-split"> <span
+												class="icon text-white-50"> <i
+													class="fas fa-arrow-right"></i>
+											</span> <span class="text">Upload an event picture!</span>
+											</a>
+										</div>
 									</div>
 
 								</div>
 								<div class="col-sm-9">
-
+									<h1 class="h3 mb-2 text-gray-800" th:text="${event.eventName}">Event
+										Info</h1>
+									<br>
 									<h6 class="m-0 font-weight-bold text-primary"
-										th:text="${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
-
+										th:text="'Date:  '+${event.dayOfEvent}"></h6>
+									<br>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text="'Time:  '+${event.timeOfEvent}"></h6>
+									<br>
+									<h6 class="m-0 font-weight-bold text-primary"
+										th:text="'Maximum Attendees:  '+${event.attendeesMax}"></h6>
+									<br>
 									<p th:text="${event.description}"></p>
 								</div>
 

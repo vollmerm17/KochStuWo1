@@ -161,19 +161,10 @@ public class EventController {
 	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
 
-		boolean own;
-
-		UserModel userEvent = eventRepository.findEventByEventId(eventId).getUser();
-
-		if (aut.getName() != userEvent.getUserName()) {
-			own = false;
-			model.addAttribute("own", own);
-		} else {
-			own = true;
-			model.addAttribute("own", own);
-		}
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
+		model.addAttribute("event", event);
+		
 		if (event != null) {
 
 			if (event.getPicture() != null) {
