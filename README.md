@@ -8,10 +8,6 @@ KochStuWo is an web application that allows students who live in dorms to create
 
 
 
-
-
-
-
 ## Team Members:
 
 * Martina Vollmer
@@ -23,10 +19,10 @@ KochStuWo is an web application that allows students who live in dorms to create
 
 ## Work Distribution:
 
-* Martina Vollmer
-* Claudia Voetter
-* Patrick Sacher
-* Clemens Strasser
+* Martina Vollmer: Back-End
+* Claudia Voetter: Front-End, Back-End
+* Patrick Sacher: Back-End
+* Clemens Strasser: Front-End
 
 
 
@@ -34,15 +30,13 @@ KochStuWo is an web application that allows students who live in dorms to create
 ## Installation Guide:
 
 1. Download the project from this [repository](https://github.com/vollmerm17/KochStuWo1.git).
-2. Open Eclipse an create a new "Dynamic Web-Project".
-(Target Runtime: Tomcat and Dynamic web module version: 4.0)
-3. Convert Dynamic Web Project to Maven Project
-(Right click on project and select  "Configure -> Convert to Maven project)
+2. Open Eclipse an create a new "Dynamic Web-Project" (Target Runtime: Tomcat 9.0 and Dynamic web module version: 4.0).
+3. Convert Dynamic Web Project to Maven Project (Right click on project and select  "Configure -> Convert to Maven project).
 5. Import the project you have downloaded from the repository.
-6. Adapt the database.properties to your own connection and rename it to db.properties.
+6. Adapt the db.propterties to your own connection.
 7. Configure the Server to host the Application (e.g. Tomcat).
-8. Publish the project to Tomcat an start the server.
-9. Default credentials are: Maxi/geheim2345, Maxine/2345 for users and administrator/password for the administrator.
+8. Publish the project to Tomcat and start the server.
+9. The default credentials are: Maxi/geheim2345, Maxine/geheim2345 for users and administrator/password for the administrator.
 10. Try out the application.
 
 
