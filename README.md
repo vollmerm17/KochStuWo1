@@ -15,7 +15,7 @@ KochStuWo is an web application that allows students who live in dorms to create
 ## Team Members:
 
 * Martina Vollmer
-* Claudia Vötter
+* Claudia Voetter
 * Patrick Sacher
 * Clemens Strasser
 
@@ -24,7 +24,7 @@ KochStuWo is an web application that allows students who live in dorms to create
 ## Work Distribution:
 
 * Martina Vollmer
-* Claudia Vötter
+* Claudia Voetter
 * Patrick Sacher
 * Clemens Strasser
 
