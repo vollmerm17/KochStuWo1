@@ -71,7 +71,12 @@ public class SecurityController {
 	}
 
 	@GetMapping("/")
-	public String root() {
+	public String root(Model model) {
+
+		List<EventModel> events = eventRepository.findAll();
+		model.addAttribute("events", events);
+
+		
 		return "index";
 	}
 

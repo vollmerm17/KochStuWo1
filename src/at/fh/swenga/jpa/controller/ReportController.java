@@ -86,7 +86,7 @@ public class ReportController {
 
 			System.out.println("Sent message successfully....");
 
-			model.addAttribute("message", "Your message was sent!<br>");
+			model.addAttribute("message", "Your message was sent!");
 
 
 		} catch (MessagingException e) {

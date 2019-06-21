@@ -24,10 +24,11 @@ public interface StudentRepository extends JpaRepository<StudentModel, Integer> 
 	StudentModel findFirstByFirstName(String firstName);
 
 	StudentModel findStudentByUserUserId(int userId);
+	
+	List<StudentModel> removeById(int id);
 
-
-		@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
-		List<StudentModel> findAllWithoutAdmin();
+	@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
+	List<StudentModel> findAllWithoutAdmin();
 
 	/*
 	 * List<StudentModel> findByLastName(String lastName);

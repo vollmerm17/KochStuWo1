@@ -120,6 +120,7 @@ public class StudentController {
 
 		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
 		model.addAttribute("students", students);
+		
 		return "allUsers";
 	}
 
@@ -214,8 +215,8 @@ public class StudentController {
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model) {
 
-		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
-		model.addAttribute("students", students);
+		List<UserModel> users = userRepository.findAllWithoutAdmin();
+		model.addAttribute("users", users);
 
 		return "search";
 	}
@@ -226,11 +227,13 @@ public class StudentController {
 		return "profile";
 	}
 
-	@RequestMapping(value = { "/delete" })
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = { "/deleteUser" })
 	public String deleteData(Model model, @RequestParam int id) {
 		studentRepository.deleteById(id);
-
-		return "forward:list";
+		userRepository.deleteById(id);
+		
+		return "forward:allUsers";
 	}
 
 	@RequestMapping(value = { "/deleteOwn"})

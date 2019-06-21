@@ -1,7 +1,8 @@
 package at.fh.swenga.jpa.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,9 +15,12 @@ public interface EventRepository extends JpaRepository<EventModel, Integer> {
 	@Transactional
 	EventModel findFirstByEventName(String eventName);
 	
+	EventModel findEventByEventId(int id);
 
 	
-	public EventModel findEventByEventId(int id);
+	List<EventModel> findEventByUserUserId(int userId);
+	
+	List<EventModel> findEventByStudentsId(int id);
 
 	
 }
