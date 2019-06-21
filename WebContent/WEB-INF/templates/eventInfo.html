@@ -193,7 +193,14 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-3">
-									<div class="text-center">
+									<div class="text-left">
+									<a
+											th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}"
+											class="btn btn-success btn-icon-split"> <span
+											class="icon text-white-50"> <i class="fas fa-check"></i>
+										</span> <span class="text">Attend</span>
+										</a>
+										<br> <br>
 										<img th:unless="${image} == null" th:src="${image}"
 											height="250">
 										<td><a th:if="${#request.getAttribute('userEvent') == #request.getAttribute('userAut')}" th:href="@{/uploadRecipe(eventId=${#request.getAttribute('eventId')})}"
@@ -207,6 +214,13 @@
 											class="btn btn-secondary btn-icon-split"> <span
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
+										</span> <span class="text">Upload a recipe!</span>
+
+										</a> <br> <br> <a
+											th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
+											class="btn btn-secondary btn-icon-split"> <span
+											class="icon text-white-50"> <i
+												class="fas fa-arrow-right"></i>
 										</span> <span class="text">Download the receipe</span>
 										</a> <br> <br> <a
 											th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
@@ -214,14 +228,6 @@
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
 										</span> <span class="text">Upload an event picture!</span>
-										</a> </td> 
-										</th:block>
-
-										<br> <br> <a
-											th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}"
-											class="btn btn-success btn-icon-split"> <span
-											class="icon text-white-50"> <i class="fas fa-check"></i>
-										</span> <span class="text">Attend</span>
 										</a>
 									</div>
 

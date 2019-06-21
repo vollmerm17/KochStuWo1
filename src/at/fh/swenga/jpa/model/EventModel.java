@@ -39,7 +39,7 @@ public class EventModel {
 	@Column(nullable = false, length = 50)
 	private String eventName;
 
-	@Column(nullable = false, length = 150)
+	@Column(nullable = false, length = 250)
 	private String eventDescription;
 
 	// Date Only, no time part:
@@ -243,16 +243,16 @@ public class EventModel {
 	}
 
 
-	
+
 	public String getEventPicture() {
-		
+
 		if (picture != null) {
 
 
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(picture.getContent()));
-				String image = sb.toString();	
+				String image = sb.toString();
 				return image;
 		}
 		return "img/defaultEvent.gif";
@@ -306,5 +306,3 @@ public class EventModel {
 	}
 
 }
-
-

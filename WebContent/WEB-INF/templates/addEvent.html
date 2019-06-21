@@ -222,7 +222,7 @@
 													<label for="inputEventName"><h4>Title</h4></label> <input
 														type="text" class="form-control form-control-user" id="inputEventName"
 														name="eventName" th:value="${event} ? ${event.eventName}"
-														th:readonly="${event}" placeholder="Spaghetti bei Anna"
+														th:readonly="${event}" placeholder="Italian Night" minlength="5" maxlength="50"
 														title="enter your title">
 												</div>
 											</div>
@@ -232,7 +232,7 @@
 													id="inputEventDescription"
 													th:value="${event} ? ${event.eventDescription}"
 													th:readonly="${event}"
-													placeholder="Spaghetti Bolognese mit Parmesan" minlength="5" maxlength="250"
+													placeholder="Spaghetti Bolognese with Parmesan" minlength="5" maxlength="50"
 													title="enter your description">
 											</div>
 											<br>
@@ -240,7 +240,7 @@
 												<label for="inputDayOfEvent"><h4>Day of Event</h4></label> <input type="date" class="form-control form-control-user"
 												id="inputDayOfEvent" name="dayOfEvent"
 												th:value="${event} ? ${#dates.format(event.dayOfEvent, 'dd.MM.yyyy'}"
-												th:readonly="${event}" placeholder="Day of Event">
+												th:readonly="${event}" placeholder="Day of Event" required="required">
 											</div>
 											<br>
 											<div class="col-xs-6">
@@ -249,25 +249,25 @@
 													id="inputTimeOfEvent"
 													th:value="${event} ? ${event.timeOfEvent}"
 													th:readonly="${event}" title="enter your time of event"
-													placeholder="hh:mm">
+													placeholder="hh:mm" required="required">
 											</div>
 											<br>
 											<div class="col-xs-6">
 												<label for="dormId"><h4>Dorm</h4></label> <br> <select name="dormId"
-													class="browser-default custom-select">
-													<option disabled selected="selected">Select your dorm</option>
+													class="browser-default custom-select"  required="required">
+													<option disabled selected="selected" value="">Select your dorm</option>
 													<div th:each="dorm: ${#request.getAttribute('dorms')}">
-														<option th:value="${dorm.dormId}" th:text="${dorm.dormName}" required="required"></option>
+														<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"></option>
 													</div>
 												</select>
 											</div>
 											<br>
 											<div class="col-xs-6">
 												<label for="dietId"><h4>Diet</h4></label> <br> <select name="dietId"
-													class="browser-default custom-select">
-													<option disabled selected="selected">Select your diet</option>
+													class="browser-default custom-select" required="required">
+													<option disabled selected="selected" value="">Select a diet</option>
 													<div th:each="diet: ${#request.getAttribute('diets')}">
-														<option th:value="${diet.dietId}" th:text="${diet.dietName}" required="required"></option>
+														<option th:value="${diet.dietId}" th:text="${diet.dietName}"></option>
 													</div>
 												</select>
 											</div>
@@ -278,7 +278,7 @@
 													name="attendeesMax" id="inputAttendeesMax"
 													th:value="${event} ? ${event.attendeesMax}"
 													th:readonly="${event}" title="enter yourdescription"
-													placeholder="5">
+													placeholder="5" required="required">
 											</div>
 											<br>
 

@@ -11,22 +11,6 @@
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
 
-<!--  Error message ----------------------------------------------------------- -->
-<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
-	class="alert alert-danger" role="alert"></div>
-<!--  Error message ----------------------------------------------------------- -->
-
-<!--  Warning message ----------------------------------------------------------- -->
-<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
-	class="alert alert-warning" role="warning"></div>
-<!--  Warning message ----------------------------------------------------------- -->
-
-<!--   message ----------------------------------------------------------- -->
-<div th:unless="${message} == null" th:utext="${message}"
-	class="alert alert-success" role="warning"></div>
-<!--   message ----------------------------------------------------------- -->
-
-
 
 </head>
 
@@ -105,25 +89,25 @@
 									</div>
 								</div>
 								<hr>
-								<select name="dormId" class="browser-default custom-select">
-									<option disabled selected="selected">Dorm</option>
+								<select name="dormId" class= "bowser-default custom-select" required="required">
+
+									<option disabled selected="selected"  value="">Dorm</option>
 									<div th:each="dorm: ${#request.getAttribute('dorms')}">
-										<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"
-											required="required"></option>
+										<option th:value="${dorm.dormId}" th:text="${dorm.dormName}"></option>
 									</div>
-								</select> <br><br><select name="dietId" class="browser-default custom-select">
-									<option disabled selected="selected">Diet</option>
+
+								</select> <br><br><select name="dietId"  class= "bowser-default custom-select" required="required">
+									<option disabled selected="selected" value="">Diet</option>
 									<div th:each="diet: ${#request.getAttribute('diets')}">
-										<option th:value="${diet.dietId}" th:text="${diet.dietName}"
-											required="required"></option>
+										<option th:value="${diet.dietId}" th:text="${diet.dietName}"></option>
 									</div>
-								</select> <br><br><select name="instituteId" class="browser-default custom-select"s>
-									<option disabled selected="selected">Educational
+								</select> <br><br><select name="instituteId"  class= "bowser-default custom-select" required="required">
+									<option disabled selected="selected"  value="">Educational
 										Institute</option>
 									<div
-										th:each="institute: ${#request.getAttribute('institutes')}">
+										th:each="institute: ${#request.getAttribute('institutes')}" >
 										<option th:value="${institute.instituteId}"
-											th:text="${institute.instituteName}" required="required"></option>
+											th:text="${institute.instituteName}"></option>
 									</div>
 								</select>
 								<hr>

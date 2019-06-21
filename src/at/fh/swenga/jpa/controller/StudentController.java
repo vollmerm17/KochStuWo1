@@ -194,7 +194,6 @@ public class StudentController {
 
 		UserModel temp = userRepository.findFirstByUserName(aut.getName());
 		model.addAttribute("student", temp.getUserId());
-
 		return "settings";
 	}
 
@@ -202,7 +201,6 @@ public class StudentController {
 	public String handle404() {
 		return "404";
 	}
-
 
 
 	@GetMapping("/profile")
@@ -253,26 +251,18 @@ public class StudentController {
 		DormModel dormi = dormRepository.getOne(dormId);
 		DietModel dieti = dietRepository.getOne(dietId);
 
-		if (student1 != null) {
-			model.addAttribute("errorMessage", "A profile with this E-Mail already exists!<br>");
-		}
-
-		else {
-
-			student1 = new StudentModel();
-			student1.setEmail(studentnew.getEmail());
-			student1.setPhoneNumber(studentnew.getPhoneNumber());
-			student1.setDiet(dieti);
-			student1.setDorm(dormi);
-			student1.setInstitute(insti);
-			student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
-			student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
-			studentRepository.save(student1);
-
-			return "profile";
-		}
+		student1 = new StudentModel();
+		student1.setEmail(studentnew.getEmail());
+		student1.setPhoneNumber(studentnew.getPhoneNumber());
+		student1.setDiet(dieti);
+		student1.setDorm(dormi);
+		student1.setInstitute(insti);
+		student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
+		student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
+		studentRepository.save(student1);
 
 		return "profile";
+
 	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
@@ -453,10 +443,10 @@ public class StudentController {
 
 			/*
 			 * if(!"image/png".equals(file.getContentType())) {
-			 * 
+			 *
 			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
 			 * "eventInfo"; }
-			 * 
+			 *
 			 * if(!"image/jpeg".equals(file.getContentType())) {
 			 * model.addAttribute("errorMessage", "Just JPG or PNG Files allowed!"); return
 			 * "eventInfo"; }
