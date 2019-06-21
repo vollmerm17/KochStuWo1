@@ -65,11 +65,6 @@
 				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
 
-				<!-- Nav Item - Charts -->
-				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
-						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-				</a></li>
-
 				<!-- Nav Item - Tables -->
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 						<i class="fas fa-fw fa-table"></i> <span>Users</span>
@@ -102,20 +97,7 @@
 						<i class="fa fa-bars"></i>
 					</button>
 
-					<!-- Topbar Search -->
-					<form
-						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-0 small"
-								placeholder="Search for..." aria-label="Search"
-								aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
+					
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -195,7 +177,7 @@
 						<p class="lead text-gray-800 mb-5">Page Not Found</p>
 						<p class="text-gray-500 mb-0">It looks like you found a glitch
 							in the matrix...</p>
-						<a href="index.html">&larr; Back to Dashboard</a>
+						<a th:href="@{/index}">&larr; Back to Dashboard</a>
 					</div>
 
 				</div>
@@ -208,7 +190,7 @@
 			<footer class="sticky-footer bg-white">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright &copy; Your Website 2019</span>
+						<span>Copyright &copy; KochStuWo 2019</span>
 					</div>
 				</div>
 			</footer>
@@ -234,7 +216,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">�</span>
+						<span aria-hidden="true"></span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready
@@ -242,13 +224,11 @@
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button"
 						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
+					<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 
 </body>
 

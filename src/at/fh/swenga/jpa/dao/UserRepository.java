@@ -29,6 +29,8 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 	@Query("select u from UserModel u where u.userName = :name")
 	List<UserModel> findByUserName(@Param("name") String userName);
 	
+	@Query("SELECT s FROM UserModel s WHERE username != 'administrator'")
+	List<UserModel> findAllWithoutAdmin();
 	
 	public UserModel findUserByUserId(int id);
 

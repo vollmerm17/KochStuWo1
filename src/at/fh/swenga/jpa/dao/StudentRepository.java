@@ -25,8 +25,10 @@ public interface StudentRepository extends JpaRepository<StudentModel, Integer> 
 
 	StudentModel findStudentByUserUserId(int userId);
 
-		@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
-		List<StudentModel> findAllWithoutAdmin();
+	List<StudentModel> removeById(int id);
+
+	@Query("SELECT s FROM StudentModel s WHERE firstName != 'admin'")
+	List<StudentModel> findAllWithoutAdmin();
 
 	/*
 	 * List<StudentModel> findByLastName(String lastName);

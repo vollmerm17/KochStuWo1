@@ -35,7 +35,8 @@
 										<input type="text" class="form-control form-control-user"
 											id="inputFirstName" name="firstName"
 											th:value="${student} ? ${student.firstName}"
-											th:readonly="${student}" placeholder="First Name" required="required">
+											th:readonly="${student}" placeholder="First Name"
+											required="required">
 									</div>
 									<!-- --------------  last Name ---------------- -->
 
@@ -43,7 +44,8 @@
 										<input type="text" class="form-control form-control-user"
 											id="inputLastName" name="lastName"
 											th:value="${student} ? ${student.lastName}"
-											th:readonly="${student}" placeholder="Last Name" required="required">
+											th:readonly="${student}" placeholder="Last Name"
+											required="required">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -63,7 +65,8 @@
 										<input type="date" class="form-control form-control-user"
 											id="inputDayOfBirth" name="dayOfBirth"
 											th:value="${student} ? ${#dates.format(student.dayOfBirth, 'dd.MM.yyyy'}"
-											th:readonly="${student}" placeholder="Day of Birth" required="required">
+											th:readonly="${student}" placeholder="Day of Birth"
+											required="required">
 									</div>
 									<div class="col-sm-6">
 										<input type="text" class="form-control form-control-user"
@@ -85,7 +88,8 @@
 										<input type="text" class="form-control form-control-user"
 											id="inputCityAndPostalCode" name="cityAndPostalCode"
 											th:value="${student} ? ${student.cityAndPostalCode}"
-											th:readonly="${student}" placeholder="City and Postal Code" required="required">
+											th:readonly="${student}" placeholder="City and Postal Code"
+											required="required">
 									</div>
 								</div>
 								<hr>

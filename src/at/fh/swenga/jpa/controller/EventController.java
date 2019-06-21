@@ -43,7 +43,6 @@ import at.fh.swenga.jpa.model.ProfilePictureModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
 
-
 @Controller
 public class EventController {
 
@@ -67,10 +66,9 @@ public class EventController {
 
 	@Autowired
 	EventPictureRepository eventPictureRepository;
-	
+
 	@Autowired
 	ProfilePictureRepository profilePictureRepository;
-
 
 	@InitBinder
 	public void initDateBinder(final WebDataBinder binder) {
@@ -78,11 +76,11 @@ public class EventController {
 	}
 
 	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
-    }
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		sdf.setLenient(true);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+	}
 
 	@GetMapping("/addEvent")
 	public String handleAddEvent(Model model, Authentication aut) {
@@ -92,7 +90,7 @@ public class EventController {
 
 		List<DietModel> diets = dietRepository.findAll();
 		model.addAttribute("diets", diets);
-		
+
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 
@@ -122,9 +120,9 @@ public class EventController {
 
 	@Transactional
 	@PostMapping("/addEvent")
-	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,  @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, Authentication aut) throws ParseException {
-
-
+	public String addEvent(@Valid EventModel event, BindingResult bindingResult, Model model,
+			@RequestParam(value = "dormId") int dormId, @RequestParam(value = "dietId") int dietId, Authentication aut)
+			throws ParseException {
 
 		/*
 		 * if (bindingResult.hasErrors()) { String errorMessage = ""; for (FieldError
@@ -133,7 +131,6 @@ public class EventController {
 		 *
 		 * model.addAttribute("errorMessage", errorMessage); return "addEvent"; }
 		 */
-
 
 		EventModel event1 = eventRepository.findFirstByEventName(event.getName());
 
@@ -144,8 +141,6 @@ public class EventController {
 		if (event1 != null) {
 			model.addAttribute("errorMessage", "A event with this name already exists!<br>");
 		} else {
-
-
 
 			event1 = new EventModel();
 			event1.setName(event.getName());
@@ -162,7 +157,7 @@ public class EventController {
 
 		}
 
-		return"addEvent";
+		return "addEvent";
 
 	}
 
@@ -170,28 +165,19 @@ public class EventController {
 	public String handleEventInfo(Model model, @RequestParam("eventId") int eventId, Authentication aut) {
 		model.addAttribute("eventId", eventId);
 
-	
-		String userEvent = eventRepository.findEventByEventId(eventId).getUser().getUserName();
-		String userAut = aut.getName();
-		model.addAttribute(userEvent);
-		model.addAttribute(userAut);
-		
-		//	boolean own;
-//		
-//		
-//		if(aut.getName() != userEvent.getUserName()) {
-//			 own = false;
-//			 model.addAttribute("own", own);
-//			 
-//	
-//		} else {
-//			 own = true;
-//			 model.addAttribute("own", own);
-//			 
-//			
-//		}
-//		
-		
+		boolean own;
+
+		UserModel userEvent = eventRepository.findEventByEventId(eventId).getUser();
+
+		if(aut.getName() != userEvent.getUserName()) {
+			 own = false;
+			 model.addAttribute("own", own);
+		} else {
+			 own = true;
+			 model.addAttribute("own", own);
+		}
+
+
 		EventModel event = eventRepository.findEventByEventId(eventId);
 		if (event != null) {
 
@@ -214,7 +200,6 @@ public class EventController {
 
 		return "eventInfo";
 	}
-
 
 	@RequestMapping(value = { "/eventsAttending" }, method = RequestMethod.GET)
 	public String handleEventsAttending(Authentication aut, Model model) {
@@ -241,7 +226,7 @@ public class EventController {
 
 			}
 		}
-		
+
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
 		if(events.isEmpty()) {
@@ -249,7 +234,7 @@ public class EventController {
 			model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
 			return "forward:index";
 		}
-		model.addAttribute("events",events);
+		model.addAttribute("events", events);
 		return "eventsAttending";
 	}
 
@@ -279,7 +264,7 @@ public class EventController {
 
 			}
 		}
-		
+
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		List<EventModel> events = eventRepository.findEventByUserUserId(user1.getUserId());
 		if(events.isEmpty()) {
@@ -288,11 +273,15 @@ public class EventController {
 
 		}
 		model.addAttribute("events",events);
-		
-		
+
+
 		return "eventsOwn";
 	}
 
+		}
+		model.addAttribute("events", events);
+		return "eventsOwn";
+	}
 
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
@@ -300,7 +289,7 @@ public class EventController {
 		return "404";
 
 	}
-	
+
 	@GetMapping("/attend")
 	public String attenToEvent(Authentication aut, Model model, @RequestParam int eventId) {
 
@@ -318,19 +307,18 @@ public class EventController {
 				event1.setAttendeesMax(event1.getAttendeesMax() - 1);
 				eventRepository.save(event1);
 				model.addAttribute("message", "Have fun on the event!<br>");
-				return "forward:index";}
-			else {
+				return "forward:index";
+			} else {
 
-if (event1.getAttendeesMax() > 0) {
-	model.addAttribute("errorMessage", "Sorry this event is already full, maybe next time!<br>");
-}
-else {
-	model.addAttribute("warningMessage", "Sorry you are already attending this event. See you soon!<br>");
-}
+				if (event1.getAttendeesMax() > 0) {
+					model.addAttribute("errorMessage", "Sorry this event is already full, maybe next time!<br>");
+				} else {
+					model.addAttribute("warningMessage", "Sorry you are already attending this event. See you soon!<br>");
+				}
+
+			}
 
 		}
-
-	}return "forward:index";
-} }
-
-
+		return "forward:index";
+	}
+}

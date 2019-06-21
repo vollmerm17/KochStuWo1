@@ -64,9 +64,6 @@ public class SecurityController {
 	ProfilePictureRepository profilePictureRepository;
 
 	@Autowired
-	StudentRepository studentRepo;
-
-	@Autowired
 	UserRepository userRepository;
 
 	@Autowired
@@ -78,40 +75,45 @@ public class SecurityController {
 	}
 
 	@GetMapping("/")
-	public String root() {
-		return "login";
+	public String root(Model model) {
+
+		List<EventModel> events = eventRepository.findAll();
+		model.addAttribute("events", events);
+
+
+		return "index";
 	}
 
 	@GetMapping("/index")
 	public String handleIndex(Model model,Authentication aut) {
-		
+
 
 		List<EventModel> events = eventRepository.findAll();
 		model.addAttribute("events", events);
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
-		
-	
+
+
 		if (student != null) {
-			
+
 			model.addAttribute("student", student);
 			if (student.getPicture() != null) {
-				
+
 				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-				
+
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-				
+
 			}
 		}
-		
+
 		return "index";
 	}
 
@@ -172,7 +174,7 @@ public class SecurityController {
 			InstituteModel insti = instituteRepository.getOne(instituteId);
 			DormModel dormi = dormRepository.getOne(dormId);
 			DietModel dieti = dietRepository.getOne(dietId);
-			
+
 			user = new UserModel();
 			user.setUserName(usernew.getUserName());
 			user.setPassword(usernew.getPassword());
@@ -182,7 +184,7 @@ public class SecurityController {
 			user.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(user);
 
-			
+
 
 			student = new StudentModel();
 			student.setId(user.getUserId());
@@ -205,7 +207,7 @@ public class SecurityController {
 
 		}
 		return "login";
-		
+
 	}
 
 	@ExceptionHandler(Exception.class)

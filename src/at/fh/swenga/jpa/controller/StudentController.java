@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -202,19 +202,20 @@ public class StudentController {
 		return "404";
 	}
 
+	@RequestMapping(value = { "/forgotPassword" }, method = RequestMethod.GET)
+	public String handleForgotPassword() {
+		return "forgotPassword";
+	}
 
-	@GetMapping("/profile")
+	@GetMapping(value = { "/profile" })
 	public String handleProfile(Model model, Authentication aut) {
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
+		StudentModel studi = user.getStudent();
 
 		if (student != null) {
 
-			model.addAttribute("student", student);
-			if (student.getPicture() != null) {
-
-				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(studi.getPicture().getId());
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
@@ -235,41 +236,45 @@ public class StudentController {
 			List<InstituteModel> institutes = instituteRepository.findAll();
 			model.addAttribute("institutes", institutes);
 
+			model.addAttribute("student", studi);
+
 		}
 		return "profile";
 	}
 
 	@PostMapping(value = { "/profile" })
-	public String changeProfile(Model model, @Valid UserModel usernew, @Valid StudentModel studentnew,
-			Authentication aut, @RequestParam(value = "dormId") int dormId, @RequestParam(value = "dietId") int dietId,
-			@RequestParam(value = "instituteId") int instituteId) {
+	@Transactional
+	public String changeProfile(StudentModel newStudent,
+		Authentication aut, @RequestParam(value="dormId") int dormId, @RequestParam(value="dietId") int dietId, @RequestParam(value ="instituteId") int instituteId){
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
-		StudentModel student1 = studentRepository.findStudentByEmail(user.getStudent().getEmail());
+		StudentModel student = user.getStudent();
 
 		InstituteModel insti = instituteRepository.getOne(instituteId);
 		DormModel dormi = dormRepository.getOne(dormId);
 		DietModel dieti = dietRepository.getOne(dietId);
 
-		student1 = new StudentModel();
-		student1.setEmail(studentnew.getEmail());
-		student1.setPhoneNumber(studentnew.getPhoneNumber());
-		student1.setDiet(dieti);
-		student1.setDorm(dormi);
-		student1.setInstitute(insti);
-		student1.setCityAndPostalCode(studentnew.getCityAndPostalCode());
-		student1.setStreetAndNumber(studentnew.getCityAndPostalCode());
-		studentRepository.save(student1);
+		student.setEmail(newStudent.getEmail());
+		student.setPhoneNumber(newStudent.getPhoneNumber());
+		student.setDiet(dieti);
+		student.setDorm(dormi);
+		student.setInstitute(insti);
+		student.setCityAndPostalCode(newStudent.getCityAndPostalCode());
+		student.setStreetAndNumber(newStudent.getStreetAndNumber());
+		studentRepository.save(student);
 
-		return "profile";
+
+		return "login";
+
+	}
 
 	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model, Authentication aut) {
 
-		List<StudentModel> students = studentRepository.findAllWithoutAdmin();
-		model.addAttribute("students", students);
+		List<UserModel> users = userRepository.findAllWithoutAdmin();
+		model.addAttribute("users", users);
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
@@ -321,10 +326,11 @@ public class StudentController {
 		return "profile";
 	}
 
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value = { "/delete" })
-	public String deleteData(Model model, @RequestParam int id, Authentication aut) {
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = { "/deleteUser" })
+	public String deleteData(Model model, @RequestParam int id) {
 		studentRepository.deleteById(id);
+		userRepository.deleteById(id);
 
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
@@ -347,7 +353,7 @@ public class StudentController {
 			}
 		}
 
-		return "forward:list";
+		return "forward:allUsers";
 	}
 
 	@RequestMapping(value = { "/deleteOwn" })

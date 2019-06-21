@@ -16,13 +16,13 @@ public interface EventRepository extends JpaRepository<EventModel, Integer> {
 
 	@Transactional
 	EventModel findFirstByEventName(String eventName);
-	
+
 	EventModel findEventByEventId(int id);
-	
-	//@Query("SELECT e FROM EventModel e WHERE e.users_userId = :userid")
+
+
 	List<EventModel> findEventByUserUserId(int userId);
-	
+
 	List<EventModel> findEventByStudentsId(int id);
 
-	
+
 }
