@@ -11,22 +11,6 @@
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-<!--  Error message ----------------------------------------------------------- -->
-<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
-	class="alert alert-danger" role="alert"></div>
-<!--  Error message ----------------------------------------------------------- -->
-
-<!--  Warning message ----------------------------------------------------------- -->
-<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
-	class="alert alert-warning" role="warning"></div>
-<!--  Warning message ----------------------------------------------------------- -->
-
-<!--   message ----------------------------------------------------------- -->
-<div th:unless="${message} == null" th:utext="${message}"
-	class="alert alert-success" role="warning"></div>
-<!--   message ----------------------------------------------------------- -->
-
-
 </head>
 
 <body id="page-top">
@@ -82,6 +66,10 @@
 				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
 
+				<!-- Nav Item - Charts -->
+				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
+						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
+				</a></li>
 
 				<!-- Nav Item - Tables -->
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
@@ -115,6 +103,20 @@
 						<i class="fa fa-bars"></i>
 					</button>
 
+					<!-- Topbar Search -->
+					<form
+						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+						<div class="input-group">
+							<input type="text" class="form-control bg-light border-0 small"
+								placeholder="Search for..." aria-label="Search"
+								aria-describedby="basic-addon2">
+							<div class="input-group-append">
+								<button class="btn btn-primary" type="button">
+									<i class="fas fa-search fa-sm"></i>
+								</button>
+							</div>
+						</div>
+					</form>
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -188,7 +190,6 @@
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 					<div class="col-sm-9">
-				
 						<!-- Page Heading -->
 						<div
 							class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -202,10 +203,9 @@
 							<input type="text" class="form-control form-control-user"
 								id="inputContent" name="content" placeholder="Write your message here" maxlength="300"
 								required="required"> <br>
-								
 							<button th:href="@{/supportMail}"
 								class="btn btn-primary btn-user btn-block" type="submit">Send</button>
-							
+
 						</form>
 					</div>
 
@@ -245,7 +245,7 @@
 					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">�</span>
+						<span aria-hidden="true"></span>
 					</button>
 				</div>
 				<div class="modal-body">Select "Logout" below if you are ready

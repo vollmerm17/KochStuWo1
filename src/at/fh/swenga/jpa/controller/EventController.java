@@ -94,7 +94,6 @@ public class EventController {
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 
-
 		if (student != null) {
 
 			model.addAttribute("student", student);
@@ -104,13 +103,11 @@ public class EventController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
-
 
 			}
 		}
@@ -169,14 +166,13 @@ public class EventController {
 
 		UserModel userEvent = eventRepository.findEventByEventId(eventId).getUser();
 
-		if(aut.getName() != userEvent.getUserName()) {
-			 own = false;
-			 model.addAttribute("own", own);
+		if (aut.getName() != userEvent.getUserName()) {
+			own = false;
+			model.addAttribute("own", own);
 		} else {
-			 own = true;
-			 model.addAttribute("own", own);
+			own = true;
+			model.addAttribute("own", own);
 		}
-
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
 		if (event != null) {
@@ -206,7 +202,6 @@ public class EventController {
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 
-
 		if (student != null) {
 
 			model.addAttribute("student", student);
@@ -216,20 +211,18 @@ public class EventController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
 
-
 			}
 		}
 
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		List<EventModel> events = eventRepository.findEventByStudentsId(user1.getUserId());
-		if(events.isEmpty()) {
+		if (events.isEmpty()) {
 
 			model.addAttribute("warningMessage", "You are not attending any events yet!<br>");
 			return "forward:index";
@@ -244,7 +237,6 @@ public class EventController {
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel student = studentRepository.findStudentByUserUserId(user.getUserId());
 
-
 		if (student != null) {
 
 			model.addAttribute("student", student);
@@ -254,32 +246,24 @@ public class EventController {
 				ProfilePictureModel pp = ppOpt.get();
 				byte[] profilePicture = pp.getContent();
 
-
 				StringBuilder sb = new StringBuilder();
 				sb.append("data:image/png;base64,");
 				sb.append(Base64.encodeBase64String(profilePicture));
 				String image = sb.toString();
 				model.addAttribute("image", image);
 
-
 			}
 		}
 
 		UserModel user1 = userRepository.findFirstByUserName(aut.getName());
 		List<EventModel> events = eventRepository.findEventByUserUserId(user1.getUserId());
-		if(events.isEmpty()) {
+		if (events.isEmpty()) {
 
 			model.addAttribute("warningMessage", "You don't have any own events yet!<br>");
 
 		}
-		model.addAttribute("events",events);
-
-
-		return "eventsOwn";
-	}
-
-		}
 		model.addAttribute("events", events);
+
 		return "eventsOwn";
 	}
 
@@ -313,7 +297,8 @@ public class EventController {
 				if (event1.getAttendeesMax() > 0) {
 					model.addAttribute("errorMessage", "Sorry this event is already full, maybe next time!<br>");
 				} else {
-					model.addAttribute("warningMessage", "Sorry you are already attending this event. See you soon!<br>");
+					model.addAttribute("warningMessage",
+							"Sorry you are already attending this event. See you soon!<br>");
 				}
 
 			}

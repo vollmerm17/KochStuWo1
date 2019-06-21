@@ -133,10 +133,7 @@ public class StudentController {
 		return "charts";
 	}
 
-	@RequestMapping(value = { "/forgotPassword" }, method = RequestMethod.GET)
-	public String handleForgotPassword() {
-		return "forgotPassword";
-	}
+
 
 	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = { "/allUsers" }, method = RequestMethod.GET)
@@ -213,7 +210,7 @@ public class StudentController {
 		UserModel user = userRepository.findFirstByUserName(aut.getName());
 		StudentModel studi = user.getStudent();
 
-		if (student != null) {
+		if (studi != null) {
 
 				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(studi.getPicture().getId());
 				ProfilePictureModel pp = ppOpt.get();
@@ -238,7 +235,7 @@ public class StudentController {
 
 			model.addAttribute("student", studi);
 
-		}
+		
 		return "profile";
 	}
 
@@ -268,7 +265,7 @@ public class StudentController {
 
 	}
 
-	}
+	
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String handleSearch(Model model, Authentication aut) {
@@ -328,7 +325,7 @@ public class StudentController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = { "/deleteUser" })
-	public String deleteData(Model model, @RequestParam int id) {
+	public String deleteData(Model model, @RequestParam int id, Authentication aut) {
 		studentRepository.deleteById(id);
 		userRepository.deleteById(id);
 
