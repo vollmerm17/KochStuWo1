@@ -28,7 +28,7 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
+					<i style='font-size:24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -206,21 +206,8 @@
 						<div class="row">
 							<div class="col-sm-3">
 								<!--left col-->
-								<div class="text-center">
-									<img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"
-										class="avatar img-circle img-thumbnail" alt="avatar"> <br>
-									<br> <a th:href="@{/uploadRecipe}"
-										class="btn btn-secondary btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload a recipe!</span>
-									</a> <br> <br> <a th:href="@{/uploadEventPicture}"
-										class="btn btn-secondary btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-arrow-right"></i>
-									</span> <span class="text">Upload an event picture!</span>
-									</a>
-								</div>
+
+
 								</hr>
 								<br>
 							</div>
@@ -298,7 +285,7 @@
 											<div class="form-group">
 												<div class="col-xs-12">
 													<br>
-													<button th:href="@{/addEvent}"
+													<button
 														class="btn btn-primary btn-user btn-block" type="submit">Submit</button>
 
 												</div>

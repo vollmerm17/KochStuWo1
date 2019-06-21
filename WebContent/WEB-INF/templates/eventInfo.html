@@ -4,9 +4,25 @@
 
 <head>
 <div th:replace="~{includes/bootstrapMeta :: bootstrapMeta}" />
-<title>Search</title>
+<title>Event Information</title>
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
+
+
+<!--  Error message ----------------------------------------------------------- -->
+<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+	class="alert alert-danger" role="alert"></div>
+<!--  Error message ----------------------------------------------------------- -->
+
+<!--  Warning message ----------------------------------------------------------- -->
+<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+	class="alert alert-warning" role="warning"></div>
+<!--  Warning message ----------------------------------------------------------- -->
+
+<!--   message ----------------------------------------------------------- -->
+<div th:unless="${message} == null" th:utext="${message}"
+	class="alert alert-success" role="warning"></div>
+<!--   message ----------------------------------------------------------- -->
 
 </head>
 
@@ -25,7 +41,7 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
+				<i style='font-size:24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -100,6 +116,7 @@
 
 					<div class="card shadow mb-4">
 
+
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-3">
@@ -111,34 +128,38 @@
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
 										</span> <span class="text">Upload a recipe!</span>
+										
+										</a>
+										<a th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
+										class="btn btn-secondary btn-icon-split"> <span
+										class="icon text-white-50"> <i
+											class="fas fa-arrow-right"></i>
+										</span> <span class="text">Download the receipe</span>
+										</a>
 
-
-										</a> <br> <br> <a
+										 <br> <br> <a
 											th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
 											class="btn btn-secondary btn-icon-split"> <span
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
-										</span> <span class="text">Upload a event picture!</span>
-										</a> <br> <br> <a href="#"
-											class="btn btn-success btn-icon-split"> <span
+										</span> <span class="text">Upload an event picture!</span>
+										</a> <br>
+										<br>
+										<a th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}" class="btn btn-success btn-icon-split"> <span
 											class="icon text-white-50"> <i class="fas fa-check"></i>
 										</span> <span class="text">Attend</span>
 										</a>
 									</div>
 
 								</div>
-
-							</div>
-
-							<div class="row">
-
 								<div class="col-sm-9">
 
 									<h6 class="m-0 font-weight-bold text-primary"
-										th:text="${event.destination} + ${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
+										th:text="${event.dayOfEvent} + ${event.timeOfEvent} + ${event.attendeesMax}"></h6>
 
 									<p th:text="${event.description}"></p>
 								</div>
+
 							</div>
 						</div>
 					</div>

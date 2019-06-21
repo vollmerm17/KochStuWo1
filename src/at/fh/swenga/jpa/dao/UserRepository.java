@@ -16,7 +16,6 @@ import at.fh.swenga.jpa.model.UserModel;
 public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
 	@Transactional
-	public List<UserModel> findFirstById(int id);
 
 	public UserModel findUserByUserName(String userName);
 
@@ -25,15 +24,20 @@ public interface UserRepository extends JpaRepository<UserModel, Integer> {
 
 	UserModel findFirstByUserName(String userName);
 
-
-	
-	StudentModel findStudentById(UserModel user);
+	StudentModel findStudentByUserId(UserModel user);
 
 	@Query("select u from UserModel u where u.userName = :name")
 	List<UserModel> findByUserName(@Param("name") String userName);
+	
+	
+	public UserModel findUserByUserId(int id);
+
+
 
 	
-
+	UserModel findFirstByUserId(int id);
+	
+	
 	/*
 	 * @Query("Select u from UserModel u where u.userName = :name") public public
 	 * List<UserModel> findByUsername();

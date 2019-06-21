@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import at.fh.swenga.jpa.dao.DietRepository;
-import at.fh.swenga.jpa.dao.DocumentRepository;
 import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
+
+import at.fh.swenga.jpa.dao.ProfilePictureRepository;
+
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.dao.UserRoleRepository;
@@ -55,7 +57,7 @@ public class SecurityController {
 
 
 	@Autowired
-	DocumentRepository documentRepository;
+	ProfilePictureRepository profilePictureRepository;
 
 	@Autowired
 	StudentRepository studentRepo;
@@ -153,7 +155,7 @@ public class SecurityController {
 			DietModel dieti = dietRepository.getOne(dietId);
 
 			student = new StudentModel();
-			student.setId(user.getId());
+			student.setId(user.getUserId());
 			student.setFirstName(studentnew.getFirstName());
 			student.setLastName(studentnew.getLastName());
 			student.setStreetAndNumber(studentnew.getStreetAndNumber());

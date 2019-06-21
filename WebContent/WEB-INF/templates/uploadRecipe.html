@@ -26,7 +26,7 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
+				<i style='font-size:24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -242,40 +242,32 @@
 
 
 				<div class="container" role="main">
+			<form class="form-group" enctype="multipart/form-data" method="post" th:action="@{/uploadRecipe}">
+					<fieldset>
+					<legend th:text="'Upload Eventpicture for Event ' + ${eventId}"></legend>
 
+						<input type="hidden" name="eventId" th:value="${eventId}">
 
-					<div class="row">
-
-
-
-
-
-						<div class="col-md-8 col-md-offset-2">
-							<form class="form-horizontal" enctype="multipart/form-data"
-								method="post" action="upload">
-								<fieldset>
-									<h1 th:text="'Upload a Recipe for student ' + ${studentId}"></h1>
-									<input type="hidden" name="id" th:value="${studentId}">
-
-									<br>
-									<div class="form-group">
-										<form action="myform.cgi">
-											<input type="file" name="myFile" id="inputMyFile"> <br>
-											<br>
-											<div class="col-md-10 col-md-offset-2">
-												<a th:href="@{/uploadRecipe}"><button type="submit" class="btn btn-primary">Upload</button>
-												<button type="button" class="btn btn-default">Cancel</button></a>
-															 
-												
-											</div>
-										</form>
-									</div>
-
-
-								</fieldset>
-							</form>
+						<div class="form-group">
+							<label for="inputFile" class="col-md-2 control-label">Recipe:</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputFile" type="file" name="myFile">
+							</div>
 						</div>
-					</div>
+						<div class="form-group">
+							<div class="col-md-10 col-md-offset-2">
+								<button type="submit" class="btn btn-primary">Upload</button>
+								<a href="list">
+									<button type="button" class="btn btn-default">Cancel</button>
+								</a>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+	
+			</div>
+		</div>
 
 				</div>
 
