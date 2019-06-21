@@ -141,6 +141,10 @@ public class SecurityController {
 
 		else {
 
+			InstituteModel insti = instituteRepository.getOne(instituteId);
+			DormModel dormi = dormRepository.getOne(dormId);
+			DietModel dieti = dietRepository.getOne(dietId);
+			
 			user = new UserModel();
 			user.setUserName(usernew.getUserName());
 			user.setPassword(usernew.getPassword());
@@ -150,9 +154,7 @@ public class SecurityController {
 			user.addUserRole(userRoleRepository.findFirstById(2));
 			userRepository.save(user);
 
-			InstituteModel insti = instituteRepository.getOne(instituteId);
-			DormModel dormi = dormRepository.getOne(dormId);
-			DietModel dieti = dietRepository.getOne(dietId);
+			
 
 			student = new StudentModel();
 			student.setId(user.getUserId());
@@ -175,6 +177,7 @@ public class SecurityController {
 
 		}
 		return "login";
+		
 	}
 
 	@ExceptionHandler(Exception.class)

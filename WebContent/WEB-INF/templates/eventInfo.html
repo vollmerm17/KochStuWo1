@@ -41,7 +41,7 @@
 				class="sidebar-brand d-flex align-items-center justify-content-center"
 				th:href="@{/index}">
 				<div class="sidebar-brand-icon rotate-n-15">
-				<i style='font-size:24px' class='fas'>&#xf818;</i>
+					<i style='font-size: 24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -120,7 +120,14 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-sm-3">
-									<div class="text-center">
+									<div class="text-left">
+									<a
+											th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}"
+											class="btn btn-success btn-icon-split"> <span
+											class="icon text-white-50"> <i class="fas fa-check"></i>
+										</span> <span class="text">Attend</span>
+										</a>
+										<br> <br>
 										<img th:unless="${image} == null" th:src="${image}"
 											height="250"> <a
 											th:href="@{/uploadRecipe(eventId=${#request.getAttribute('eventId')})}"
@@ -128,26 +135,19 @@
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
 										</span> <span class="text">Upload a recipe!</span>
-										
-										</a>
-										<a th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
-										class="btn btn-secondary btn-icon-split"> <span
-										class="icon text-white-50"> <i
-											class="fas fa-arrow-right"></i>
-										</span> <span class="text">Download the receipe</span>
-										</a>
 
-										 <br> <br> <a
+										</a> <br> <br> <a
+											th:href="@{/download(eventId=${#request.getAttribute('eventId')})}"
+											class="btn btn-secondary btn-icon-split"> <span
+											class="icon text-white-50"> <i
+												class="fas fa-arrow-right"></i>
+										</span> <span class="text">Download the receipe</span>
+										</a> <br> <br> <a
 											th:href="@{/uploadEventPicture(eventId=${#request.getAttribute('eventId')})}"
 											class="btn btn-secondary btn-icon-split"> <span
 											class="icon text-white-50"> <i
 												class="fas fa-arrow-right"></i>
 										</span> <span class="text">Upload an event picture!</span>
-										</a> <br>
-										<br>
-										<a th:href="@{/attend(eventId=${#request.getAttribute('eventId')})}" class="btn btn-success btn-icon-split"> <span
-											class="icon text-white-50"> <i class="fas fa-check"></i>
-										</span> <span class="text">Attend</span>
 										</a>
 									</div>
 

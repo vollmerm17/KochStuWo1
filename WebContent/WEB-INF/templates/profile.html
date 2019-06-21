@@ -8,7 +8,23 @@
 <div th:replace="~{includes/bootstrapCSS :: bootstrapCSS}" />
 <div th:replace="~{includes/bootstrapJS :: bootstrapJS}" />
 
-<link rel="stylesheet" href="img/favicon.ico" crossorigin="anonymous">
+
+
+<!--  Error message ----------------------------------------------------------- -->
+<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+	class="alert alert-danger" role="alert"></div>
+<!--  Error message ----------------------------------------------------------- -->
+
+<!--  Warning message ----------------------------------------------------------- -->
+<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+	class="alert alert-warning" role="warning"></div>
+<!--  Warning message ----------------------------------------------------------- -->
+
+<!--   message ----------------------------------------------------------- -->
+<div th:unless="${message} == null" th:utext="${message}"
+	class="alert alert-success" role="warning"></div>
+<!--   message ----------------------------------------------------------- -->
+
 
 </head>
 
@@ -26,11 +42,9 @@
 			<!-- Sidebar - Brand -->
 			<a
 				class="sidebar-brand d-flex align-items-center justify-content-center"
-
 				th:href="@{/index}">
-				<div class="sidebar-brand-icon rotate-n-15">
-					<i class="fas fa-laugh-wink"></i>
-
+				<div>
+					<i style='font-size: 24px' class='fas'>&#xf818;</i>
 				</div>
 				<div class="sidebar-brand-text mx-3">KochStuWo</div>
 			</a>
@@ -70,11 +84,6 @@
 				<!-- Addons nur fuer ADMIN -->
 				<div class="sidebar-heading">Admin Center</div>
 
-				<!-- Nav Item - Charts -->
-				<li class="nav-item"><a class="nav-link" th:href="@{/charts}">
-						<i class="fas fa-fw fa-chart-area"></i> <span>Charts</span>
-				</a></li>
-
 				<!-- Nav Item - Tables -->
 				<li class="nav-item"><a class="nav-link" th:href="@{/allUsers}">
 						<i class="fas fa-fw fa-table"></i> <span>Users</span>
@@ -107,20 +116,7 @@
 						<i class="fa fa-bars"></i>
 					</button>
 
-					<!-- Topbar Search -->
-					<form
-						class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-						<div class="input-group">
-							<input type="text" class="form-control bg-light border-0 small"
-								placeholder="Search for..." aria-label="Search"
-								aria-describedby="basic-addon2">
-							<div class="input-group-append">
-								<button class="btn btn-primary" type="button">
-									<i class="fas fa-search fa-sm"></i>
-								</button>
-							</div>
-						</div>
-					</form>
+
 
 					<!-- Topbar Navbar -->
 					<ul class="navbar-nav ml-auto">
@@ -164,12 +160,10 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-
-
 								class="mr-2 d-none d-lg-inline text-gray-600 small"
 								sec:authentication="name"></span> <img
-								class="img-profile rounded-circle"
-								th:unless="${image} == null" th:src="${image}">
+								class="img-profile rounded-circle" th:unless="${image} == null"
+								th:src="${image}">
 						</a> <!-- Dropdown - User Information -->
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -202,29 +196,15 @@
 							<div class="col-sm-10">
 								<h1>Your Profile!</h1>
 							</div>
-							<div class="col-sm-2">
-								
-								
-							</div>
+							<div class="col-sm-2"></div>
 						</div>
 						<img th:unless="${image} == null" th:src="${image}">
 
 						<div class="row">
 							<div class="col-sm-3">
 
-
-								<ul class="list-group">
-									<li class="list-group-item text-muted">Stats ...<i
-										class="fa fa-dashboard fa-1x"></i></li>
-									<li class="list-group-item text-right"><span
-										class="pull-left"><strong>Dinners held</strong></span> 5</li>
-									<li class="list-group-item text-right"><span
-										class="pull-left"><strong>Dinners attended</strong></span> 13</li>
-									<li class="list-group-item text-right"><span
-										class="pull-left"><strong>Average Rating</strong></span> 4.5</li>
-
-								</ul>
-								<br>
+								<!-- Profile Picture -->
+							
 
 							</div>
 							<!--/col-3-->
@@ -232,141 +212,140 @@
 								<div class="tab-content">
 									<div class="tab-pane active" id="home">
 										<br>
-										<form th:action="@{/profile}" method="post">
+										<form th:action="@{/profile}" method="POST">
 
-											<div class="col-xs-6">
-												<label for="inputEmail"><h4>Email</h4></label> <input
-													type="email" class="form-control" name="email"
-													id="inputEmail" th:value="${student} ? ${student.email}"
-													th:readonly="${student}" placeholder="you@email.com"
-													title="enter your email">
+
+
+											<div class="form-group row">
+												<div class="col-sm-12">
+												<label for="inputEmail"><h4>Email</h4></label>	<input type="text" class="form-control form-control-user"
+														id="inputEmail" name="email"
+														th:value="${student} ? ${student.email}"
+														placeholder="Email">
+												</div>
+
 											</div>
 
-											<br> <label for="inputPhoneNumber"><h4>Phone
-													Number</h4></label>
-											<div class="col-xs-6">
-												<input type="text" class="form-control form-control-user"
-													id="inputPhoneNumber" name="phoneNumber"
-													th:value="${student} ? ${student.phoneNumber}"
-													th:readonly="${student}" placeholder="Phone Number"
-													minlength="9" maxlength="15">
+
+											<div class="form-group row">
+
+												<div class="col-sm-12">
+													<label for="inputPhoneNumber"><h4>Phone Number</h4></label>	<input type="text" class="form-control form-control-user"
+														id="inputPhoneNumber" name="phoneNumber"
+														th:value="${student} ? ${student.phoneNumber}"
+														placeholder="Phone Number" minlength="9" maxlength="15">
+												</div>
 											</div>
-											<br> <label for="inputStreetAndNumber"><h4>Adress</h4></label>
 											<div class="form-group row">
 												<div class="col-sm-6 mb-3 mb-sm-0">
-													<input type="text" class="form-control form-control-user"
+													<label for="inputStreetAndNumber"><h4>Street and House Number</h4></label>	<input type="text" class="form-control form-control-user"
 														id="inputStreetAndNumber" name="streetAndNumber"
 														th:value="${student} ? ${student.streetAndNumber}"
-														th:readonly="${student}"
 														placeholder="Street and House Number">
 												</div>
 												<div class="col-sm-6">
-													<input type="text" class="form-control form-control-user"
+													<label for="inputCityAndPostalCode"><h4>City and Postal Code</h4></label><input type="text" class="form-control form-control-user"
 														id="inputCityAndPostalCode" name="cityAndPostalCode"
 														th:value="${student} ? ${student.cityAndPostalCode}"
-														th:readonly="${student}"
 														placeholder="City and Postal Code">
 												</div>
 											</div>
-
-											<label for="dormId"><h4>Dorm</h4></label> <br> <select
-												class="browser-default custom-select" name="dormId">
-												<option selected>Select your dorm</option>
+											
+											<hr>
+											<label for="dormId"><h4>Dorm</h4></label>
+											<select name="dormId" class="browser-default custom-select" required="required">
+												<option disabled selected="selected" value="">Dorm</option>
 												<div th:each="dorm: ${#request.getAttribute('dorms')}">
 													<option th:value="${dorm.dormId}"
-														th:text="${dorm.dormName}"></option>
+														th:text="${dorm.dormName}" th:selected="${student.dorm}"></option>
 												</div>
-											</select> <br> <br> <label for="instituteId"><h4>Institute</h4></label>
-											<br> <select class="browser-default custom-select"
-												name="instituteId">
-												<option selected>Select your institute</option>
+											</select><br> <br>
+											<label for="dietId"><h4>Diet</h4></label>
+											 <select name="dietId"
+												class="browser-default custom-select" required="required">
+												<option disabled selected="selected" value="">Diet</option>
+												<div th:each="diet: ${#request.getAttribute('diets')}">
+													<option th:value="${diet.dietId}"
+														th:text="${diet.dietName}" th:selected="${student.diet}"></option>
+												</div>
+											</select><br> <br>
+											<label for="instituteId"><h4>Institute</h4></label>
+											 <select name="instituteId"
+												class="browser-default custom-select" required="required">
+												<option disabled selected="selected" value="">Educational
+													Institute</option>
 												<div
 													th:each="institute: ${#request.getAttribute('institutes')}">
 													<option th:value="${institute.instituteId}"
-														th:text="${institute.instituteName}"></option>
+														th:text="${institute.instituteName}"
+														th:selected="${student.institute}"></option>
 												</div>
-											</select> <br> <br> <label for="dietId"><h4>Diet</h4></label>
-											<br> <select class="browser-default custom-select"
-												name="dietId">
-												<option selected>Select your diet</option>
-												<div th:each="diet: ${#request.getAttribute('diets')}">
-													<option th:value="${diet.dietId}"
-														th:text="${diet.dietName}"></option>
-
-												</div>
-											</select> <br>
+											</select> <br> <br>
 											<div class="form-group">
 												<div class="col-xs-12">
 													<br>
-
-
-													<button th:href="@{/profile}"
-														class="btn btn-primary btn-user btn-block" type="submit">Save</button>
-													
-
-													<br>
+													<button class="btn btn-primary btn-user btn-block"
+														type="submit">Save</button>
 
 												</div>
-											</div>
 
+											</div>
 										</form>
 
-
-
-
-									</div>
-									<!-- /.container-fluid -->
-
-								</div>
-								<!-- End of Main Content -->
-
-								<!-- Footer -->
-								<footer class="sticky-footer bg-white">
-									<div class="container my-auto">
-										<div class="copyright text-center my-auto">
-											<span>Copyright &copy; KochStuWo 2019</span>
-										</div>
-									</div>
-								</footer>
-								<!-- End of Footer -->
-
-							</div>
-							<!-- End of Content Wrapper -->
-
-						</div>
-						<!-- End of Page Wrapper -->
-
-						<!-- Scroll to Top Button-->
-						<a class="scroll-to-top rounded" href="#page-top"> <i
-							class="fas fa-angle-up"></i>
-						</a>
-
-						<!-- Logout Modal-->
-						<div class="modal fade" id="logoutModal" tabindex="-1"
-							role="dialog" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Ready to
-											Leave?</h5>
-										<button class="close" type="button" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">×</span>
-										</button>
-									</div>
-									<div class="modal-body">Select "Logout" below if you are
-										ready to end your current session.</div>
-									<div class="modal-footer">
-										<button class="btn btn-secondary" type="button"
-											data-dismiss="modal">Cancel</button>
-										<a class="btn btn-primary" th:href="@{/login}">Logout</a>
 									</div>
 								</div>
+
 							</div>
 						</div>
+						<!-- /.container-fluid -->
+
+					</div>
+					<!-- End of Main Content -->
+<br>
+					<!-- Footer -->
+					<footer class="sticky-footer bg-white">
+						<div class="container my-auto">
+							<div class="copyright text-center my-auto">
+								<span>Copyright &copy; KochStuWo 2019</span>
+							</div>
+						</div>
+					</footer>
+					<!-- End of Footer -->
+				</div>
+
+			</div>
+		</div>
+		<!-- End of Content Wrapper -->
+	</div>
+	<!-- End of Page Wrapper -->
+	<br>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+	<!-- Logout Modal-->
+	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+					<button class="close" type="button" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">Select "Logout" below if you are ready
+					to end your current session.</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button"
+						data-dismiss="modal">Cancel</button>
+					<a class="btn btn-primary" th:href="@{/login}">Logout</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
-
 </html>
-

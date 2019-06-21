@@ -27,73 +27,8 @@ public class ReportController {
 	@Autowired
 	StudentRepository studentRepository;
 
-
 	@Autowired
 	UserRepository userRepository;
-
-
-
-	/*
-	 *
-	 * @RequestMapping(value = { "/report" }) public String report(Model
-	 * model, @RequestParam(required = false) String excel,
-	 *
-	 * @RequestParam(required = false) String pdf, @RequestParam(required = false)
-	 * String mail,
-	 *
-	 * @RequestParam(name = "studentId", required = false) List<Integer> studentIds)
-	 * {
-	 *
-	 * // User didn't select any student ? -> go back to list if
-	 * (CollectionUtils.isEmpty(studentIds)) { model.addAttribute("errorMessage",
-	 * "No students selected!"); return "forward:/list"; }
-	 *
-	 * // Convert the list of ids to a list of students. // The method findAll() can
-	 * do this List<StudentModel> students =
-	 * studentRepository.findAllById(studentIds);
-	 *
-	 * // Store the students in the model, so the reports can access them
-	 * model.addAttribute("students", students);
-	 *
-	 * // Which submit button was pressed? -> call the right report view if
-	 * (StringUtils.isNoneEmpty(excel)) { // if = means when you pressed the "excel"
-	 * button return "excelReport"; } else
-	 *
-	 * if (StringUtils.isNoneEmpty(pdf)) { return "pdfReport"; // return
-	 * "pdfReportV5"; } else if (StringUtils.isNoneEmpty(mail)) {
-	 * sendMail(students); model.addAttribute("errorMessage", "Mail sent"); return
-	 * "forward:/list"; } else if (StringUtils.isNoneEmpty(mail)) {
-	 * sendMail(students); model.addAttribute("errorMessage", "Mail sent"); return
-	 * "forward:/list"; }
-	 *
-	 * else { return "forward:/list"; }
-	 *
-	 * }
-	 *
-	 *
-	 * @RequestMapping(value = { "/supportMail" }, method = RequestMethod.GET)
-	 * private String supportMail() {
-	 *
-	 * return "supportMail"; }
-	 *
-	 * @Transactional
-	 *
-	 * @PostMapping("/sendMail") public String sendMail( Authentication
-	 * aut, @RequestParam(value = "content") String content @Valid MailModel mail )
-	 * {
-	 *
-	 * String content ="hi";
-	 *
-	 * // Create a thread safe "copy" of the template message and customize it
-	 * SimpleMailMessage msg = new SimpleMailMessage(this.templateMessage);
-	 *
-	 * // You can override default settings from dispatcher-servlet.xml: // //
-	 * msg.setFrom(aut.getName()); // msg.setTo(to); // msg.setSubject(subject);
-	 * msg.setText(String.format(msg.getText(), "KochStuWo-Team", content)); try {
-	 * this.mailSender.send(msg);
-	 *
-	 * } catch (MailException ex) { ex.printStackTrace(); } return "index"; }
-	 */
 
 	@RequestMapping(value = { "/supportMail" }, method = RequestMethod.GET)
 	private String supportMail() {
@@ -101,11 +36,8 @@ public class ReportController {
 		return "supportMail";
 	}
 
-
-
-
 	@PostMapping(value = { "/supportMail" })
-	public static void main(String[] args, @RequestParam(value="content") String content, Authentication aut) {
+	public static void main(String[] args, @RequestParam(value = "content") String content, Authentication aut) {
 		// Put recipient�s address
 		String to = "KochStuWo@office.com";
 
@@ -151,11 +83,9 @@ public class ReportController {
 
 			System.out.println("Sent message successfully....");
 
-
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
-
 
 	}
 
