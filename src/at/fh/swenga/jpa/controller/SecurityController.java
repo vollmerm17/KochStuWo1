@@ -4,11 +4,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -33,6 +36,7 @@ import at.fh.swenga.jpa.model.DietModel;
 import at.fh.swenga.jpa.model.DormModel;
 import at.fh.swenga.jpa.model.EventModel;
 import at.fh.swenga.jpa.model.InstituteModel;
+import at.fh.swenga.jpa.model.ProfilePictureModel;
 import at.fh.swenga.jpa.model.StudentModel;
 import at.fh.swenga.jpa.model.UserModel;
 
@@ -77,11 +81,35 @@ public class SecurityController {
 	}
 
 	@GetMapping("/index")
-	public String handleIndex(Model model) {
+	public String handleIndex(Model model,Authentication aut) {
 
 		List<EventModel> events = eventRepository.findAll();
 		model.addAttribute("events", events);
 
+		UserModel user = userRepository.findFirstByUserName(aut.getName());
+		StudentModel student = studentRepository.findStudentById(user.getId());
+		
+	
+		if (student != null) {
+			
+			model.addAttribute("student", student);
+			if (student.getPicture() != null) {
+				
+				Optional<ProfilePictureModel> ppOpt = profilePictureRepository.findById(student.getPicture().getId());
+				ProfilePictureModel pp = ppOpt.get();
+				byte[] profilePicture = pp.getContent();
+
+				
+				StringBuilder sb = new StringBuilder();
+				sb.append("data:image/png;base64,");
+				sb.append(Base64.encodeBase64String(profilePicture));
+				String image = sb.toString();
+				model.addAttribute("image", image);
+				
+			
+			}
+		}
+		
 		return "index";
 	}
 
