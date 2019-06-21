@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -33,10 +34,8 @@ import at.fh.swenga.jpa.dao.DormRepository;
 import at.fh.swenga.jpa.dao.EventPictureRepository;
 import at.fh.swenga.jpa.dao.EventRepository;
 import at.fh.swenga.jpa.dao.InstituteRepository;
-
 import at.fh.swenga.jpa.dao.ProfilePictureRepository;
 import at.fh.swenga.jpa.dao.RecipeRepository;
-
 import at.fh.swenga.jpa.dao.StudentRepository;
 import at.fh.swenga.jpa.dao.UserRepository;
 import at.fh.swenga.jpa.model.DietModel;
@@ -139,7 +138,7 @@ public class StudentController {
 		return "forgotPassword";
 	}
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = { "/allUsers" }, method = RequestMethod.GET)
 	public String handleAllUsers(Model model, Authentication aut) {
 
@@ -332,6 +331,7 @@ public class StudentController {
 		return "profile";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@RequestMapping(value = { "/delete" })
 	public String deleteData(Model model, @RequestParam int id, Authentication aut) {
 		studentRepository.deleteById(id);
