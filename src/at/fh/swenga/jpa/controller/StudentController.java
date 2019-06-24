@@ -511,12 +511,16 @@ public class StudentController {
 	}
 
 	@RequestMapping("/download")
-	public void download(@RequestParam("eventId") int eventId, HttpServletResponse response) {
+	public String download(@RequestParam("eventId") int eventId, HttpServletResponse response,Model model) {
 
 		EventModel event = eventRepository.findEventByEventId(eventId);
 
 		RecipeModel doc = event.getRecipe();
+		if (doc==null) {
 
+			model.addAttribute("errorMessage", "There has not been any recipe uploaded yet!");
+			return "forward:/eventInfo";
+		}
 		try {
 			response.setHeader("Content-Disposition", "inline;filename=\"" + doc.getFilename() + "\"");
 			OutputStream out = response.getOutputStream();
@@ -526,9 +530,12 @@ public class StudentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return "forward:/eventInfo";
 	}
 
+	public String returnEventInfo() {
+		return "redirect:/eventInfo"; 
+	}
 	@ExceptionHandler(Exception.class)
 	public String handleAllException(Exception ex) {
 
